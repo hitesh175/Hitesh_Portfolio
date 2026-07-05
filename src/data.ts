@@ -12,7 +12,7 @@ export const personalInfo = {
   location: "Hamburg, Germany",
   university: "SRH University Hamburg",
   status: "Open to Internship & Werkstudent Opportunities",
-  resumeUrl: "https://mega.nz/file/S2BzTK4K#kw-cxL2v-NWkc3fct9aLAro_VNsHYvWGkQ0D9Zm5YlU", // Anchor/button or simulated resume view
+  resumeUrl: "https://mega.nz/file/jnoSCQaC#Mdo4GcFVmPY9fzMYnMiPDJcGrWLE-NSIcgVOV_mqC5s", // Anchor/button or simulated resume view
   githubUrl: "https://github.com/hitesh175", // Custom GitHub
   linkedinUrl: "https://linkedin.com/in/hitesh-k-r", // Custom LinkedIn
   email: "kanagalahitesh@gmail.com",
