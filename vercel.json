@@ -1,0 +1,20 @@
+{
+  "redirects": [
+    {
+      "source": "/og-preview.png",
+      "destination": "https://hiteshkanagalaportfolio.vercel.app/og-preview.png",
+      "statusCode": 200
+    }
+  ],
+  "headers": [
+    {
+      "source": "/og-preview.png",
+      "headers": [
+        {
+          "key": "Accept-Ranges",
+          "value": "none"
+        }
+      ]
+    }
+  ]
+}
