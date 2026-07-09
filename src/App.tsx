@@ -20,7 +20,7 @@ import Research from './components/Research';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CVModal from './components/CVModal';
+import CVModal from './components/cvmodal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
