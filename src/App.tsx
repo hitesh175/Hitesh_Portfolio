@@ -20,9 +20,11 @@ import Research from './components/Research';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CVModal from './components/CVModal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
+  const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
@@ -156,11 +158,11 @@ export default function App() {
       <main className="relative z-10 space-y-24 pt-16">
         
         {/* 1. Home / Hero section */}
-        <Hero onContactClick={() => handleNavClick('contact')} />
+        <Hero onContactClick={() => handleNavClick('contact')} onViewCVClick={() => setIsCVModalOpen(true)} />
 
         {/* 2. About me & Services flow */}
         <section id="about" className="scroll-mt-24 space-y-12">
-          <About />
+          <About onViewCVClick={() => setIsCVModalOpen(true)} />
           <Services />
         </section>
 
@@ -222,6 +224,9 @@ export default function App() {
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* Embedded PDF Resume Modal */}
+      <CVModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} />
     </div>
   );
 }
