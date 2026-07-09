@@ -1,0 +1,5 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+Sitemap: https://ais-pre-uceuy32or2ykuy653llmie-412585211687.europe-west2.run.app/sitemap.xml
