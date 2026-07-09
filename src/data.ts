@@ -128,12 +128,6 @@ export const education: EducationItem[] = [
     degree: "Bachelor of Technology",
     field: "Computer Science & Engineering",
     period: "2020 – 2024"
-  },
-  {
-    institution: "Narayana E-techno School",
-    degree: "High School",
-    field: "Science & Mathematics",
-    period: "2020"
   }
 ];
 
