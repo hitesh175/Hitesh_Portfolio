@@ -44,22 +44,25 @@ export default function Certificates() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-neutral-50 dark:bg-neutral-950 p-6 h-full rounded border border-neutral-200 dark:border-neutral-900 shadow-sm flex items-start space-x-4 group transition-all duration-300 hover:scale-[1.01] cursor-pointer hover:border-neutral-400 dark:hover:border-neutral-700"
+                  className="bg-neutral-50 dark:bg-neutral-950 p-6 h-full rounded border border-neutral-200 dark:border-neutral-900 shadow-sm flex items-stretch space-x-4 group transition-all duration-300 hover:scale-[1.01] cursor-pointer hover:border-neutral-400 dark:hover:border-neutral-700"
                 >
                   {/* Badge Icon */}
-                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-900 text-neutral-850 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-900 text-neutral-850 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded flex-shrink-0 group-hover:scale-105 transition-transform self-start">
                     <ShieldCheck className="w-5 h-5" />
                   </div>
 
                   {/* Text */}
-                  <div className="space-y-1.5 flex-1 text-left">
-                    <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block font-bold font-mono">
-                      // {cert.issuer}
-                    </span>
-                    <h3 className="text-sm font-display font-bold text-neutral-900 dark:text-white leading-snug uppercase tracking-wider group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
-                      {cert.name}
-                    </h3>
-                    <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-450 pt-1">
+                  <div className="space-y-1.5 flex-1 text-left flex flex-col justify-between h-full">
+                    <div>
+                      <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block font-bold">
+                        // {cert.issuer}
+                      </span>
+                      <h3 className="text-sm font-display font-bold text-neutral-900 dark:text-white leading-snug uppercase tracking-wider group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors mt-1">
+                        {cert.name}
+                      </h3>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-450 pt-3 border-t border-transparent group-hover:border-neutral-200/20 dark:group-hover:border-neutral-800/50 transition-colors mt-3">
                       <span>ISSUED: {cert.date}</span>
                       <div className="flex items-center space-x-1 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
                         <span className="text-[9px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">PREVIEW</span>
