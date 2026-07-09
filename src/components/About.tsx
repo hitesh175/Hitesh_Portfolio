@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Target, CheckCircle2 } from 'lucide-react';
+import { Target, CheckCircle2, FileText } from 'lucide-react';
 import { personalInfo, stats } from '../data';
 
-export default function About() {
+export default function About({ onViewCVClick }: { onViewCVClick: () => void }) {
   return (
     <section
       id="about"
@@ -62,7 +62,7 @@ export default function About() {
                 I enjoy building end-to-end data solutions—from cleaning and preprocessing data to developing machine learning models and interactive dashboards using Python, SQL, and Power BI.
               </p>
               <p className="text-base">
-                Currently, I am seeking <strong className="text-neutral-950 dark:text-white font-semibold underline decoration-neutral-300 dark:decoration-neutral-700 decoration-wavy">internship or Werkstudent opportunities</strong> where I can apply my analytical and technical skills while continuing to grow as a Data Analyst.
+                Currently, I am seeking <strong className="text-neutral-950 dark:text-white font-semibold border-b-2 border-indigo-500/40 dark:border-sky-400/50 pb-0.5">internship or Werkstudent opportunities</strong> where I can apply my analytical and technical skills while continuing to grow as a Data Analyst.
               </p>
             </motion.div>
 
@@ -79,6 +79,18 @@ export default function About() {
                   <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">{text}</span>
                 </div>
               ))}
+            </div>
+
+            {/* Interactive View CV Button */}
+            <div className="pt-4 flex">
+              <button
+                id="about-btn-view-cv"
+                onClick={onViewCVClick}
+                className="w-full sm:w-auto px-5 py-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-850 text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white rounded text-xs font-bold transition-all duration-250 flex items-center justify-center space-x-2 cursor-pointer shadow-sm hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <FileText className="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400" />
+                <span>View Full CV & Resume</span>
+              </button>
             </div>
           </div>
 
