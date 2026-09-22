@@ -156,13 +156,13 @@ export default function Contact() {
           
           {/* Left Side: Professional Handles & Links */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-neutral-100 dark:bg-neutral-950 p-8 rounded border border-neutral-200 dark:border-neutral-900 shadow-sm space-y-8">
+            <div className="bg-neutral-100 dark:bg-neutral-950 p-8 rounded border border-neutral-200 dark:border-neutral-800 shadow-sm space-y-8">
               
               <div className="space-y-2">
                 <h3 className="text-lg font-display font-bold text-neutral-900 dark:text-white uppercase tracking-tight">
                   Contact Info
                 </h3>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                   I am actively seeking professional internships and Werkstudent research positions in Hamburg, Germany or remote arrangements.
                 </p>
               </div>
@@ -173,25 +173,25 @@ export default function Contact() {
                 {/* Email link */}
                 <a
                   href={`mailto:${personalInfo.email}`}
-                  className="flex items-center space-x-4 p-3 bg-white dark:bg-neutral-900/40 rounded hover:bg-neutral-50 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group shadow-sm cursor-pointer"
+                  className="flex items-center space-x-4 p-3.5 bg-white dark:bg-neutral-900 rounded hover:bg-neutral-50 dark:hover:bg-neutral-850 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group shadow-sm cursor-pointer"
                 >
-                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-900 rounded group-hover:scale-105 transition-transform">
-                    <Mail className="w-4 h-4" />
+                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700 rounded group-hover:scale-105 transition-transform flex-shrink-0">
+                    <Mail className="w-4 h-4 text-neutral-800 dark:text-neutral-200" />
                   </div>
                   <div>
-                    <span className="block text-[9px] font-mono text-neutral-500 uppercase tracking-wider">// Email Address</span>
-                    <span className="text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-350 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">{personalInfo.email}</span>
+                    <span className="block text-[9px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">// Email Address</span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">{personalInfo.email}</span>
                   </div>
                 </a>
 
                 {/* Location */}
-                <div className="flex items-center space-x-4 p-3 bg-white dark:bg-neutral-900/40 rounded border border-neutral-200 dark:border-neutral-900 shadow-sm">
-                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-900 rounded">
-                    <MapPin className="w-4 h-4" />
+                <div className="flex items-center space-x-4 p-3.5 bg-white dark:bg-neutral-900 rounded border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700 rounded flex-shrink-0">
+                    <MapPin className="w-4 h-4 text-neutral-800 dark:text-neutral-200" />
                   </div>
                   <div>
-                    <span className="block text-[9px] font-mono text-neutral-500 uppercase tracking-wider">// Residence</span>
-                    <span className="text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-350">{personalInfo.location}</span>
+                    <span className="block text-[9px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">// Residence</span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100">{personalInfo.location}</span>
                   </div>
                 </div>
 
@@ -200,14 +200,14 @@ export default function Contact() {
                   href={personalInfo.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-4 p-3 bg-white dark:bg-neutral-900/40 rounded hover:bg-neutral-50 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group shadow-sm cursor-pointer"
+                  className="flex items-center space-x-4 p-3.5 bg-white dark:bg-neutral-900 rounded hover:bg-neutral-50 dark:hover:bg-neutral-850 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group shadow-sm cursor-pointer"
                 >
-                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-900 rounded group-hover:scale-105 transition-transform">
-                    <Github className="w-4 h-4" />
+                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700 rounded group-hover:scale-105 transition-transform flex-shrink-0">
+                    <Github className="w-4 h-4 text-neutral-800 dark:text-neutral-200" />
                   </div>
                   <div>
-                    <span className="block text-[9px] font-mono text-neutral-500 uppercase tracking-wider">// Repository</span>
-                    <span className="text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-350 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">github.com/hitesh175</span>
+                    <span className="block text-[9px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">// Repository</span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">github.com/hitesh175</span>
                   </div>
                 </a>
 
@@ -216,14 +216,14 @@ export default function Contact() {
                   href={personalInfo.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-4 p-3 bg-white dark:bg-neutral-900/40 rounded hover:bg-neutral-50 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-800 transition-all group shadow-sm cursor-pointer"
+                  className="flex items-center space-x-4 p-3.5 bg-white dark:bg-neutral-900 rounded hover:bg-neutral-50 dark:hover:bg-neutral-850 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all group shadow-sm cursor-pointer"
                 >
-                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-900 rounded group-hover:scale-105 transition-transform">
-                    <Linkedin className="w-4 h-4" />
+                  <div className="p-2.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 border border-neutral-200 dark:border-neutral-700 rounded group-hover:scale-105 transition-transform flex-shrink-0">
+                    <Linkedin className="w-4 h-4 text-neutral-800 dark:text-neutral-200" />
                   </div>
                   <div>
-                    <span className="block text-[9px] font-mono text-neutral-500 uppercase tracking-wider">// LinkedIn Profile</span>
-                    <span className="text-xs sm:text-sm font-semibold text-neutral-800 dark:text-neutral-350 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">linkedin.com/in/hitesh-k-r</span>
+                    <span className="block text-[9px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider font-semibold">// LinkedIn Profile</span>
+                    <span className="text-xs sm:text-sm font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">linkedin.com/in/hitesh-k-r</span>
                   </div>
                 </a>
 
@@ -236,7 +236,7 @@ export default function Contact() {
           <div className="lg:col-span-7 space-y-6">
             
             {/* Main Contact Form */}
-            <div className="bg-neutral-100 dark:bg-neutral-950 p-8 rounded border border-neutral-200 dark:border-neutral-900 shadow-sm">
+            <div className="bg-neutral-100 dark:bg-neutral-950 p-8 rounded border border-neutral-200 dark:border-neutral-800 shadow-sm">
               
               <h3 className="text-lg font-display font-bold text-neutral-900 dark:text-white mb-6 uppercase tracking-tight">
                 Send a Message
@@ -247,7 +247,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name Input */}
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-mono text-neutral-500 block uppercase tracking-wider">
+                    <label className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400 block uppercase tracking-wider font-semibold">
                       // Your Name
                     </label>
                     <input
@@ -256,13 +256,13 @@ export default function Contact() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Dr. Jane Smith"
-                      className="w-full text-xs font-mono bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-700 text-neutral-800 dark:text-neutral-200"
+                      className="w-full text-xs font-mono bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                     />
                   </div>
 
                   {/* Email Input */}
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-mono text-neutral-500 block uppercase tracking-wider">
+                    <label className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400 block uppercase tracking-wider font-semibold">
                       // Email Address
                     </label>
                     <input
@@ -271,14 +271,14 @@ export default function Contact() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. name@company.com"
-                      className="w-full text-xs font-mono bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-700 text-neutral-800 dark:text-neutral-200"
+                      className="w-full text-xs font-mono bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                     />
                   </div>
                 </div>
 
                 {/* Subject Input */}
                 <div className="space-y-1.5">
-                  <label className="text-[9px] font-mono text-neutral-500 block uppercase tracking-wider">
+                  <label className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400 block uppercase tracking-wider font-semibold">
                     // Subject Line (Optional)
                   </label>
                   <input
@@ -286,13 +286,13 @@ export default function Contact() {
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. Data Science Internship Opportunity"
-                    className="w-full text-xs font-mono bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-700 text-neutral-800 dark:text-neutral-200"
+                    className="w-full text-xs font-mono bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                   />
                 </div>
 
                 {/* Message Input */}
                 <div className="space-y-1.5">
-                  <label className="text-[9px] font-mono text-neutral-500 block uppercase tracking-wider">
+                  <label className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400 block uppercase tracking-wider font-semibold">
                     // Your Message
                   </label>
                   <textarea
@@ -301,7 +301,7 @@ export default function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Describe your project requirements or career opportunities..."
-                    className="w-full text-xs font-mono bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-700 text-neutral-800 dark:text-neutral-200"
+                    className="w-full text-xs font-mono bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded p-3 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                   />
                 </div>
 
@@ -325,7 +325,7 @@ export default function Contact() {
                     id="btn-contact-submit"
                     type="submit"
                     disabled={isSubmitting}
-                    className="ml-auto px-6 py-3 bg-neutral-950 dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:bg-neutral-200 dark:disabled:bg-neutral-900 disabled:text-neutral-400 dark:disabled:text-neutral-550 text-white dark:text-black font-semibold rounded text-xs tracking-wider flex items-center space-x-2 transition-all cursor-pointer shadow-sm hover:scale-[1.01] active:scale-[0.99]"
+                    className="ml-auto px-6 py-3 bg-neutral-950 dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 disabled:bg-neutral-200 dark:disabled:bg-neutral-900 disabled:text-neutral-400 dark:disabled:text-neutral-600 text-white dark:text-black font-semibold rounded text-xs tracking-wider flex items-center space-x-2 transition-all cursor-pointer shadow-sm hover:scale-[1.01] active:scale-[0.99]"
                   >
                     <span>{isSubmitting ? "TRANSMITTING..." : "SEND MESSAGE"}</span>
                     <Send className="w-3.5 h-3.5 text-white dark:text-black" />
@@ -335,7 +335,7 @@ export default function Contact() {
               </form>
 
               {/* Dynamic Email Forwarding Configuration helper */}
-              <div className="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] font-mono text-neutral-450">
+              <div className="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] font-mono text-neutral-500 dark:text-neutral-400">
                 <div className="flex items-center space-x-2">
                   <div className={`w-2 h-2 rounded-full ${isEmailConfigured ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
                   <span>
@@ -365,23 +365,23 @@ export default function Contact() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-900 p-6 rounded shadow-sm"
+                  className="bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 p-6 rounded shadow-sm"
                 >
-                  <div className="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-900 pb-3 mb-4 text-left font-mono">
+                  <div className="flex justify-between items-center border-b border-neutral-200 dark:border-neutral-800 pb-3 mb-4 text-left font-mono">
                     <div className="flex items-center space-x-2 text-neutral-800 dark:text-neutral-200">
                       <ShieldCheck className="w-4 h-4 text-neutral-900 dark:text-white" />
                       <span className="text-xs font-semibold uppercase tracking-wider">
                         Client Outbox Logs ({messages.length})
                       </span>
                     </div>
-                    <span className="text-[9px] text-neutral-500 font-semibold">[LOCAL_STORAGE]</span>
+                    <span className="text-[9px] text-neutral-500 dark:text-neutral-400 font-semibold">[LOCAL_STORAGE]</span>
                   </div>
 
                   <div className="space-y-3.5 max-h-56 overflow-y-auto">
                     {messages.map((m) => (
-                      <div key={m.id} className="p-4 bg-white dark:bg-black rounded border border-neutral-200 dark:border-neutral-900 flex items-start justify-between gap-4">
+                      <div key={m.id} className="p-4 bg-white dark:bg-neutral-900 rounded border border-neutral-200 dark:border-neutral-800 flex items-start justify-between gap-4">
                         <div className="space-y-1.5 text-left font-sans">
-                          <div className="flex items-center space-x-2 text-[9px] font-mono text-neutral-500">
+                          <div className="flex items-center space-x-2 text-[9px] font-mono text-neutral-500 dark:text-neutral-400">
                             <span>To: Hitesh K R</span>
                             <span>•</span>
                             <span>{m.date}</span>
@@ -389,15 +389,15 @@ export default function Contact() {
                           <h4 className="text-xs font-bold text-neutral-900 dark:text-white leading-tight uppercase tracking-wider font-display">
                             {m.subject}
                           </h4>
-                          <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-lg">
+                          <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-lg">
                             "{m.message}"
                           </p>
-                          <span className="text-[9px] font-mono text-neutral-500">By: {m.name} ({m.email})</span>
+                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-400">By: {m.name} ({m.email})</span>
                         </div>
                         <button
                           id={`btn-delete-outbox-${m.id}`}
                           onClick={() => handleDeleteMessage(m.id)}
-                          className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-900 text-neutral-500 hover:text-neutral-950 dark:hover:text-white rounded transition-colors flex-shrink-0 cursor-pointer"
+                          className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white rounded transition-colors flex-shrink-0 cursor-pointer"
                           aria-label="Delete message log"
                         >
                           <Trash2 className="w-4 h-4" />
