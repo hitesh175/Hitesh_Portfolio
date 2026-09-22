@@ -10,6 +10,13 @@
 
   --color-primary: #000000;
   --color-secondary: #ffffff;
+
+  --color-neutral-350: #d4d4d8;
+  --color-neutral-450: #a1a1aa;
+  --color-neutral-550: #71717a;
+  --color-neutral-650: #52525b;
+  --color-neutral-750: #3f3f46;
+  --color-neutral-850: #27272a;
 }
 
 @layer base {
