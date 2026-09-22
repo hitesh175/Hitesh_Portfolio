@@ -16,7 +16,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="mt-16 bg-black border-t border-neutral-900 text-neutral-450 py-12 transition-colors relative">
+    <footer className="mt-16 bg-black border-t border-neutral-900 text-neutral-400 py-12 transition-colors relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-neutral-900">
