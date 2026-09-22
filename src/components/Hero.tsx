@@ -151,7 +151,7 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
                 href={personalInfo.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-850 hover:border-neutral-400 dark:hover:border-neutral-700 text-neutral-650 dark:text-neutral-350 hover:text-neutral-950 dark:hover:text-white rounded transition-all cursor-pointer flex items-center justify-center"
+                className="p-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700 text-neutral-700 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white rounded transition-all cursor-pointer flex items-center justify-center"
                 aria-label="GitHub Profile"
               >
                 <Github className="w-4.5 h-4.5" />
@@ -162,7 +162,7 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
                 href={personalInfo.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-850 hover:border-neutral-400 dark:hover:border-neutral-700 text-neutral-650 dark:text-neutral-350 hover:text-neutral-950 dark:hover:text-white rounded transition-all cursor-pointer flex items-center justify-center"
+                className="p-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-700 text-neutral-700 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white rounded transition-all cursor-pointer flex items-center justify-center"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="w-4.5 h-4.5" />
@@ -179,12 +179,12 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
           className="lg:col-span-5 relative w-full flex justify-center lg:justify-end"
         >
-          <div className="relative w-full max-w-md lg:max-w-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-900 rounded p-8 sm:p-9 md:p-10 shadow-lg hover:shadow-2xl dark:shadow-neutral-950/40 flex flex-col space-y-6 sm:space-y-7 text-neutral-700 dark:text-neutral-350 transition-all duration-300 hover:scale-[1.015]">
+          <div className="relative w-full max-w-md lg:max-w-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded p-8 sm:p-9 md:p-10 shadow-lg hover:shadow-2xl dark:shadow-neutral-950/40 flex flex-col space-y-6 sm:space-y-7 text-neutral-800 dark:text-neutral-200 transition-all duration-300 hover:scale-[1.015]">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-200 dark:border-neutral-900">
+            <div className="flex items-center justify-between pb-4 border-b border-neutral-200 dark:border-neutral-800">
               <div className="flex items-center space-x-2.5">
                 <Network className="w-5 h-5 text-neutral-800 dark:text-white" />
-                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-450 font-semibold">
+                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
                   Identification Portfolio // DIGITAL ID
                 </span>
               </div>
@@ -197,16 +197,16 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
 
             {/* Avatar Hologram and Identity Row */}
             <div className="flex items-center space-x-4.5">
-              <div className="relative w-16 h-16 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-850 dark:text-white flex-shrink-0 shadow-inner group hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors">
+              <div className="relative w-16 h-16 rounded bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-900 dark:text-white flex-shrink-0 shadow-inner group hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors">
                 <User className="w-8 h-8" />
                 <div className="absolute inset-0 border border-indigo-500/20 dark:border-sky-400/20 rounded animate-pulse" />
               </div>
               <div className="text-left space-y-0.5">
-                <span className="text-[10px] font-mono text-neutral-450 dark:text-neutral-500 uppercase tracking-widest block font-semibold">IDENTIFICATION</span>
+                <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block font-semibold">IDENTIFICATION</span>
                 <h3 className="text-base sm:text-lg lg:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-none">
                   {personalInfo.name}
                 </h3>
-                <span className="text-xs font-mono text-neutral-600 dark:text-neutral-450 block mt-1">
+                <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400 block mt-1">
                   Applied Data Science & AI 
                 </span>
               </div>
@@ -214,37 +214,37 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
 
             {/* Specifications Grid */}
             <div className="space-y-4 pt-2 text-[13px] sm:text-sm">
-              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-900/60 text-left">
-                <span className="font-mono text-neutral-450 dark:text-neutral-550 text-[11px] uppercase font-semibold">STATUS</span>
-                <span className="col-span-2 text-neutral-800 dark:text-neutral-200 font-bold flex items-center gap-2">
+              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
+                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">STATUS</span>
+                <span className="col-span-2 text-neutral-900 dark:text-neutral-100 font-bold flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-neutral-500 dark:bg-emerald-400 animate-pulse" />
                   Internship / Werkstudent Open
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-900/60 text-left">
-                <span className="font-mono text-neutral-450 dark:text-neutral-550 text-[11px] uppercase font-semibold">STUDIES</span>
-                <span className="col-span-2 text-neutral-750 dark:text-neutral-300 font-medium leading-tight">
+              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
+                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">STUDIES</span>
+                <span className="col-span-2 text-neutral-800 dark:text-neutral-200 font-medium leading-tight">
                   Applied Data Science & AI (M.Sc.)
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-900/60 text-left">
-                <span className="font-mono text-neutral-450 dark:text-neutral-550 text-[11px] uppercase font-semibold">LOCATION</span>
-                <span className="col-span-2 text-neutral-750 dark:text-neutral-350 font-medium">{personalInfo.location}</span>
+              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
+                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">LOCATION</span>
+                <span className="col-span-2 text-neutral-800 dark:text-neutral-200 font-medium">{personalInfo.location}</span>
               </div>
-              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-900/60 text-left">
-                <span className="font-mono text-neutral-450 dark:text-neutral-550 text-[11px] uppercase font-semibold">EMAIL</span>
-                <a href={`mailto:${personalInfo.email}`} className="col-span-2 text-neutral-950 hover:text-neutral-850 dark:text-white dark:hover:underline break-all font-medium">{personalInfo.email}</a>
+              <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
+                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">EMAIL</span>
+                <a href={`mailto:${personalInfo.email}`} className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-300 dark:hover:underline break-all font-medium transition-colors">{personalInfo.email}</a>
               </div>
               <div className="grid grid-cols-3 gap-2 py-2 text-left">
-                <span className="font-mono text-neutral-450 dark:text-neutral-550 text-[11px] uppercase font-semibold">GITHUB</span>
-                <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 text-neutral-950 hover:text-neutral-850 dark:text-white dark:hover:underline truncate font-medium">hitesh175</a>
+                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">GITHUB</span>
+                <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-300 dark:hover:underline truncate font-medium transition-colors">hitesh175</a>
               </div>
             </div>
 
             {/* Symmetrical footer block */}
-            <div className="pt-4 sm:pt-5 border-t border-neutral-200 dark:border-neutral-900 flex items-center justify-between text-xs font-mono text-neutral-450 dark:text-neutral-550">
+            <div className="pt-4 sm:pt-5 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-400">
               <span>REF: 1752-HKR-2026</span>
-              <span className="text-neutral-600 dark:text-neutral-450 tracking-wider font-semibold">SRH HAMBURG CAMPUS</span>
+              <span className="text-neutral-700 dark:text-neutral-300 tracking-wider font-semibold">SRH HAMBURG CAMPUS</span>
             </div>
           </div>
         </motion.div>
