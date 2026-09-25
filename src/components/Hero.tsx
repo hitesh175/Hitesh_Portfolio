@@ -70,7 +70,7 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
             </motion.h1>
             <motion.h2
               variants={itemVariants}
-              className="text-xl sm:text-2xl lg:text-3xl font-display font-semibold text-neutral-500 dark:text-neutral-400 tracking-tight leading-normal"
+              className="text-xl sm:text-2xl lg:text-3xl font-display font-semibold text-neutral-700 dark:text-neutral-200 tracking-tight leading-normal"
             >
               I turn raw data into{' '}
               <span className="text-neutral-950 dark:text-white underline decoration-neutral-300 dark:decoration-neutral-750 decoration-wavy underline-offset-8">
@@ -80,9 +80,9 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
             
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl font-medium text-neutral-700 dark:text-neutral-300 max-w-xl leading-snug flex items-center gap-2.5"
+              className="text-lg sm:text-xl font-medium text-neutral-800 dark:text-neutral-100 max-w-xl leading-snug flex items-center gap-2.5"
             >
-              <Cpu className="w-5 h-5 text-neutral-500 dark:text-neutral-450 flex-shrink-0" />
+              <Cpu className="w-5 h-5 text-neutral-700 dark:text-neutral-300 flex-shrink-0" />
               <span>{personalInfo.title}</span>
             </motion.p>
           </div>
@@ -90,9 +90,9 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
           {/* Sleek Subtitle Card */}
           <motion.div
             variants={itemVariants}
-            className="p-6 bg-neutral-50 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 rounded border border-neutral-200 dark:border-neutral-900 max-w-xl relative overflow-hidden transition-all duration-300"
+            className="p-6 bg-neutral-50 dark:bg-neutral-950 text-neutral-800 dark:text-neutral-200 rounded border border-neutral-200 dark:border-neutral-900 max-w-xl relative overflow-hidden transition-all duration-300"
           >
-            <p className="text-sm sm:text-base leading-relaxed text-neutral-550 dark:text-neutral-400 italic">
+            <p className="text-sm sm:text-base leading-relaxed text-neutral-800 dark:text-neutral-200 italic font-medium">
               "{personalInfo.subtitle}"
             </p>
           </motion.div>
@@ -102,22 +102,22 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
             variants={itemVariants}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md bg-neutral-50/80 dark:bg-neutral-950/80 p-4 border border-neutral-200 dark:border-neutral-900 rounded transition-colors duration-300"
           >
-            <div className="flex items-center space-x-3 text-neutral-750 dark:text-neutral-300">
+            <div className="flex items-center space-x-3 text-neutral-800 dark:text-neutral-200">
               <div className="p-2 border border-neutral-200 dark:border-neutral-900 bg-neutral-100 dark:bg-neutral-900 rounded transition-colors duration-300">
-                <MapPin className="w-4 h-4 text-neutral-800 dark:text-white" />
+                <MapPin className="w-4 h-4 text-neutral-900 dark:text-white" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Current Base:</span>
-                <span className="text-sm font-semibold text-neutral-850 dark:text-neutral-200">{personalInfo.location}</span>
+                <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">Current Base:</span>
+                <span className="text-sm font-bold text-neutral-950 dark:text-white">{personalInfo.location}</span>
               </div>
             </div>
-            <div className="flex items-center space-x-3 text-neutral-750 dark:text-neutral-300">
+            <div className="flex items-center space-x-3 text-neutral-800 dark:text-neutral-200">
               <div className="p-2 border border-neutral-200 dark:border-neutral-900 bg-neutral-100 dark:bg-neutral-900 rounded transition-colors duration-300">
-                <GraduationCap className="w-4 h-4 text-neutral-800 dark:text-white" />
+                <GraduationCap className="w-4 h-4 text-neutral-900 dark:text-white" />
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">M.Sc. Studies:</span>
-                <span className="text-xs font-semibold text-neutral-850 dark:text-neutral-200 truncate max-w-[150px]">{personalInfo.university}</span>
+                <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-400 uppercase tracking-wider font-semibold">M.Sc. Studies:</span>
+                <span className="text-xs font-bold text-neutral-950 dark:text-white truncate max-w-[150px]">{personalInfo.university}</span>
               </div>
             </div>
           </motion.div>
@@ -183,15 +183,15 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b border-neutral-200 dark:border-neutral-800">
               <div className="flex items-center space-x-2.5">
-                <Network className="w-5 h-5 text-neutral-800 dark:text-white" />
-                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-500 dark:text-neutral-400 font-semibold">
+                <Network className="w-5 h-5 text-neutral-900 dark:text-white" />
+                <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
                   Identification Portfolio // DIGITAL ID
                 </span>
               </div>
               <div className="flex space-x-2">
-                <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-800" />
-                <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-800" />
-                <span className="w-2 h-2 rounded-full bg-neutral-300 dark:bg-neutral-800" />
+                <span className="w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-700" />
+                <span className="w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-700" />
+                <span className="w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-700" />
               </div>
             </div>
 
@@ -202,11 +202,11 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
                 <div className="absolute inset-0 border border-indigo-500/20 dark:border-sky-400/20 rounded animate-pulse" />
               </div>
               <div className="text-left space-y-0.5">
-                <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block font-semibold">IDENTIFICATION</span>
+                <span className="text-[10px] font-mono text-neutral-600 dark:text-neutral-300 uppercase tracking-widest block font-bold">IDENTIFICATION</span>
                 <h3 className="text-base sm:text-lg lg:text-xl font-bold text-neutral-950 dark:text-white tracking-tight leading-none">
                   {personalInfo.name}
                 </h3>
-                <span className="text-xs font-mono text-neutral-600 dark:text-neutral-400 block mt-1">
+                <span className="text-xs font-mono text-neutral-800 dark:text-neutral-200 block mt-1 font-semibold">
                   Applied Data Science & AI 
                 </span>
               </div>
@@ -215,36 +215,36 @@ export default function Hero({ onContactClick, onViewCVClick }: HeroProps) {
             {/* Specifications Grid */}
             <div className="space-y-4 pt-2 text-[13px] sm:text-sm">
               <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
-                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">STATUS</span>
-                <span className="col-span-2 text-neutral-900 dark:text-neutral-100 font-bold flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-neutral-500 dark:bg-emerald-400 animate-pulse" />
+                <span className="font-mono text-neutral-700 dark:text-neutral-300 text-[11px] uppercase font-bold">STATUS</span>
+                <span className="col-span-2 text-neutral-950 dark:text-white font-bold flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-neutral-700 dark:bg-emerald-400 animate-pulse" />
                   Internship / Werkstudent Open
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
-                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">STUDIES</span>
-                <span className="col-span-2 text-neutral-800 dark:text-neutral-200 font-medium leading-tight">
+                <span className="font-mono text-neutral-700 dark:text-neutral-300 text-[11px] uppercase font-bold">STUDIES</span>
+                <span className="col-span-2 text-neutral-900 dark:text-neutral-100 font-semibold leading-tight">
                   Applied Data Science & AI (M.Sc.)
                 </span>
               </div>
               <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
-                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">LOCATION</span>
-                <span className="col-span-2 text-neutral-800 dark:text-neutral-200 font-medium">{personalInfo.location}</span>
+                <span className="font-mono text-neutral-700 dark:text-neutral-300 text-[11px] uppercase font-bold">LOCATION</span>
+                <span className="col-span-2 text-neutral-900 dark:text-neutral-100 font-semibold">{personalInfo.location}</span>
               </div>
               <div className="grid grid-cols-3 gap-2 py-2 sm:py-2.5 border-b border-neutral-200 dark:border-neutral-800 text-left">
-                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">EMAIL</span>
-                <a href={`mailto:${personalInfo.email}`} className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-300 dark:hover:underline break-all font-medium transition-colors">{personalInfo.email}</a>
+                <span className="font-mono text-neutral-700 dark:text-neutral-300 text-[11px] uppercase font-bold">EMAIL</span>
+                <a href={`mailto:${personalInfo.email}`} className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-200 dark:hover:underline break-all font-semibold transition-colors">{personalInfo.email}</a>
               </div>
               <div className="grid grid-cols-3 gap-2 py-2 text-left">
-                <span className="font-mono text-neutral-500 dark:text-neutral-400 text-[11px] uppercase font-semibold">GITHUB</span>
-                <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-300 dark:hover:underline truncate font-medium transition-colors">hitesh175</a>
+                <span className="font-mono text-neutral-700 dark:text-neutral-300 text-[11px] uppercase font-bold">GITHUB</span>
+                <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 text-neutral-950 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-200 dark:hover:underline truncate font-semibold transition-colors">hitesh175</a>
               </div>
             </div>
 
             {/* Symmetrical footer block */}
-            <div className="pt-4 sm:pt-5 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-400">
-              <span>REF: 1752-HKR-2026</span>
-              <span className="text-neutral-700 dark:text-neutral-300 tracking-wider font-semibold">SRH HAMBURG CAMPUS</span>
+            <div className="pt-4 sm:pt-5 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-600 dark:text-neutral-300">
+              <span className="font-medium">REF: 1752-HKR-2026</span>
+              <span className="text-neutral-900 dark:text-white tracking-wider font-bold">SRH HAMBURG CAMPUS</span>
             </div>
           </div>
         </motion.div>
