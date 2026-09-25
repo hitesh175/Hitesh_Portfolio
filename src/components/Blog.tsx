@@ -21,7 +21,7 @@ export default function Blog() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Data Science Insights
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -46,25 +46,25 @@ export default function Blog() {
               >
                 <div className="p-6 space-y-4">
                   {/* Meta details */}
-                  <div className="flex items-center space-x-3 text-[10px] font-mono text-neutral-500">
+                  <div className="flex items-center space-x-3 text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                     <div className="flex items-center space-x-1">
-                      <Calendar className="w-3.5 h-3.5 text-neutral-400" />
+                      <Calendar className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
                       <span>{post.date}</span>
                     </div>
                     <span>•</span>
                     <div className="flex items-center space-x-1">
-                      <Clock className="w-3.5 h-3.5 text-neutral-400" />
+                      <Clock className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
                       <span>{post.readTime}</span>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base font-display font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors uppercase tracking-tight">
+                  <h3 className="text-base font-display font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors uppercase tracking-tight">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3">
+                  <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed line-clamp-3 font-normal">
                     {post.excerpt}
                   </p>
 
@@ -74,9 +74,9 @@ export default function Blog() {
                       return (
                         <span
                           key={tag}
-                          className="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-white dark:bg-neutral-900 text-[10px] font-mono text-neutral-500 dark:text-neutral-400 rounded border border-neutral-200 dark:border-neutral-800"
+                          className="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-white dark:bg-neutral-900 text-[10px] font-mono text-neutral-800 dark:text-neutral-200 font-medium rounded border border-neutral-200 dark:border-neutral-800"
                         >
-                          <Tag className="w-2.5 h-2.5 text-neutral-500" />
+                          <Tag className="w-2.5 h-2.5 text-neutral-600 dark:text-neutral-400" />
                           <span>{tag}</span>
                         </span>
                       );
@@ -86,7 +86,7 @@ export default function Blog() {
 
                 {/* Read button */}
                 <div className="p-6 border-t border-neutral-200 dark:border-neutral-900 pt-4 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-neutral-500 uppercase">
+                  <span className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-bold uppercase">
                     // {post.category}
                   </span>
                   <button
@@ -95,7 +95,7 @@ export default function Blog() {
                       e.stopPropagation();
                       setSelectedPost(post);
                     }}
-                    className="text-xs font-semibold text-neutral-900 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-300 flex items-center space-x-1 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
+                    className="text-xs font-bold text-neutral-900 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-200 flex items-center space-x-1 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
                   >
                     <span>Read Article</span>
                     <ArrowRight className="w-3.5 h-3.5 text-neutral-900 dark:text-white" />
@@ -137,14 +137,14 @@ export default function Blog() {
                 {/* Post detail */}
                 <div className="p-8 space-y-6 text-left">
                   {/* Meta items */}
-                  <div className="flex items-center space-x-4 text-xs font-mono text-neutral-500">
+                  <div className="flex items-center space-x-4 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                     <span className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4 text-neutral-400" />
+                      <Calendar className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
                       <span>{selectedPost.date}</span>
                     </span>
                     <span>•</span>
                     <span className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4 text-neutral-400" />
+                      <Clock className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
                       <span>{selectedPost.readTime}</span>
                     </span>
                   </div>
@@ -157,16 +157,16 @@ export default function Blog() {
                     {selectedPost.tags.map(tag => (
                       <span
                         key={tag}
-                        className="inline-flex items-center space-x-1 px-3 py-1 bg-neutral-100 dark:bg-neutral-900 text-xs font-mono text-neutral-600 dark:text-neutral-450 rounded border border-neutral-200 dark:border-neutral-850"
+                        className="inline-flex items-center space-x-1 px-3 py-1 bg-neutral-100 dark:bg-neutral-900 text-xs font-mono font-medium text-neutral-800 dark:text-neutral-200 rounded border border-neutral-200 dark:border-neutral-800"
                       >
-                        <Tag className="w-3 h-3 text-neutral-500" />
+                        <Tag className="w-3 h-3 text-neutral-600 dark:text-neutral-400" />
                         <span>{tag}</span>
                       </span>
                     ))}
                   </div>
 
                   {/* Prose style rendering for Content */}
-                  <div className="max-w-none text-neutral-700 dark:text-neutral-300 space-y-5 leading-relaxed text-sm">
+                  <div className="max-w-none text-neutral-800 dark:text-neutral-200 space-y-5 leading-relaxed text-sm">
                     {selectedPost.content.split('\n\n').map((paragraph, i) => {
                       if (paragraph.startsWith('### ')) {
                         return (
@@ -186,7 +186,7 @@ export default function Blog() {
                         return (
                           <ul key={i} className="list-disc list-inside pl-4 space-y-2">
                             {paragraph.split('\n').map((li, j) => (
-                              <li key={j} className="text-neutral-600 dark:text-neutral-350">
+                              <li key={j} className="text-neutral-800 dark:text-neutral-200">
                                 {li.replace(/^[0-9]\.\s|\-\s/, '')}
                               </li>
                             ))}
@@ -196,13 +196,13 @@ export default function Blog() {
                       if (paragraph.includes('```')) {
                         const code = paragraph.replace(/```python|```dax|```/g, '').trim();
                         return (
-                          <pre key={i} className="bg-neutral-50 dark:bg-black text-neutral-800 dark:text-neutral-300 p-4 rounded border border-neutral-200 dark:border-neutral-900 font-mono text-xs overflow-x-auto leading-relaxed">
+                          <pre key={i} className="bg-neutral-50 dark:bg-black text-neutral-900 dark:text-neutral-100 p-4 rounded border border-neutral-200 dark:border-neutral-800 font-mono text-xs overflow-x-auto leading-relaxed">
                             <code>{code}</code>
                           </pre>
                         );
                       }
                       return (
-                        <p key={i} className="text-neutral-600 dark:text-neutral-350">
+                        <p key={i} className="text-neutral-800 dark:text-neutral-200">
                           {paragraph}
                         </p>
                       );
