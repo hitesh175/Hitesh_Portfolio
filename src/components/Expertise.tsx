@@ -18,7 +18,7 @@ export default function Expertise() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Core Skill Architecture
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -40,7 +40,7 @@ export default function Expertise() {
               <h3 className="text-lg font-display font-bold text-neutral-900 dark:text-white uppercase tracking-tight">
                 Skill Pipeline
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-450 leading-relaxed font-mono">
+              <p className="text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed font-mono">
                 These represent my primary focus areas in machine learning, statistical computing, and analytical visualization.
               </p>
             </div>
@@ -57,9 +57,9 @@ export default function Expertise() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.02, type: 'spring' }}
                       whileHover={{ scale: 1.04 }}
-                      className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-950 border border-neutral-200 hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-700 text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white rounded text-xs font-mono transition-all cursor-pointer flex items-center space-x-1.5 shadow-sm"
+                      className="px-4 py-2 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-950 border border-neutral-200 hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-700 text-neutral-850 hover:text-neutral-950 dark:text-neutral-100 dark:hover:text-white rounded text-xs font-mono font-medium transition-all cursor-pointer flex items-center space-x-1.5 shadow-sm"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-500 dark:bg-neutral-400" />
                       <span>{tech}</span>
                     </motion.div>
                   );
