@@ -189,30 +189,30 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
                   {/* HEADER SECTION */}
                   <div className="border-b border-neutral-300 pb-6 mb-6">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900 uppercase">
+                    <h1 className="text-3xl font-extrabold tracking-tight text-neutral-950 uppercase">
                       {personalInfo.name}
                     </h1>
-                    <p className="text-sm font-semibold tracking-wide text-neutral-500 uppercase mt-1">
+                    <p className="text-sm font-bold tracking-wide text-neutral-700 uppercase mt-1">
                       {personalInfo.title}
                     </p>
                     
                     {/* Contact details */}
-                    <div className="flex flex-wrap gap-y-2 gap-x-4 mt-4 text-[11px] font-mono text-neutral-600">
+                    <div className="flex flex-wrap gap-y-2 gap-x-4 mt-4 text-[11px] font-mono text-neutral-750 font-medium">
                       <div className="flex items-center space-x-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-neutral-400" />
+                        <MapPin className="w-3.5 h-3.5 text-neutral-600" />
                         <span>{personalInfo.location}</span>
                       </div>
                       <div className="flex items-center space-x-1.5">
-                        <Mail className="w-3.5 h-3.5 text-neutral-400" />
-                        <a href={`mailto:${personalInfo.email}`} className="hover:underline">{personalInfo.email}</a>
+                        <Mail className="w-3.5 h-3.5 text-neutral-600" />
+                        <a href={`mailto:${personalInfo.email}`} className="hover:underline text-neutral-900 font-semibold">{personalInfo.email}</a>
                       </div>
                       <div className="flex items-center space-x-1.5">
-                        <Github className="w-3.5 h-3.5 text-neutral-400" />
-                        <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">github.com/hitesh175</a>
+                        <Github className="w-3.5 h-3.5 text-neutral-600" />
+                        <a href={personalInfo.githubUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-neutral-900 font-semibold">github.com/hitesh175</a>
                       </div>
                       <div className="flex items-center space-x-1.5">
-                        <Linkedin className="w-3.5 h-3.5 text-neutral-400" />
-                        <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">linkedin.com/in/hitesh-k-r</a>
+                        <Linkedin className="w-3.5 h-3.5 text-neutral-600" />
+                        <a href={personalInfo.linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-neutral-900 font-semibold">linkedin.com/in/hitesh-k-r</a>
                       </div>
                     </div>
                   </div>
@@ -225,30 +225,30 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                       
                       {/* CAREER OBJECTIVE */}
                       <div className="space-y-2">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <Briefcase className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <Briefcase className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Objective
                         </h2>
-                        <p className="text-[11.5px] leading-relaxed text-neutral-600">
+                        <p className="text-[11.5px] leading-relaxed text-neutral-800 font-normal">
                           {personalInfo.careerObjective}
                         </p>
                       </div>
 
                       {/* ACADEMIC PROFILE */}
                       <div className="space-y-3">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Education
                         </h2>
                         <div className="space-y-3">
                           {education.map((edu, idx) => (
                             <div key={idx} className="space-y-0.5">
                               <div className="flex justify-between items-baseline">
-                                <span className="text-[11.5px] font-bold text-neutral-900">{edu.institution}</span>
-                                <span className="text-[10px] font-mono text-neutral-500">{edu.period}</span>
+                                <span className="text-[11.5px] font-bold text-neutral-950">{edu.institution}</span>
+                                <span className="text-[10px] font-mono text-neutral-700 font-semibold">{edu.period}</span>
                               </div>
-                              <p className="text-[11px] text-neutral-700 font-medium">
-                                {edu.degree} &mdash; <span className="text-neutral-500 font-normal">{edu.field}</span>
+                              <p className="text-[11px] text-neutral-850 font-bold">
+                                {edu.degree} &mdash; <span className="text-neutral-700 font-medium">{edu.field}</span>
                               </p>
                             </div>
                           ))}
@@ -257,34 +257,34 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
                       {/* TECHNICAL EXPERTISE */}
                       <div className="space-y-3">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Expertise
                         </h2>
                         <div className="space-y-2.5">
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Languages &amp; Core</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.languages.join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Languages &amp; Core</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.languages.join(', ')}</p>
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Data Science</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.dataScience.join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Data Science</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.dataScience.join(', ')}</p>
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Machine Learning</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.machineLearning.join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Machine Learning</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.machineLearning.join(', ')}</p>
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Visualization</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.visualization.join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Visualization</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.visualization.join(', ')}</p>
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Databases</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.databases.join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Databases</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.databases.join(', ')}</p>
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold font-mono text-neutral-500 uppercase block tracking-wide">Tools</span>
-                            <p className="text-[11px] text-neutral-700 mt-0.5">{skills.tools.slice(0, 4).join(', ')}</p>
+                            <span className="text-[10px] font-bold font-mono text-neutral-700 uppercase block tracking-wide">Tools</span>
+                            <p className="text-[11px] text-neutral-850 font-medium mt-0.5">{skills.tools.slice(0, 4).join(', ')}</p>
                           </div>
                         </div>
                       </div>
@@ -296,24 +296,24 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                       
                       {/* REPRESENTATIVE PROJECTS */}
                       <div className="space-y-3.5">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Selected Projects
                         </h2>
                         <div className="space-y-4">
                           {projects.slice(0, 3).map((project) => (
                             <div key={project.id} className="space-y-1 text-[11px]">
-                              <div className="flex justify-between items-baseline font-bold text-neutral-900">
+                              <div className="flex justify-between items-baseline font-bold text-neutral-950">
                                 <span>{project.title}</span>
                               </div>
                               <div className="flex flex-wrap gap-1 mt-0.5">
                                 {project.techStack.map((tech) => (
-                                  <span key={tech} className="text-[9px] font-mono bg-neutral-100 text-neutral-600 px-1.5 py-0.5 rounded border border-neutral-200">
+                                  <span key={tech} className="text-[9px] font-mono font-medium bg-neutral-100 text-neutral-800 px-1.5 py-0.5 rounded border border-neutral-200">
                                     {tech}
                                   </span>
                                 ))}
                               </div>
-                              <p className="text-neutral-600 leading-relaxed mt-1">
+                              <p className="text-neutral-800 font-normal leading-relaxed mt-1">
                                 {project.description}
                               </p>
                             </div>
@@ -323,14 +323,14 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
                       {/* RESEARCH PUBLICATION */}
                       <div className="space-y-2">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <BookOpen className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <BookOpen className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Publications
                         </h2>
                         <div className="space-y-1 text-[11px]">
-                          <span className="font-bold text-neutral-900 block leading-tight">{research.title}</span>
-                          <span className="text-[10px] font-mono text-neutral-500 uppercase block tracking-wide mt-0.5">// {research.journal}</span>
-                          <p className="text-neutral-600 leading-relaxed mt-1">
+                          <span className="font-bold text-neutral-950 block leading-tight">{research.title}</span>
+                          <span className="text-[10px] font-mono text-neutral-700 font-semibold uppercase block tracking-wide mt-0.5">// {research.journal}</span>
+                          <p className="text-neutral-800 font-normal leading-relaxed mt-1">
                             {research.description}
                           </p>
                         </div>
@@ -338,17 +338,17 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
 
                       {/* CERTIFICATIONS SUMMARY */}
                       <div className="space-y-2">
-                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-900 uppercase border-b border-neutral-300 pb-1 flex items-center">
-                          <Award className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                        <h2 className="text-xs font-bold font-mono tracking-widest text-neutral-950 uppercase border-b border-neutral-300 pb-1 flex items-center">
+                          <Award className="w-3.5 h-3.5 mr-1.5 text-neutral-700" />
                           Key Certifications
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-[10px]">
                           {certifications.slice(0, 6).map((cert, index) => (
                             <div key={index} className="flex items-start space-x-1">
-                              <span className="text-neutral-400 mt-0.5 select-none">&bull;</span>
+                              <span className="text-neutral-500 mt-0.5 select-none">&bull;</span>
                               <div>
-                                <span className="font-semibold text-neutral-850 block leading-tight">{cert.name}</span>
-                                <span className="text-[8px] font-mono text-neutral-500 uppercase tracking-wider">{cert.issuer}</span>
+                                <span className="font-bold text-neutral-900 block leading-tight">{cert.name}</span>
+                                <span className="text-[8px] font-mono text-neutral-700 font-medium uppercase tracking-wider">{cert.issuer}</span>
                               </div>
                             </div>
                           ))}
@@ -360,7 +360,7 @@ export default function CVModal({ isOpen, onClose }: CVModalProps) {
                   </div>
 
                   {/* Footnote stamp */}
-                  <div className="mt-12 pt-4 border-t border-neutral-200 flex justify-between items-center text-[9px] font-mono text-neutral-400">
+                  <div className="mt-12 pt-4 border-t border-neutral-200 flex justify-between items-center text-[9px] font-mono text-neutral-600 font-semibold">
                     <span>Generated from hitesh-kanagala.com</span>
                     <span>Hamburg, DE &bull; M.Sc. Data Science &amp; AI</span>
                   </div>
