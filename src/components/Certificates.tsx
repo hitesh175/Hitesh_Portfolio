@@ -18,7 +18,7 @@ export default function Certificates() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Validated Credentials
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -54,18 +54,18 @@ export default function Certificates() {
                   {/* Text */}
                   <div className="space-y-1.5 flex-1 text-left flex flex-col justify-between h-full">
                     <div>
-                      <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest block font-bold">
+                      <span className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-widest block font-bold">
                         // {cert.issuer}
                       </span>
-                      <h3 className="text-sm font-display font-bold text-neutral-900 dark:text-white leading-snug uppercase tracking-wider group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors mt-1">
+                      <h3 className="text-sm font-display font-bold text-neutral-900 dark:text-white leading-snug uppercase tracking-wider group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors mt-1">
                         {cert.name}
                       </h3>
                     </div>
 
-                    <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-450 pt-3 border-t border-transparent group-hover:border-neutral-200/20 dark:group-hover:border-neutral-800/50 transition-colors mt-3">
+                    <div className="flex justify-between items-center text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold pt-3 border-t border-transparent group-hover:border-neutral-200/20 dark:group-hover:border-neutral-800/50 transition-colors mt-3">
                       <span>ISSUED: {cert.date}</span>
-                      <div className="flex items-center space-x-1 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white transition-colors">
-                        <span className="text-[9px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">PREVIEW</span>
+                      <div className="flex items-center space-x-1 text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-950 dark:group-hover:text-white transition-colors">
+                        <span className="text-[9px] uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity font-bold">PREVIEW</span>
                         <ExternalLink className="w-3.5 h-3.5 transform group-hover:scale-110 transition-transform" />
                       </div>
                     </div>
