@@ -77,7 +77,7 @@ export default function Skills() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             My Superpowers
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -96,7 +96,7 @@ export default function Skills() {
               className={`px-4.5 py-2 rounded text-[10px] font-bold font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer border ${
                 activeTab === tab
                   ? 'bg-neutral-950 text-white border-neutral-800 dark:bg-white dark:text-neutral-950 dark:border-neutral-200 shadow-sm'
-                  : 'bg-neutral-50 text-neutral-500 hover:text-neutral-900 border-neutral-200 hover:border-neutral-300 dark:bg-black dark:text-neutral-400 dark:border-neutral-900 dark:hover:border-neutral-800'
+                  : 'bg-neutral-100 text-neutral-700 hover:text-neutral-950 border-neutral-200 hover:border-neutral-400 dark:bg-neutral-900 dark:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-600 dark:hover:text-white'
               }`}
             >
               {tab === 'all' ? 'All Skills' : tab === 'technical' ? 'Technical' : 'Interpersonal'}
@@ -134,7 +134,7 @@ export default function Skills() {
                     {cat.items.map((item) => (
                       <span
                         key={item}
-                        className="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-200 rounded text-xs font-medium border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 transition-colors cursor-default"
+                        className="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-900 text-neutral-850 dark:text-neutral-100 rounded text-xs font-semibold border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800/60 transition-colors cursor-default"
                       >
                         {item}
                       </span>
