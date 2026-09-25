@@ -143,7 +143,7 @@ export default function Contact() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Let's Collaborate
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -162,7 +162,7 @@ export default function Contact() {
                 <h3 className="text-lg font-display font-bold text-neutral-900 dark:text-white uppercase tracking-tight">
                   Contact Info
                 </h3>
-                <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                <p className="text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed font-normal">
                   I am actively seeking professional internships and Werkstudent research positions in Hamburg, Germany or remote arrangements.
                 </p>
               </div>
@@ -335,7 +335,7 @@ export default function Contact() {
               </form>
 
               {/* Dynamic Email Forwarding Configuration helper */}
-              <div className="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] font-mono text-neutral-500 dark:text-neutral-400">
+              <div className="mt-6 pt-5 border-t border-neutral-200 dark:border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                 <div className="flex items-center space-x-2">
                   <div className={`w-2 h-2 rounded-full ${isEmailConfigured ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
                   <span>
