@@ -9,8 +9,10 @@ import { projects } from '../data';
 import { Github, Sliders, RefreshCw, Info } from 'lucide-react';
 import ProjectCard from './ProjectCard';
 
+export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
+
 export default function Projects() {
-  const [filter, setFilter] = useState<'all' | 'ml' | 'analytics' | 'bi' | 'engineering'>('all');
+  const [filter, setFilter] = useState<ProjectFilterCategory>('all');
   const [selectedSimulator, setSelectedSimulator] = useState<string | null>('aircraft-analytics'); // Default open first to show craftsmanship immediately!
   const sandboxRef = useRef<HTMLDivElement>(null);
 
@@ -41,10 +43,77 @@ export default function Projects() {
   // 5. Retail Sales Analysis Simulator
   const [customerSegment, setCustomerSegment] = useState<'all' | 'millennials' | 'genz' | 'boomers'>('all');
 
+  // 6. Web Dev Simulator
+  const [webFps, setWebFps] = useState<number>(60);
+  const [webVirtualization, setWebVirtualization] = useState<boolean>(true);
+  const [webBatching, setWebBatching] = useState<boolean>(true);
+
   const filteredProjects = projects.filter((project) => {
     if (filter === 'all') return true;
-    return project.category === filter;
+    if (filter === 'bi') {
+      return (
+        project.category === 'bi' ||
+        project.category === 'analytics' ||
+        project.categories?.includes('bi') ||
+        project.categories?.includes('analytics')
+      );
+    }
+    return project.category === filter || project.categories?.includes(filter);
   });
+
+  const handleFilterChange = (newFilter: ProjectFilterCategory) => {
+    setFilter(newFilter);
+    const visible = projects.filter((project) => {
+      if (newFilter === 'all') return true;
+      if (newFilter === 'bi') {
+        return (
+          project.category === 'bi' ||
+          project.category === 'analytics' ||
+          project.categories?.includes('bi') ||
+          project.categories?.includes('analytics')
+        );
+      }
+      return project.category === newFilter || project.categories?.includes(newFilter);
+    });
+    if (visible.length > 0 && (!selectedSimulator || !visible.some((p) => p.id === selectedSimulator))) {
+      setSelectedSimulator(visible[0].id);
+    }
+  };
+
+  const categoryFilters: { id: ProjectFilterCategory; label: string; count: number }[] = [
+    { id: 'all', label: 'All Projects', count: projects.length },
+    {
+      id: 'data-science',
+      label: 'Data Science',
+      count: projects.filter((p) => p.categories?.includes('data-science') || p.category === 'data-science').length,
+    },
+    {
+      id: 'ai',
+      label: 'AI',
+      count: projects.filter((p) => p.categories?.includes('ai') || p.category === 'ai').length,
+    },
+    {
+      id: 'ml',
+      label: 'Machine Learning',
+      count: projects.filter((p) => p.categories?.includes('ml') || p.category === 'ml').length,
+    },
+    {
+      id: 'web-dev',
+      label: 'Web Dev',
+      count: projects.filter((p) => p.categories?.includes('web-dev') || p.category === 'web-dev').length,
+    },
+    {
+      id: 'bi',
+      label: 'BI & Analytics',
+      count: projects.filter(
+        (p) =>
+          p.categories?.includes('bi') ||
+          p.category === 'bi' ||
+          p.categories?.includes('analytics') ||
+          p.category === 'analytics'
+      ).length,
+    },
+  ];
 
   // Simulator helper functions & calculations
   // Noisy wave generation for Aircraft
@@ -164,7 +233,7 @@ export default function Projects() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             My Creative Engineering Sandbox
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -174,26 +243,33 @@ export default function Projects() {
         </div>
 
         {/* Categories Tab Bar */}
-        <div className="flex flex-wrap justify-center gap-2.5 mb-12">
-          {[
-            { id: 'all', label: 'All Projects' },
-            { id: 'ml', label: 'Machine Learning' },
-            { id: 'analytics', label: 'Data Analytics' },
-            { id: 'bi', label: 'Business Intelligence' },
-            { id: 'engineering', label: 'Data Engineering' },
-          ].map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setFilter(cat.id as any)}
-              className={`px-4.5 py-2 rounded text-[10px] font-semibold font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer border ${
-                filter === cat.id
-                  ? 'bg-neutral-950 text-white border-neutral-800 dark:bg-white dark:text-neutral-950 dark:border-neutral-200 shadow-sm'
-                  : 'bg-neutral-50 text-neutral-500 hover:text-neutral-900 border-neutral-200 hover:border-neutral-300 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:border-neutral-800'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {categoryFilters.map((cat) => {
+            const isSelected = filter === cat.id;
+            return (
+              <button
+                id={`filter-btn-${cat.id}`}
+                key={cat.id}
+                onClick={() => handleFilterChange(cat.id)}
+                className={`px-4 py-2 rounded text-[11px] font-bold font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer border flex items-center space-x-2 ${
+                  isSelected
+                    ? 'bg-neutral-950 text-white border-neutral-800 dark:bg-white dark:text-neutral-950 dark:border-neutral-200 shadow-sm'
+                    : 'bg-neutral-100 text-neutral-700 hover:text-neutral-950 border-neutral-200 hover:border-neutral-400 dark:bg-neutral-900 dark:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-600 dark:hover:text-white'
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[9px] px-1.5 py-0.5 rounded-full font-mono font-bold leading-none ${
+                    isSelected
+                      ? 'bg-neutral-800 text-neutral-100 dark:bg-neutral-200 dark:text-neutral-900'
+                      : 'bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300'
+                  }`}
+                >
+                  {cat.count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Responsive Layout Grid */}
@@ -222,19 +298,33 @@ export default function Projects() {
             </AnimatePresence>
           </div>
 
+          {filteredProjects.length === 0 && (
+            <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">
+              <p className="text-sm font-mono text-neutral-700 dark:text-neutral-300 font-medium">
+                No projects found in this category.
+              </p>
+              <button
+                onClick={() => handleFilterChange('all')}
+                className="mt-4 px-4 py-2 text-xs font-mono font-bold bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 rounded cursor-pointer transition-transform hover:scale-105"
+              >
+                Reset to All Projects
+              </button>
+            </div>
+          )}
+
           {/* Active Sandbox Guidance Banner */}
           {selectedSimulator && (
-            <div className="max-w-4xl mx-auto w-full mb-3 p-3.5 bg-neutral-100/90 dark:bg-neutral-950/95 hover:bg-neutral-200/95 dark:hover:bg-neutral-900/95 border border-neutral-200 dark:border-neutral-850 hover:border-neutral-300 dark:hover:border-neutral-700 rounded flex items-center justify-between text-xs font-mono text-neutral-600 dark:text-neutral-350 tracking-wide shadow-sm group transition-all duration-300">
+            <div className="max-w-4xl mx-auto w-full mb-3 p-3.5 bg-neutral-100/90 dark:bg-neutral-950/95 hover:bg-neutral-200/95 dark:hover:bg-neutral-900/95 border border-neutral-200 dark:border-neutral-850 hover:border-neutral-300 dark:hover:border-neutral-700 rounded flex items-center justify-between text-xs font-mono text-neutral-800 dark:text-neutral-200 tracking-wide shadow-sm group transition-all duration-300">
               <div className="flex items-center space-x-2.5">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-400 dark:bg-neutral-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-neutral-900 dark:bg-white"></span>
                 </span>
                 <span className="group-hover:text-neutral-900 dark:group-hover:text-white transition-colors duration-300">
-                  SANDBOX ACTIVE // <strong className="text-neutral-900 dark:text-white font-semibold">{(projects.find(p => p.id === selectedSimulator))?.title}</strong> is running below.
+                  SANDBOX ACTIVE // <strong className="text-neutral-900 dark:text-white font-bold">{(projects.find(p => p.id === selectedSimulator))?.title}</strong> is running below.
                 </span>
               </div>
-              <span className="hidden sm:inline-flex items-center text-[10px] text-neutral-500 dark:text-neutral-450 group-hover:text-indigo-600 dark:group-hover:text-sky-400 font-semibold gap-1 animate-pulse transition-colors duration-300">
+              <span className="hidden sm:inline-flex items-center text-[10px] text-neutral-700 dark:text-neutral-300 group-hover:text-indigo-600 dark:group-hover:text-sky-400 font-bold gap-1 animate-pulse transition-colors duration-300">
                 Scroll & interact below to test raw data simulations ↓
               </span>
             </div>
@@ -259,7 +349,7 @@ export default function Projects() {
                         Interactive Science Sandbox Panel
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-950 text-[9px] font-mono text-neutral-500 dark:text-neutral-450 rounded border border-neutral-200 dark:border-neutral-900 select-none">
+                    <span className="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-900 text-[9px] font-mono text-neutral-700 dark:text-neutral-300 font-medium rounded border border-neutral-200 dark:border-neutral-800 select-none">
                       v1.4.2 // stable
                     </span>
                   </div>
@@ -271,15 +361,15 @@ export default function Projects() {
                         <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight">
                           Flight Altitude Noise Filtering Simulator
                         </h4>
-                        <p className="text-[11px] text-neutral-600 dark:text-neutral-450 font-mono mt-1 leading-relaxed">
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
                           Demonstrating NumPy vectorization filtering on high-frequency altitude sensors.
                         </p>
                       </div>
 
                       {/* Controls */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-100 dark:bg-neutral-900/40 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Sampling Rate ({aircraftHz} Hz)
                           </label>
                           <input
@@ -289,11 +379,11 @@ export default function Projects() {
                             step="5"
                             value={aircraftHz}
                             onChange={(e) => setAircraftHz(Number(e.target.value))}
-                            className="w-full accent-neutral-700 dark:accent-neutral-350 h-1 bg-neutral-200 dark:bg-neutral-900 rounded appearance-none cursor-pointer"
+                            className="w-full accent-neutral-900 dark:accent-neutral-200 h-1 bg-neutral-300 dark:bg-neutral-800 rounded appearance-none cursor-pointer"
                           />
                         </div>
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Filter Algorithm
                           </label>
                           <div className="flex space-x-1.5">
@@ -304,7 +394,7 @@ export default function Projects() {
                                 className={`flex-1 py-1 text-[9px] font-bold font-mono uppercase rounded border transition-colors cursor-pointer ${
                                   aircraftFilter === alg
                                     ? 'bg-neutral-950 text-white border-neutral-800 dark:bg-white dark:text-neutral-900 dark:border-neutral-300 font-bold'
-                                    : 'bg-neutral-50 text-neutral-500 border-neutral-200 hover:text-neutral-900 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:text-white'
+                                    : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
                                 }`}
                               >
                                 {alg}
@@ -316,9 +406,9 @@ export default function Projects() {
 
                       {/* Active SVG Plot */}
                       <div className="relative h-48 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded flex flex-col justify-center items-center overflow-hidden">
-                        <div className="absolute top-2 left-3 font-mono text-[9px] text-neutral-500 dark:text-neutral-405 flex items-center space-x-4">
+                        <div className="absolute top-2 left-3 font-mono text-[9px] text-neutral-700 dark:text-neutral-300 flex items-center space-x-4 font-semibold">
                           <span className="flex items-center space-x-1">
-                            <span className="w-2.5 h-0.5 bg-neutral-300 dark:bg-neutral-800 inline-block" />
+                            <span className="w-2.5 h-0.5 bg-neutral-400 dark:bg-neutral-700 inline-block" />
                             <span>Raw Sensor</span>
                           </span>
                           <span className="flex items-center space-x-1">
@@ -352,7 +442,7 @@ export default function Projects() {
                       </div>
 
                       {/* Stat summary */}
-                      <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 text-left">
+                      <div className="flex justify-between items-center text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold text-left">
                         <span>PIPELINE_STATUS: [STABLE]</span>
                         <span>VECTORIZED_LATENCY: 1.8ms</span>
                       </div>
@@ -366,21 +456,21 @@ export default function Projects() {
                         <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight">
                           Supply Chain Logistical Delay Forecaster
                         </h4>
-                        <p className="text-[11px] text-neutral-600 dark:text-slate-400 font-mono mt-1 leading-relaxed">
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
                           Predicting dispatch risk probabilities using customized parameters.
                         </p>
                       </div>
 
                       {/* Controls */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-neutral-100 dark:bg-neutral-900/40 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Model Classifier
                           </label>
                           <select
                             value={scModel}
                             onChange={(e) => setScModel(e.target.value as any)}
-                            className="w-full bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 text-[10px] font-semibold text-neutral-850 dark:text-neutral-200 rounded p-1.5 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-700"
+                            className="w-full bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 text-[10px] font-bold text-neutral-900 dark:text-neutral-100 rounded p-1.5 focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600"
                           >
                             <option value="lr">Logistic Regression</option>
                             <option value="rf">Random Forest</option>
@@ -389,7 +479,7 @@ export default function Projects() {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Weather Severity (1-10)
                           </label>
                           <input
@@ -398,12 +488,12 @@ export default function Projects() {
                             max="10"
                             value={scWeather}
                             onChange={(e) => setScWeather(Number(e.target.value))}
-                            className="w-full accent-neutral-700 dark:accent-neutral-350 h-1 bg-neutral-200 dark:bg-neutral-900 rounded appearance-none cursor-pointer"
+                            className="w-full accent-neutral-900 dark:accent-neutral-200 h-1 bg-neutral-300 dark:bg-neutral-800 rounded appearance-none cursor-pointer"
                           />
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Backlog Ratio ({scBacklog}%)
                           </label>
                           <input
@@ -413,7 +503,7 @@ export default function Projects() {
                             step="10"
                             value={scBacklog}
                             onChange={(e) => setScBacklog(Number(e.target.value))}
-                            className="w-full accent-neutral-700 dark:accent-neutral-350 h-1 bg-neutral-200 dark:bg-neutral-900 rounded appearance-none cursor-pointer"
+                            className="w-full accent-neutral-900 dark:accent-neutral-200 h-1 bg-neutral-300 dark:bg-neutral-800 rounded appearance-none cursor-pointer"
                           />
                         </div>
                       </div>
@@ -421,19 +511,19 @@ export default function Projects() {
                       {/* Output metrics visualizer */}
                       <div className="grid grid-cols-3 gap-3">
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Classifier AUC</span>
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Classifier AUC</span>
                           <span className="text-sm sm:text-base font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1 block">
                             {getSupplyChainMetrics().accuracy}%
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Inference Time</span>
-                          <span className="text-sm sm:text-base font-bold font-mono text-neutral-800 dark:text-white mt-1 block">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Inference Time</span>
+                          <span className="text-sm sm:text-base font-bold font-mono text-neutral-900 dark:text-white mt-1 block">
                             {getSupplyChainMetrics().latency}ms
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center flex flex-col justify-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Delay Risk State</span>
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Delay Risk State</span>
                           <span className={`text-[10px] font-bold tracking-tight mt-1 uppercase ${
                             getSupplyChainMetrics().delayRisk.includes('CRITICAL') ? 'text-red-500 dark:text-red-400 animate-pulse' : getSupplyChainMetrics().delayRisk.includes('MODERATE') ? 'text-amber-500 dark:text-amber-400' : 'text-emerald-500 dark:text-emerald-400'
                           }`}>
@@ -444,22 +534,22 @@ export default function Projects() {
 
                       {/* Confusion Matrix illustration */}
                       <div className="bg-neutral-100 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-900 rounded text-left">
-                        <span className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 uppercase block mb-3 text-center">Confusion Matrix Matrix</span>
+                        <span className="text-[9px] font-bold font-mono text-neutral-700 dark:text-neutral-300 uppercase block mb-3 text-center">Confusion Matrix Matrix</span>
                         <div className="grid grid-cols-2 gap-2 max-w-xs mx-auto text-center font-mono text-xs text-neutral-800 dark:text-white">
-                          <div className="p-2.5 bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded">
-                            <span className="block text-[8px] text-neutral-500 dark:text-neutral-450 font-bold">TRUE NEGATIVE (85%)</span>
+                          <div className="p-2.5 bg-white dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded">
+                            <span className="block text-[8px] text-neutral-600 dark:text-neutral-400 font-bold">TRUE NEGATIVE (85%)</span>
                             <span className="font-bold text-emerald-600 dark:text-emerald-400">92 cases</span>
                           </div>
-                          <div className="p-2.5 bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded">
-                            <span className="block text-[8px] text-neutral-500 dark:text-neutral-450 font-bold">FALSE POSITIVE (15%)</span>
+                          <div className="p-2.5 bg-white dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded">
+                            <span className="block text-[8px] text-neutral-600 dark:text-neutral-400 font-bold">FALSE POSITIVE (15%)</span>
                             <span className="font-bold text-red-650">12 cases</span>
                           </div>
-                          <div className="p-2.5 bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded">
-                            <span className="block text-[8px] text-neutral-500 dark:text-neutral-450 font-bold">FALSE NEGATIVE (11%)</span>
+                          <div className="p-2.5 bg-white dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded">
+                            <span className="block text-[8px] text-neutral-600 dark:text-neutral-400 font-bold">FALSE NEGATIVE (11%)</span>
                             <span className="font-bold text-red-650">8 cases</span>
                           </div>
-                          <div className="p-2.5 bg-white dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded">
-                            <span className="block text-[8px] text-neutral-500 dark:text-neutral-450 font-bold">TRUE POSITIVE (89%)</span>
+                          <div className="p-2.5 bg-white dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 rounded">
+                            <span className="block text-[8px] text-neutral-600 dark:text-neutral-400 font-bold">TRUE POSITIVE (89%)</span>
                             <span className="font-bold text-emerald-600 dark:text-emerald-400">65 cases</span>
                           </div>
                         </div>
@@ -474,15 +564,15 @@ export default function Projects() {
                         <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight">
                           Crypto Historical Time-Series Direction Predictor
                         </h4>
-                        <p className="text-[11px] text-neutral-600 dark:text-neutral-450 font-mono mt-1 leading-relaxed">
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
                           Simulating trend directional labels with dynamic indicators.
                         </p>
                       </div>
 
                       {/* Controls */}
-                      <div className="grid grid-cols-2 gap-4 bg-neutral-100 dark:bg-neutral-900/40 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                      <div className="grid grid-cols-2 gap-4 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Crypto Asset
                           </label>
                           <div className="flex space-x-1.5">
@@ -493,7 +583,7 @@ export default function Projects() {
                                 className={`flex-1 py-1 text-[9px] font-bold font-mono uppercase rounded border transition-colors cursor-pointer ${
                                   cryptoCoin === coin
                                     ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300 font-bold'
-                                    : 'bg-neutral-50 text-neutral-500 border-neutral-200 hover:text-neutral-900 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:text-white'
+                                    : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
                                 }`}
                               >
                                 {coin}
@@ -503,7 +593,7 @@ export default function Projects() {
                         </div>
 
                         <div className="space-y-2">
-                          <label className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 block uppercase tracking-wider">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
                             Indicator Overlay
                           </label>
                           <div className="flex space-x-1.5">
@@ -514,7 +604,7 @@ export default function Projects() {
                                 className={`flex-1 py-1 text-[9px] font-bold font-mono uppercase rounded border transition-colors cursor-pointer ${
                                   cryptoIndicator === ind
                                     ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300 font-bold'
-                                    : 'bg-neutral-50 text-neutral-500 border-neutral-200 hover:text-neutral-900 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:text-white'
+                                    : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
                                 }`}
                               >
                                 {ind}
@@ -526,9 +616,9 @@ export default function Projects() {
 
                       {/* Time series SVG rendering */}
                       <div className="h-44 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded relative overflow-hidden flex flex-col justify-center">
-                        <div className="absolute top-2 left-3 font-mono text-[9px] text-neutral-600 dark:text-neutral-500 flex space-x-3 font-bold">
+                        <div className="absolute top-2 left-3 font-mono text-[9px] text-neutral-800 dark:text-neutral-200 flex space-x-3 font-bold">
                           <span>{cryptoCoin} Price Stream</span>
-                          {cryptoIndicator !== 'none' && <span className="text-neutral-850 dark:text-neutral-300 uppercase">// {cryptoIndicator} active</span>}
+                          {cryptoIndicator !== 'none' && <span className="text-neutral-900 dark:text-white uppercase font-bold">// {cryptoIndicator} active</span>}
                         </div>
 
                         <svg viewBox="0 0 380 120" className="w-full h-full p-2 mt-4 select-none">
@@ -564,7 +654,7 @@ export default function Projects() {
                         </svg>
                       </div>
 
-                      <div className="flex justify-between items-center text-[10px] font-mono text-neutral-550 text-left font-bold">
+                      <div className="flex justify-between items-center text-[10px] font-mono text-neutral-700 dark:text-neutral-300 text-left font-bold">
                         <span>PREDICTED_SIGNAL: {getCryptoData()[getCryptoData().length - 1].isUp ? 'BUY/LONG [▲]' : 'SELL/SHORT [▼]'}</span>
                         <span>PRECISION_ACCURACY: 79.4%</span>
                       </div>
@@ -578,14 +668,14 @@ export default function Projects() {
                         <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight">
                           Corporate Interactive Sales KPI dashboard
                         </h4>
-                        <p className="text-[11px] text-neutral-600 dark:text-neutral-450 font-mono mt-1 leading-relaxed">
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
                           Simulating aggregated regional SQL dimensions into Power BI insights.
                         </p>
                       </div>
 
                       {/* Controls */}
-                      <div className="flex items-center space-x-3 bg-neutral-100 dark:bg-neutral-900/40 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
-                        <span className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 uppercase whitespace-nowrap tracking-wider">Filter Region:</span>
+                      <div className="flex items-center space-x-3 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                        <span className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 uppercase whitespace-nowrap tracking-wider">Filter Region:</span>
                         <div className="flex flex-1 space-x-1.5">
                           {[
                             { id: 'all', label: 'All Global' },
@@ -599,7 +689,7 @@ export default function Projects() {
                               className={`flex-1 py-1 text-[9px] font-bold font-mono rounded border transition-colors cursor-pointer ${
                                 biRegion === reg.id
                                   ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300 font-bold'
-                                  : 'bg-neutral-50 text-neutral-500 border-neutral-200 hover:text-neutral-900 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:text-white'
+                                  : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
                               }`}
                             >
                               {reg.label}
@@ -611,20 +701,20 @@ export default function Projects() {
                       {/* Mini Executive Dashboard */}
                       <div className="grid grid-cols-3 gap-3">
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Total Revenue</span>
-                          <span className="text-xs sm:text-sm font-mono font-bold text-neutral-800 dark:text-white mt-1 block">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Total Revenue</span>
+                          <span className="text-xs sm:text-sm font-mono font-bold text-neutral-900 dark:text-white mt-1 block">
                             ${getBiMetrics().totalSales.toLocaleString()}
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Profit Margin</span>
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Profit Margin</span>
                           <span className="text-xs sm:text-sm font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">
                             {getBiMetrics().margin}%
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Transactions</span>
-                          <span className="text-xs sm:text-sm font-mono font-bold text-neutral-800 dark:text-white mt-1 block">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Transactions</span>
+                          <span className="text-xs sm:text-sm font-mono font-bold text-neutral-900 dark:text-white mt-1 block">
                             {getBiMetrics().transactions.toLocaleString()}
                           </span>
                         </div>
@@ -632,7 +722,7 @@ export default function Projects() {
 
                       {/* Interactive bar graph breakdown */}
                       <div className="bg-neutral-100 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-900 rounded space-y-3 text-left">
-                        <span className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 uppercase block text-center">Product Category Revenue Contribution</span>
+                        <span className="text-[9px] font-bold font-mono text-neutral-700 dark:text-neutral-300 uppercase block text-center">Product Category Revenue Contribution</span>
                         
                         <div className="space-y-2">
                           {[
@@ -641,7 +731,7 @@ export default function Projects() {
                             { name: 'Home & Kitchen Essentials', ratio: biRegion === 'apac' ? 25 : biRegion === 'eu' ? 20 : 20 },
                           ].map((cat, idx) => (
                             <div key={idx} className="space-y-1">
-                              <div className="flex justify-between text-[9px] font-mono text-neutral-500 dark:text-neutral-450">
+                              <div className="flex justify-between text-[9px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                                 <span>{cat.name}</span>
                                 <span>{cat.ratio}%</span>
                               </div>
@@ -667,14 +757,14 @@ export default function Projects() {
                         <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight">
                           Customer Spending Distribution Explorer
                         </h4>
-                        <p className="text-[11px] text-neutral-600 dark:text-neutral-450 font-mono mt-1 leading-relaxed">
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
                           Identifying purchasing clusters across segmented cohort groups.
                         </p>
                       </div>
 
                       {/* Controls */}
-                      <div className="flex items-center space-x-3 bg-neutral-100 dark:bg-neutral-900/40 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
-                        <span className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 uppercase whitespace-nowrap tracking-wider">Cohort:</span>
+                      <div className="flex items-center space-x-3 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                        <span className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 uppercase whitespace-nowrap tracking-wider">Cohort:</span>
                         <div className="flex flex-1 space-x-1.5">
                           {[
                             { id: 'all', label: 'All' },
@@ -688,7 +778,7 @@ export default function Projects() {
                               className={`flex-1 py-1 text-[9px] font-bold font-mono rounded border transition-colors cursor-pointer ${
                                 customerSegment === seg.id
                                   ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300 font-bold'
-                                  : 'bg-neutral-50 text-neutral-500 border-neutral-200 hover:text-neutral-900 dark:bg-black dark:text-neutral-450 dark:border-neutral-900 dark:hover:text-white'
+                                  : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
                               }`}
                             >
                               {seg.label}
@@ -700,19 +790,19 @@ export default function Projects() {
                       {/* Quantitative Insights */}
                       <div className="grid grid-cols-3 gap-3">
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Average Ticket</span>
-                          <span className="text-sm font-mono font-bold text-neutral-800 dark:text-white mt-1 block">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Average Ticket</span>
+                          <span className="text-sm font-mono font-bold text-neutral-900 dark:text-white mt-1 block">
                             ${getCustomerSegmentMetrics().averageTicket.toFixed(2)}
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Monthly Freq.</span>
-                          <span className="text-sm font-mono font-bold text-neutral-800 dark:text-white mt-1 block">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Monthly Freq.</span>
+                          <span className="text-sm font-mono font-bold text-neutral-900 dark:text-white mt-1 block">
                             {getCustomerSegmentMetrics().purchaseFrequency.toFixed(1)} visits
                           </span>
                         </div>
                         <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
-                          <span className="text-[9px] font-mono text-neutral-500 dark:text-neutral-450 block uppercase font-bold tracking-wider">Digital Incline</span>
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Digital Incline</span>
                           <span className="text-sm font-mono font-bold text-emerald-600 dark:text-emerald-400 mt-1 block">
                             {getCustomerSegmentMetrics().onlineRatio}% Online
                           </span>
@@ -721,7 +811,7 @@ export default function Projects() {
 
                       {/* Distribution Histogram Preview */}
                       <div className="bg-neutral-100 dark:bg-neutral-950 p-4 border border-neutral-200 dark:border-neutral-900 rounded space-y-3 text-left">
-                        <span className="text-[9px] font-bold font-mono text-neutral-600 dark:text-neutral-450 uppercase block text-center">Transaction Value Frequency (Histogram)</span>
+                        <span className="text-[9px] font-bold font-mono text-neutral-700 dark:text-neutral-300 uppercase block text-center">Transaction Value Frequency (Histogram)</span>
                         
                         <div className="h-28 flex items-end justify-between px-4 pt-4 border-b border-neutral-200 dark:border-neutral-900">
                           {[20, 35, 60, 95, 75, 45, 30, 15].map((val, idx) => {
@@ -738,10 +828,10 @@ export default function Projects() {
                                 <motion.div
                                   initial={{ height: 0 }}
                                   animate={{ height: `${Math.min(90, finalVal)}%` }}
-                                  className="w-4 bg-neutral-400 dark:bg-neutral-550 rounded-t hover:bg-neutral-800 dark:hover:bg-white transition-colors"
+                                  className="w-4 bg-neutral-500 dark:bg-neutral-400 rounded-t hover:bg-neutral-800 dark:hover:bg-white transition-colors"
                                   transition={{ type: 'spring', stiffness: 100 }}
                                 />
-                                <span className="text-[7px] font-mono text-neutral-500 dark:text-neutral-450 mt-1">${(idx + 1) * 15}</span>
+                                <span className="text-[7px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold mt-1">${(idx + 1) * 15}</span>
                               </div>
                             );
                           })}
@@ -750,8 +840,121 @@ export default function Projects() {
                     </div>
                   )}
 
+                  {/* 6. Web Dev / Reactive Platform Simulator */}
+                  {selectedSimulator === 'interactive-data-platform' && (
+                    <div className="space-y-6">
+                      <div className="text-left">
+                        <div className="flex items-center space-x-2">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">
+                            WEB RUNTIME BENCHMARK ACTIVE
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold font-display text-neutral-900 dark:text-white uppercase tracking-tight mt-1">
+                          High-Performance Reactive Web Engine
+                        </h4>
+                        <p className="text-[11px] text-neutral-700 dark:text-neutral-200 font-mono mt-1 leading-relaxed">
+                          Testing client-side vectorized simulation responsiveness and memory virtualization throughput.
+                        </p>
+                      </div>
+
+                      {/* Controls */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-neutral-100 dark:bg-neutral-900/60 p-4 rounded border border-neutral-200 dark:border-neutral-800 text-left">
+                        <div className="space-y-2">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
+                            Target Frame Rate ({webFps} FPS)
+                          </label>
+                          <input
+                            type="range"
+                            min="30"
+                            max="120"
+                            step="30"
+                            value={webFps}
+                            onChange={(e) => setWebFps(Number(e.target.value))}
+                            className="w-full accent-neutral-900 dark:accent-neutral-200 h-1 bg-neutral-300 dark:bg-neutral-800 rounded appearance-none cursor-pointer"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
+                            DOM Virtualization
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => setWebVirtualization(!webVirtualization)}
+                            className={`w-full py-1.5 text-[9px] font-bold font-mono uppercase rounded border transition-colors cursor-pointer ${
+                              webVirtualization
+                                ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300'
+                                : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
+                            }`}
+                          >
+                            {webVirtualization ? 'Virtualization: ON' : 'Virtualization: OFF'}
+                          </button>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label className="text-[9px] font-bold font-mono text-neutral-800 dark:text-neutral-200 block uppercase tracking-wider">
+                            Concurrent Batching
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => setWebBatching(!webBatching)}
+                            className={`w-full py-1.5 text-[9px] font-bold font-mono uppercase rounded border transition-colors cursor-pointer ${
+                              webBatching
+                                ? 'bg-neutral-950 text-white border-neutral-850 dark:bg-white dark:text-neutral-900 dark:border-neutral-300'
+                                : 'bg-neutral-50 text-neutral-700 border-neutral-200 hover:text-neutral-950 dark:bg-black dark:text-neutral-300 dark:border-neutral-850 dark:hover:text-white'
+                            }`}
+                          >
+                            {webBatching ? 'React Concurrent: ON' : 'Batching: OFF'}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Performance Visualizer Metrics */}
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Frame Budget</span>
+                          <span className="text-sm sm:text-base font-bold font-mono text-neutral-900 dark:text-white mt-1 block">
+                            {(1000 / webFps).toFixed(1)}ms
+                          </span>
+                        </div>
+                        <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">Heap Memory</span>
+                          <span className="text-sm sm:text-base font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1 block">
+                            {webVirtualization ? '14.8 MB' : '72.4 MB'}
+                          </span>
+                        </div>
+                        <div className="bg-neutral-100 dark:bg-neutral-950 p-3 rounded border border-neutral-200 dark:border-neutral-900 text-center">
+                          <span className="text-[9px] font-mono text-neutral-600 dark:text-neutral-400 block uppercase font-bold tracking-wider">DOM Optimization</span>
+                          <span className="text-sm sm:text-base font-bold font-mono text-neutral-900 dark:text-white mt-1 block">
+                            {webVirtualization ? '98.5% Culled' : 'Raw DOM'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Interactive Visual Stream Canvas */}
+                      <div className="h-28 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-900 rounded p-4 flex items-center justify-between gap-1 overflow-hidden">
+                        {[65, 80, 55, 90, 85, 70, 95, 88, 76, 92, 84, 96, 90, 88, 92, 95].map((val, idx) => (
+                          <motion.div
+                            key={idx}
+                            animate={{
+                              height: [`${val * 0.4}%`, `${val * 0.85}%`, `${val * 0.5}%`],
+                              opacity: [0.7, 1, 0.7],
+                            }}
+                            transition={{
+                              duration: (120 / webFps) + (idx * 0.05),
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                            }}
+                            className="flex-1 bg-neutral-900 dark:bg-neutral-200 rounded-t max-w-[12px]"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Simulator footer */}
-                  <div className="mt-6 border-t border-neutral-200 dark:border-neutral-900 pt-4 flex items-center justify-between text-[10px] font-mono text-neutral-500 text-left">
+                  <div className="mt-6 border-t border-neutral-200 dark:border-neutral-900 pt-4 flex items-center justify-between text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold text-left">
                     <span className="flex items-center space-x-1.5">
                       <RefreshCw className="w-3 h-3 animate-spin text-neutral-900 dark:text-white" />
                       <span>Reactive Calculations active</span>
