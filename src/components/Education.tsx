@@ -18,7 +18,7 @@ export default function Education() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             My Educational Journey
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -48,7 +48,7 @@ export default function Education() {
                 <div className="bg-neutral-50 dark:bg-neutral-950 p-6 sm:p-8 rounded border border-neutral-200 dark:border-neutral-900 hover:border-neutral-400 dark:hover:border-neutral-700 hover:scale-[1.01] transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 text-left">
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 bg-neutral-200 dark:bg-neutral-900 text-[10px] font-mono font-medium text-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-800 rounded">
+                      <span className="inline-flex items-center px-3 py-1 bg-neutral-200 dark:bg-neutral-900 text-[10px] font-mono font-bold text-neutral-950 dark:text-white border border-neutral-300 dark:border-neutral-800 rounded">
                         {item.degree}
                       </span>
                       <h3 className="text-base sm:text-lg font-display font-bold text-neutral-900 dark:text-white mt-3 uppercase tracking-tight">
@@ -56,16 +56,16 @@ export default function Education() {
                       </h3>
                     </div>
                     
-                    <div className="flex items-center space-x-1.5 text-xs font-mono text-neutral-500 dark:text-neutral-450">
-                      <Calendar className="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-450" />
+                    <div className="flex items-center space-x-1.5 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
+                      <Calendar className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300" />
                       <span>{item.period}</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2 text-neutral-600 dark:text-neutral-400 text-left">
-                    <span className="text-sm font-semibold text-neutral-900 dark:text-white">{item.institution}</span>
-                    <span className="text-neutral-400 dark:text-neutral-750 hidden sm:inline">•</span>
-                    <div className="flex items-center space-x-1 text-xs text-neutral-500 dark:text-neutral-450">
+                  <div className="flex flex-wrap items-center gap-2 text-neutral-800 dark:text-neutral-200 text-left font-medium">
+                    <span className="text-sm font-bold text-neutral-950 dark:text-white">{item.institution}</span>
+                    <span className="text-neutral-400 dark:text-neutral-600 hidden sm:inline">•</span>
+                    <div className="flex items-center space-x-1 text-xs text-neutral-700 dark:text-neutral-300 font-semibold">
                       <MapPin className="w-3.5 h-3.5" />
                       <span>{index === 0 ? "Hamburg, Germany" : "Bengaluru, India"}</span>
                     </div>
