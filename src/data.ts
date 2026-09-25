@@ -79,7 +79,8 @@ export const projects: Project[] = [
     title: "Aircraft Performance Analytics Pipeline",
     techStack: ["Python", "Pandas", "NumPy", "ETL", "Analytics"],
     description: "Developed an end-to-end analytics pipeline to process aircraft performance data. Built automated preprocessing workflows, generated KPIs, and analyzed operational performance to derive actionable insights.",
-    category: "engineering",
+    category: "data-science",
+    categories: ["data-science", "analytics"],
     githubLink: "https://github.com/hitesh175/aircraft-performance-analytics-pipeline.git"
   },
   {
@@ -87,7 +88,8 @@ export const projects: Project[] = [
     title: "Supply Chain Delivery Delay Prediction",
     techStack: ["Python", "Machine Learning", "Scikit-Learn"],
     description: "Built a predictive machine learning model to forecast delivery delays using logistics and supply chain data. Applied feature engineering, model evaluation, and performance optimization.",
-    category: "ml",
+    category: "ai",
+    categories: ["ai", "ml", "data-science"],
     githubLink: "https://github.com/hitesh175/supply-chain-delay-prediction-ml.git"
   },
   {
@@ -96,6 +98,7 @@ export const projects: Project[] = [
     techStack: ["Python", "Time-Series Analysis", "Machine Learning"],
     description: "Developed a time-series machine learning model to predict cryptocurrency price direction using historical market data and feature engineering techniques.",
     category: "ml",
+    categories: ["ai", "ml", "data-science"],
     githubLink: "https://github.com/hitesh175/Crypto-Price-Direction-Prediction-Time-Series-ML-.git"
   },
   {
@@ -104,15 +107,26 @@ export const projects: Project[] = [
     techStack: ["SQL", "Power BI", "Business Intelligence"],
     description: "Designed an interactive dashboard to visualize sales KPIs, revenue trends, customer behavior, and business performance using SQL and Power BI.",
     category: "bi",
+    categories: ["bi", "data-science"],
     githubLink: "https://github.com/hitesh175/retail-sales-dashboard.git"
   },
   {
     id: "store-sales-analysis",
     title: "Retail Store Sales",
-    techStack: ["Tableau","Data Cleaning", "Analytics"],
+    techStack: ["Tableau", "Data Cleaning", "Analytics"],
     description: "Performed extensive data cleaning and exploratory analysis to identify customer purchasing patterns and sales trends for business decision-making.",
-    category: "analytics",
+    category: "data-science",
+    categories: ["data-science", "bi"],
     githubLink: "https://github.com/hitesh175/Retail-Store-Sales---Data-Cleaning-Performance-Analysis.git"
+  },
+  {
+    id: "interactive-data-platform",
+    title: "Applied AI & Data Science Web Platform",
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Data Viz", "Vite"],
+    description: "Engineered a high-performance modern web application featuring client-side vectorized simulation engines, reactive state management, interactive SVG data visualizers, and responsive dark mode architecture.",
+    category: "web-dev",
+    categories: ["web-dev", "ai", "data-science"],
+    githubLink: "https://github.com/hitesh175"
   }
 ];
 
