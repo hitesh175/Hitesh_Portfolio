@@ -164,3 +164,4 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
     </div>
   );
 }
+
