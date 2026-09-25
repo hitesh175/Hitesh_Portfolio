@@ -25,7 +25,7 @@
   }
   
   body {
-    @apply antialiased font-sans bg-black text-neutral-300 transition-colors duration-300;
+    @apply antialiased font-sans bg-white dark:bg-black text-neutral-900 dark:text-neutral-100 transition-colors duration-300;
   }
 
   /* Custom minimal modern scrollbar */
