@@ -26,7 +26,7 @@ export default function Research() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Scholarly Works
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -54,32 +54,32 @@ export default function Research() {
               {/* Research Text */}
               <div className="flex-1 space-y-4 text-center md:text-left">
                 <div className="flex flex-wrap gap-2.5 justify-center md:justify-start items-center">
-                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 bg-white dark:bg-neutral-900 text-[10px] font-mono font-medium text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded">
+                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 bg-white dark:bg-neutral-900 text-[10px] font-mono font-bold text-neutral-950 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded">
                     <Award className="w-3.5 h-3.5 text-neutral-900 dark:text-white" />
                     <span>Published Paper</span>
                   </span>
-                  <span className="text-xs font-mono text-neutral-500">
+                  <span className="text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                     // {research.journal}
                   </span>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-display font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-neutral-750 dark:group-hover:text-neutral-300 transition-colors uppercase tracking-tight">
+                <h3 className="text-lg sm:text-xl font-display font-bold text-neutral-900 dark:text-white leading-snug group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors uppercase tracking-tight">
                   {research.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl">
+                <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed max-w-2xl font-normal">
                   {research.description}
                 </p>
 
                 {/* Additional contextual information */}
                 <div className="pt-4 border-t border-neutral-200 dark:border-neutral-900 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                   <div>
-                    <h4 className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">// Focus Fields</h4>
-                    <p className="text-xs font-semibold text-neutral-800 dark:text-neutral-350 mt-1">Spatial Human-Computer Interaction (HCI)</p>
+                    <h4 className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Focus Fields</h4>
+                    <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-100 mt-1">Spatial Human-Computer Interaction (HCI)</p>
                   </div>
                   <div>
-                    <h4 className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider">// Core Technology</h4>
-                    <p className="text-xs font-semibold text-neutral-800 dark:text-neutral-350 mt-1">Augmented Reality & Holographic Projections</p>
+                    <h4 className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Core Technology</h4>
+                    <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-100 mt-1">Augmented Reality & Holographic Projections</p>
                   </div>
                 </div>
 
