@@ -8,8 +8,10 @@ export interface Project {
   title: string;
   techStack: string[];
   description: string;
-  category: 'ml' | 'analytics' | 'bi' | 'engineering';
+  category: string;
+  categories: string[];
   githubLink: string;
+  demoUrl?: string;
 }
 
 export interface BlogPost {
