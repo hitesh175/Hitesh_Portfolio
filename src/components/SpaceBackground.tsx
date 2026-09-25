@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 export default function SpaceBackground() {
-  const starsCount = 80;
+  const starsCount = 30;
   
   const stars = useMemo(() => {
     const list = [];
