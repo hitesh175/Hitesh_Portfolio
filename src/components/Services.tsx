@@ -25,7 +25,7 @@ export default function Services() {
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-500 dark:text-neutral-400 uppercase">
+          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
             Specialized Problem Solving
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
@@ -61,7 +61,7 @@ export default function Services() {
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-xs sm:text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  <p className="text-xs sm:text-sm leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal">
                     {service.description}
                   </p>
                 </div>
