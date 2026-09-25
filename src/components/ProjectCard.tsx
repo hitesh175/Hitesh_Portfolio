@@ -60,6 +60,17 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
     ? 'bg-neutral-900 border-neutral-700 shadow-[0_4px_24px_rgba(255,255,255,0.04)] text-white'
     : 'bg-neutral-50 border-neutral-200 hover:border-neutral-400 text-neutral-700 dark:bg-neutral-950/45 dark:border-neutral-900/80 dark:hover:border-neutral-800 dark:text-neutral-300';
 
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case 'data-science': return 'Data Science';
+      case 'ai': return 'AI';
+      case 'ml': return 'Machine Learning';
+      case 'web-dev': return 'Web Dev';
+      case 'bi': return 'BI & Analytics';
+      default: return cat.toUpperCase();
+    }
+  };
+
   return (
     <div style={{ perspective: 1000 }} className="w-full h-full">
       <motion.div
@@ -91,11 +102,16 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
 
         {/* Content elevated relative to the backplate for 3D parallax feel */}
         <div className="relative z-10" style={{ transform: 'translateZ(15px)' }}>
-          <div className="flex justify-between items-start gap-4 mb-3 text-left">
-            <h3 className={`text-sm sm:text-base font-display font-bold uppercase tracking-tight transition-colors ${isActive ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
-              {project.title}
-            </h3>
-            <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
+          <div className="flex justify-between items-start gap-4 mb-2 text-left">
+            <div>
+              <span className={`text-[9px] font-mono font-bold uppercase tracking-wider block mb-1 ${isActive ? 'text-neutral-300' : 'text-neutral-600 dark:text-neutral-400'}`}>
+                // {getCategoryLabel(project.category)}
+              </span>
+              <h3 className={`text-sm sm:text-base font-display font-bold uppercase tracking-tight transition-colors ${isActive ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
+                {project.title}
+              </h3>
+            </div>
+            <div className="flex items-center space-x-2 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
               <a
                 id={`btn-proj-github-${project.id}`}
                 href={project.githubLink}
@@ -109,7 +125,7 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
             </div>
           </div>
 
-          <p className={`text-xs leading-relaxed mb-4 text-left transition-colors duration-300 ${isActive ? 'text-neutral-300' : 'text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-800 dark:group-hover:text-neutral-300'}`}>
+          <p className={`text-xs leading-relaxed mb-4 text-left transition-colors duration-300 font-normal ${isActive ? 'text-neutral-100' : 'text-neutral-750 dark:text-neutral-200 group-hover:text-neutral-950 dark:group-hover:text-white'}`}>
             {project.description}
           </p>
         </div>
@@ -120,7 +136,7 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
             {project.techStack.map((tech) => (
               <span
                 key={tech}
-                className={`px-2 py-0.5 text-[9px] font-mono rounded border transition-all ${isActive ? 'bg-neutral-950 text-neutral-400 border-neutral-800' : 'bg-neutral-100 dark:bg-neutral-950 text-neutral-500 dark:text-neutral-400 border-neutral-200 dark:border-neutral-900 group-hover:border-neutral-300 dark:group-hover:border-neutral-800'}`}
+                className={`px-2 py-0.5 text-[9px] font-mono font-medium rounded border transition-all ${isActive ? 'bg-neutral-900 text-neutral-200 border-neutral-700' : 'bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border-neutral-200 dark:border-neutral-800 group-hover:border-neutral-400 dark:group-hover:border-neutral-600'}`}
               >
                 {tech}
               </span>
@@ -137,7 +153,7 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
             className={`text-[10px] font-bold font-mono tracking-wider flex items-center space-x-1.5 transition-colors cursor-pointer ${
               isActive
                 ? 'text-white'
-                : 'text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-white hover:text-neutral-900'
+                : 'text-neutral-700 dark:text-neutral-300 group-hover:text-neutral-950 dark:group-hover:text-white hover:text-neutral-950'
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
