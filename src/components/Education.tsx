@@ -15,12 +15,9 @@ export default function Education() {
       className="py-16 transition-colors"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
-            My Educational Journey
-          </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
             Education History
           </h2>
@@ -33,7 +30,7 @@ export default function Education() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -15 }}
+                initial={false}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
@@ -48,14 +45,14 @@ export default function Education() {
                 <div className="bg-neutral-50 dark:bg-neutral-950 p-6 sm:p-8 rounded border border-neutral-200 dark:border-neutral-900 hover:border-neutral-400 dark:hover:border-neutral-700 hover:scale-[1.01] transition-all duration-300">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 text-left">
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 bg-neutral-200 dark:bg-neutral-900 text-[10px] font-mono font-bold text-neutral-950 dark:text-white border border-neutral-300 dark:border-neutral-800 rounded">
+                      <span className="inline-flex items-center px-3 py-1 bg-neutral-200 dark:bg-neutral-900 text-xs font-mono font-bold text-neutral-950 dark:text-white border border-neutral-300 dark:border-neutral-800 rounded">
                         {item.degree}
                       </span>
                       <h3 className="text-base sm:text-lg font-display font-bold text-neutral-900 dark:text-white mt-3 uppercase tracking-tight">
                         {item.field}
                       </h3>
                     </div>
-                    
+
                     <div className="flex items-center space-x-1.5 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                       <Calendar className="w-3.5 h-3.5 text-neutral-700 dark:text-neutral-300" />
                       <span>{item.period}</span>

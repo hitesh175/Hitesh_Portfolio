@@ -75,6 +75,16 @@ export const skills = {
 
 export const projects: Project[] = [
   {
+    id: "artemis",
+    title: "Artemis — Local AI Desktop Assistant",
+    techStack: ["Python", "Ollama", "WebView2", "Whisper", "Kokoro", "SQLite"],
+    description: "Built a Windows desktop assistant combining local AI chat, speech recognition and spoken replies, document search, personal memory, and reminders. Python and WebView2 connect the interface to Ollama and explicit desktop tools, with local SQLite storage.",
+    category: "ai",
+    categories: ["ai"],
+    githubLink: "https://github.com/hitesh175/Artemis",
+    hasInteractiveDemo: false
+  },
+  {
     id: "aircraft-analytics",
     title: "Aircraft Performance Analytics Pipeline",
     techStack: ["Python", "Pandas", "NumPy", "ETL", "Analytics"],
@@ -123,10 +133,10 @@ export const projects: Project[] = [
     id: "interactive-data-platform",
     title: "Applied AI & Data Science Web Platform",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Data Viz", "Vite"],
-    description: "Engineered a high-performance modern web application featuring client-side vectorized simulation engines, reactive state management, interactive SVG data visualizers, and responsive dark mode architecture.",
+    description: "Built this React and TypeScript portfolio with interactive demonstrations, SVG charts, project filters, and light and dark themes.",
     category: "web-dev",
     categories: ["web-dev", "ai", "data-science"],
-    githubLink: "https://github.com/hitesh175"
+    githubLink: "https://github.com/hitesh175/Hitesh_Portfolio"
   }
 ];
 
@@ -210,7 +220,7 @@ export const certifications: Certification[] = [
 ];
 
 export const stats = [
-  { value: "15+", label: "Featured Projects" },
+  { value: String(projects.length), label: "Featured Projects" },
   { value: "10+", label: "Technical Skills" },
   { value: "1", label: "Research Publication" },
   { value: "Open", label: "To Internship Opportunities" }

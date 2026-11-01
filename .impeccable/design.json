@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T11:15:31.9347074Z",
+  "title": "Design System: Hitesh Portfolio Cosmic",
+  "extensions": {
+    "colorMeta": {
+      "ice": {
+        "role": "primary",
+        "displayName": "Ice"
+      },
+      "silver": {
+        "role": "primary",
+        "displayName": "Silver"
+      },
+      "midnight": {
+        "role": "neutral",
+        "displayName": "Midnight"
+      },
+      "gallery-surface": {
+        "role": "neutral",
+        "displayName": "Gallery Surface"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Cinematic Identity",
+        "purpose": "Hero name; second line italic."
+      },
+      "headline": {
+        "displayName": "Editorial Heading",
+        "purpose": "Section headings."
+      },
+      "label": {
+        "displayName": "Technical Metadata",
+        "purpose": "Categories, technology chips and counts."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-header",
+        "value": "0 10px 30px #00000012",
+        "purpose": "Subtle header separation; gallery cards have no shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hero-action",
+        "value": "transform .25s ease, background-color .25s ease",
+        "purpose": "Hero action hover; translateY(-3px), removed under reduced motion."
+      },
+      {
+        "name": "project-image",
+        "value": "transform .7s cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Image hover scales to 1.035; removed under reduced motion."
+      },
+      {
+        "name": "backdrop-reveal",
+        "value": "opacity 1s ease",
+        "purpose": "Video fades to 0.7 opacity over the persistent static poster."
+      },
+      {
+        "name": "project-layout",
+        "value": "0.3s",
+        "purpose": "Project layout/filter changes; initial content remains visible."
+      },
+      {
+        "name": "mobile-menu",
+        "value": "0.2s",
+        "purpose": "Menu opacity and height transition."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "767px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl-navigation",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Hero Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pill action that leads into the project gallery.",
+      "html": "<a class=\"ds-primary\" href=\"#projects\">Explore my work <svg aria-hidden=\"true\" width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M7 7l10 10M7 17h10V7\"/></svg></a>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:50px;padding:12px 25px;border-radius:30px;background:#f2f2f2;color:#1b1b1b;font-family:var(--font-sans,'IBM Plex Sans',sans-serif);font-size:14px;font-weight:600;text-decoration:none;transition:transform .25s ease,background-color .25s ease}.ds-primary:hover{background:#d5d5d5;transform:translateY(-3px)}.ds-primary:focus-visible{outline:2px solid currentColor;outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-primary:hover{transform:none}.ds-primary{transition-property:background-color}}"
+    },
+    {
+      "name": "Dark Project Card",
+      "kind": "card",
+      "refersTo": "project-card-dark",
+      "description": "Quiet charcoal surface for project descriptions, conceptual renders and links.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-category\">// AI</span><h3 class=\"ds-title\">Artemis</h3><p class=\"ds-description\">Explore the project source and overview.</p><a class=\"ds-link\" href=\"#projects\">Read project overview ↗</a></article>",
+      "css": ".ds-card{padding:30px;border-radius:20px;min-height:350px;background:#121212;border:1px solid #2e2e2e;color:#e2e2e2;font-family:var(--font-sans,'IBM Plex Sans',sans-serif)}.ds-category{font-family:var(--font-mono,'IBM Plex Mono',monospace);font-size:12px;font-weight:700;letter-spacing:.05em;color:#a8a8a8}.ds-title{font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.2;letter-spacing:-.02em;font-weight:500;color:white}.ds-description{font-size:14px;line-height:1.7;max-width:65ch}.ds-link{display:inline-flex;align-items:center;min-height:44px;color:white;font-size:13px;font-weight:600;text-underline-offset:4px}.ds-link:hover{text-decoration-thickness:2px}.ds-link:focus-visible{outline:2px solid #fafafa;outline-offset:4px}@media(max-width:767px){.ds-card{padding:24px;min-height:320px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Portfolio Cosmic",
+    "overview": "The implemented world adapts the publicly available MotionSites Portfolio Cosmic reference: a cinematic midnight scene introduces the person, followed by a quieter gallery of real projects. The serif display voice gives the identity room; the sans-serif reading voice keeps project descriptions and controls practical.\n\nThis is a code-led adaptation of the reference's visual grammar, with existing portfolio content and interactions retained. Light mode changes the reading surfaces below the hero while the cinematic hero remains dark.",
+    "keyCharacteristics": [
+      "True black with restrained ice and silver accents.",
+      "Large serif headings, compact sans-serif reading text, mono data labels.",
+      "Floating capsule navigation and rounded gallery surfaces.",
+      "Optional atmospheric motion with a complete static presentation."
+    ],
+    "rules": [
+      {
+        "name": "The Cinematic Hero Rule",
+        "body": "Keep the hero's dark background and light foreground together in both themes. Do not invert the scene when changing the reading theme.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do preserve the serif/sans/mono division of roles.",
+      "Do keep the static poster readable and complete when motion is unavailable.",
+      "Do preserve visible focus, keyboard controls, theme behavior and reduced-motion behavior.",
+      "Do use real project imagery and retain embedded asset provenance."
+    ],
+    "donts": [
+      "Don't hide essential content behind entrance animation.",
+      "Don't apply dark hero colors indiscriminately to light reading surfaces.",
+      "Don't treat synthetic demonstrations as evidence of real deployment or outcomes.",
+      "Label generated concept artwork as Concept render; never present it as a screenshot or measured result."
+    ],
+    "showcase": "Uniform equal-height application cards, three/two/one columns at desktop/tablet/phone sizes. 180px icon covers, 96px app-icon tiles with 56px Lucide glyphs. No generated covers or render badges."
+  }
+}

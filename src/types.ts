@@ -12,6 +12,9 @@ export interface Project {
   categories: string[];
   githubLink: string;
   demoUrl?: string;
+  hasInteractiveDemo?: boolean;
+  imageUrl?: string;
+  imageAlt?: string;
 }
 
 export interface BlogPost {

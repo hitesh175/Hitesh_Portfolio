@@ -20,10 +20,10 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
 
   const navItems = [
     { id: 'home', label: 'Home' },
+    { id: 'projects', label: 'Projects' },
     { id: 'about', label: 'About' },
     { id: 'academic', label: 'Academic' },
     { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
     { id: 'blog', label: 'Blog' },
     { id: 'contact', label: 'Contact Me' },
   ];
@@ -37,6 +37,10 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMobileMenuOpen(false); document.getElementById('btn-mobile-menu')?.focus(); } };
+    window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close);
+  }, []);
   const handleNavClick = (id: string) => {
     setMobileMenuOpen(false);
     onNavClick(id);
@@ -46,8 +50,8 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
     <header
       id="main-header"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/85 dark:bg-black/85 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-900 py-3 shadow-sm dark:shadow-md' 
+        scrolled
+          ? 'bg-white/85 dark:bg-black/85 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-900 py-3 shadow-sm dark:shadow-md'
           : 'bg-transparent py-5'
       }`}
     >
@@ -62,29 +66,31 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
             <span className="text-sm font-display font-bold tracking-tight text-neutral-950 dark:text-white group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors leading-none">
               Hitesh K. R.
             </span>
-            <span className="text-[9px] font-mono text-neutral-700 dark:text-neutral-300 font-bold uppercase tracking-widest mt-1">
+            <span className="text-xs font-mono text-neutral-700 dark:text-neutral-300 font-bold uppercase tracking-widest mt-1">
               Data Analyst
             </span>
           </div>
         </button>
 
         {/* Desktop Nav Items with pristine minimalist styling */}
-        <div className="hidden lg:flex items-center space-x-3">
-          <nav id="desktop-nav" className="flex items-center space-x-1 bg-neutral-100 dark:bg-neutral-950 p-1 border border-neutral-200 dark:border-neutral-900 rounded-lg">
+        <div className="hidden xl:flex items-center gap-2">
+          <nav id="desktop-nav" className="flex items-center gap-0 bg-neutral-100 dark:bg-neutral-950 p-1 border border-neutral-200 dark:border-neutral-900 rounded-lg">
             {navItems.map((item) => {
               const isSelected = activeTab === item.id;
               return (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`relative px-3 py-1.5 rounded text-[11px] font-mono font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
+                  href={'#' + item.id}
+                  aria-current={isSelected ? 'location' : undefined}
+                  onClick={event => { event.preventDefault(); handleNavClick(item.id); }}
+                  className={`relative px-2 py-1.5 rounded text-xs font-mono font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                     isSelected
                       ? 'text-neutral-950 bg-white border border-neutral-300 dark:text-white dark:bg-neutral-900 dark:border-neutral-750 shadow-sm'
                       : 'text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white border border-transparent'
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               );
             })}
           </nav>
@@ -94,20 +100,20 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
             id="btn-theme-toggle-desktop"
             onClick={onThemeToggle}
             className="p-2 border border-neutral-200 dark:border-neutral-800 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white transition-all cursor-pointer shadow-sm"
-            aria-label="Toggle theme"
+            aria-label={theme === 'dark' ? 'Use light theme' : 'Use dark theme'} aria-pressed={theme === 'dark'}
           >
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
         </div>
 
         {/* Mobile controls */}
-        <div id="nav-controls" className="flex items-center space-x-2 lg:hidden">
+        <div id="nav-controls" className="flex items-center space-x-2 xl:hidden">
           {/* Theme Toggle Button (Mobile) */}
           <button
             id="btn-theme-toggle-mobile"
             onClick={onThemeToggle}
             className="p-2 border border-neutral-200 dark:border-neutral-800 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white transition-all cursor-pointer shadow-sm"
-            aria-label="Toggle theme"
+            aria-label={theme === 'dark' ? 'Use light theme' : 'Use dark theme'} aria-pressed={theme === 'dark'}
           >
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
@@ -117,7 +123,7 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
             id="btn-mobile-menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 border border-neutral-200 dark:border-neutral-800 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white transition-all cursor-pointer"
-            aria-label="Toggle menu"
+            aria-label="Toggle menu" aria-expanded={mobileMenuOpen} aria-controls="mobile-nav-panel"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -133,15 +139,17 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden border-b border-neutral-200 dark:border-neutral-900 bg-white/95 dark:bg-black/95 backdrop-blur-lg overflow-hidden"
+            className="xl:hidden border-b border-neutral-200 dark:border-neutral-900 bg-white/95 dark:bg-black/95 backdrop-blur-lg overflow-hidden"
           >
             <nav className="flex flex-col space-y-1 px-4 pt-3 pb-6">
               {navItems.map((item) => {
                 const isSelected = activeTab === item.id;
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => handleNavClick(item.id)}
+                    href={'#' + item.id}
+                  aria-current={isSelected ? 'location' : undefined}
+                  onClick={event => { event.preventDefault(); handleNavClick(item.id); }}
                     className={`w-full py-2 px-4 rounded text-left text-xs font-mono font-bold tracking-wider uppercase transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-neutral-100 text-neutral-950 border-l-2 border-neutral-950 pl-3 dark:bg-neutral-900 dark:text-white dark:border-white'
@@ -149,7 +157,7 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
                     }`}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 );
               })}
             </nav>

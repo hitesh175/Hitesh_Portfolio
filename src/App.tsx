@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring, useReducedMotion, MotionConfig } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
 import SpaceBackground from './components/SpaceBackground';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import Expertise from './components/Expertise';
-import Services from './components/Services';
+
+
 import Projects from './components/Projects';
 import Blog from './components/Blog';
 import Education from './components/Education';
@@ -20,9 +20,10 @@ import Research from './components/Research';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CVModal from './components/CVModal';
+const CVModal = lazy(() => import('./components/CVModal'));
 
 export default function App() {
+  const reducedMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<string>('home');
   const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -46,11 +47,11 @@ export default function App() {
     if (theme === 'light') {
       document.documentElement.classList.remove('dark');
       document.documentElement.classList.add('light');
-      localStorage.setItem('theme', 'light');
+      try { localStorage.setItem('theme', 'light'); } catch {}
     } else {
       document.documentElement.classList.remove('light');
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+      try { localStorage.setItem('theme', 'dark'); } catch {}
     }
   }, [theme]);
 
@@ -79,15 +80,18 @@ export default function App() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: reducedMotion ? 'instant' : 'smooth'
     });
   };
 
   // Set up smooth scrolling with high-fidelity offset
   const handleNavClick = (id: string) => {
     setActiveTab(id);
+    history.pushState(null, '', '#' + id);
     const element = document.getElementById(id);
     if (element) {
+      element.tabIndex = -1;
+      element.focus({ preventScroll: true });
       const offset = 80; // height of floating header
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
@@ -96,15 +100,25 @@ export default function App() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: reducedMotion ? 'instant' : 'smooth'
       });
     }
   };
 
+  useEffect(() => {
+    const sync = () => {
+      const id = location.hash.slice(1);
+      if (!id || id.startsWith('article-')) return;
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'instant' }));
+    };
+    sync(); window.addEventListener('popstate', sync); window.addEventListener('hashchange', sync);
+    return () => { window.removeEventListener('popstate', sync); window.removeEventListener('hashchange', sync); };
+  }, []);
+
   // Set up intersection observer to dynamically highlight the active section on scroll
   useEffect(() => {
     const sections = ['home', 'about', 'academic', 'skills', 'certifications', 'projects', 'research', 'blog', 'contact'];
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '-35% 0px -45% 0px', // targets the sweet spot of viewport focus
@@ -125,7 +139,7 @@ export default function App() {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    
+
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -140,7 +154,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen relative text-neutral-800 bg-white dark:text-neutral-100 dark:bg-black selection:bg-neutral-200 selection:text-black dark:selection:bg-neutral-800 dark:selection:text-white overflow-x-hidden font-sans scroll-smooth transition-colors duration-300">
+    <MotionConfig reducedMotion="user"><div className="cosmic-portfolio min-h-screen relative text-neutral-800 bg-white dark:text-neutral-100 dark:bg-black selection:bg-neutral-200 selection:text-black dark:selection:bg-neutral-800 dark:selection:text-white overflow-x-hidden font-sans scroll-smooth transition-colors duration-300">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       {/* Thin animated scroll progress bar at the top of the screen */}
       <motion.div
         id="scroll-progress-bar"
@@ -155,15 +170,21 @@ export default function App() {
       <Navbar activeTab={activeTab} onNavClick={handleNavClick} theme={theme} onThemeToggle={toggleTheme} />
 
       {/* Main Single-Page Scroller */}
-      <main className="relative z-10 space-y-24 pt-16">
-        
+      <main id="main-content" tabIndex={-1} className="relative z-10 space-y-8">
+
         {/* 1. Home / Hero section */}
         <Hero onContactClick={() => handleNavClick('contact')} onViewCVClick={() => setIsCVModalOpen(true)} />
+        {/* 6. Work / Projects section */}
+        <section className="scroll-mt-24">
+          <Projects />
+        </section>
+
+
 
         {/* 2. About me & Services flow */}
-        <section id="about" className="scroll-mt-24 space-y-12">
+        <section className="scroll-mt-24 space-y-12">
           <About onViewCVClick={() => setIsCVModalOpen(true)} />
-          <Services />
+
         </section>
 
         {/* 3. Academic flow: Education */}
@@ -172,9 +193,9 @@ export default function App() {
         </section>
 
         {/* 4. Skills & Expertise stack */}
-        <section id="skills" className="scroll-mt-24 space-y-12">
+        <section className="scroll-mt-24 space-y-12">
           <Skills />
-          <Expertise />
+
         </section>
 
         {/* 5. Certifications */}
@@ -182,26 +203,21 @@ export default function App() {
           <Certificates />
         </section>
 
-        {/* 6. Work / Projects section */}
-        <section id="projects" className="scroll-mt-24">
-          <Projects />
-        </section>
-
         {/* 7. Research publication below Projects */}
-        <section id="research" className="scroll-mt-24">
+        <section className="scroll-mt-24">
           <Research />
         </section>
 
         {/* 6. Blog Insights */}
-        <section id="blog" className="scroll-mt-24">
+        <section className="scroll-mt-24">
           <Blog />
         </section>
 
         {/* 7. Get in touch / Contact */}
-        <section id="contact" className="scroll-mt-24 pb-12">
+        <section className="scroll-mt-24 pb-12">
           <Contact />
         </section>
-        
+
       </main>
 
       {/* Symmetrical Footer */}
@@ -226,7 +242,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Embedded PDF Resume Modal */}
-      <CVModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} />
-    </div>
+      {isCVModalOpen && <Suspense fallback={<p role="status">Loading CV…</p>}><CVModal isOpen onClose={() => setIsCVModalOpen(false)} /></Suspense>}
+    </div></MotionConfig>
   );
 }

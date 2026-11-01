@@ -30,7 +30,7 @@ export default function InteractiveNetwork() {
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [lossHistory, setLossHistory] = useState<number[]>([0.85, 0.72, 0.61, 0.48, 0.35, 0.24, 0.18, 0.12, 0.08, 0.05, 0.03, 0.0158]);
   const [excitedConnections, setExcitedConnections] = useState<string[]>([]);
-  
+
   const trainingInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Define static input and output nodes
@@ -50,7 +50,7 @@ export default function InteractiveNetwork() {
     const nodes: Node[] = [];
     const startY = 30;
     const gapY = 200 / (hiddenNodeCount - 1 || 1);
-    
+
     for (let i = 0; i < hiddenNodeCount; i++) {
       const y = hiddenNodeCount === 1 ? 120 : startY + i * gapY;
       nodes.push({
@@ -96,18 +96,18 @@ export default function InteractiveNetwork() {
     if (isTraining) {
       trainingInterval.current = setInterval(() => {
         setEpochs((prev) => prev + 1);
-        
+
         // Loss ticks down wobbly, accuracy crawls up
         setLoss((prev) => {
           const delta = (Math.random() * 0.002 - 0.0008);
           const next = Math.max(0.001, prev - delta);
-          
+
           // Keep loss history updated for line plot (max 15 points)
           setLossHistory((history) => {
             const updated = [...history.slice(-14), next];
             return updated;
           });
-          
+
           return next;
         });
 
@@ -175,13 +175,13 @@ export default function InteractiveNetwork() {
 
   return (
     <div className="flex flex-col space-y-4 h-full flex-1">
-      
+
       {/* Network Architecture Canvas */}
       <div className="relative bg-neutral-950 rounded overflow-hidden border border-neutral-900 p-2 h-56 flex items-center justify-center group">
-        
+
         {/* SVG Drawing Canvas */}
-        <svg 
-          viewBox="0 0 360 240" 
+        <svg
+          viewBox="0 0 360 240"
           className="w-full h-full z-10 select-none"
         >
           {/* Defs for animations & gradients */}
@@ -215,7 +215,7 @@ export default function InteractiveNetwork() {
                   strokeWidth={conn.weight * 1.5}
                   className="transition-all duration-300"
                 />
-                
+
                 {/* Active signal flowing layer */}
                 <path
                   d={`M ${fromNode.x} ${fromNode.y} C ${(fromNode.x + toNode.x)/2} ${fromNode.y}, ${(fromNode.x + toNode.x)/2} ${toNode.y}, ${toNode.x} ${toNode.y}`}
@@ -249,7 +249,7 @@ export default function InteractiveNetwork() {
             }
 
             return (
-              <g 
+              <g
                 key={node.id}
                 className="cursor-help transition-all duration-300 hover:scale-105"
                 onMouseEnter={() => setHoveredNode(node)}
@@ -270,14 +270,14 @@ export default function InteractiveNetwork() {
                   r={isHovered ? 8 : 6}
                   className={`${fillClass} stroke-1.5 transition-all duration-200`}
                 />
-                
+
                 {/* Minimal label annotations inside canvas */}
                 {node.layer !== 'hidden' && (
                   <text
                     x={node.layer === 'input' ? node.x - 10 : node.x + 10}
                     y={node.y + 3}
                     textAnchor={node.layer === 'input' ? 'end' : 'start'}
-                    className="font-mono text-[7px] font-bold fill-neutral-400"
+                    className="font-mono text-xs font-bold fill-neutral-400"
                   >
                     {node.label}
                   </text>
@@ -288,13 +288,13 @@ export default function InteractiveNetwork() {
         </svg>
 
         {/* HUD overlay labels */}
-        <div className="absolute top-2 left-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-[8px] font-mono text-neutral-400 font-bold tracking-wider select-none">
+        <div className="absolute top-2 left-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-xs font-mono text-neutral-400 font-bold tracking-wider select-none">
           MODEL_TYPE // MLP_REGRESSOR
         </div>
-        <div className="absolute top-2 right-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-[8px] font-mono text-neutral-400 font-bold tracking-wider select-none">
+        <div className="absolute top-2 right-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-xs font-mono text-neutral-400 font-bold tracking-wider select-none">
           EPOCH_RUNNING: {epochs}
         </div>
-        <div className="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-[8px] font-mono text-white font-bold select-none">
+        <div className="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 rounded border border-neutral-900 text-xs font-mono text-white font-bold select-none">
           ACC: {accuracy.toFixed(2)}%
         </div>
 
@@ -305,10 +305,10 @@ export default function InteractiveNetwork() {
 
         {/* Interactive hover tooltip inside card */}
         {hoveredNode && (
-          <div className="absolute bottom-2 left-2 right-2 bg-neutral-950 border border-neutral-900 p-2 rounded text-left text-[10px] text-neutral-200 z-30 font-bold flex gap-1.5 animate-fadeIn leading-tight shadow-sm">
+          <div className="absolute bottom-2 left-2 right-2 bg-neutral-950 border border-neutral-900 p-2 rounded text-left text-xs text-neutral-200 z-30 font-bold flex gap-1.5 animate-fadeIn leading-tight shadow-sm">
             <Info className="w-3.5 h-3.5 text-white flex-shrink-0 mt-0.5" />
             <div>
-              <span className="text-white uppercase tracking-wide block text-[8px] font-mono">// {hoveredNode.label} ({hoveredNode.layer.toUpperCase()})</span>
+              <span className="text-white uppercase tracking-wide block text-xs font-mono">// {hoveredNode.label} ({hoveredNode.layer.toUpperCase()})</span>
               <span>{hoveredNode.tooltip}</span>
             </div>
           </div>
@@ -317,19 +317,19 @@ export default function InteractiveNetwork() {
 
       {/* Simulator Control Board */}
       <div className="bg-neutral-950 p-3 rounded border border-neutral-900 space-y-3">
-        
+
         {/* Core Stats Row & Real-time curve */}
         <div className="grid grid-cols-12 gap-3 items-center">
-          
+
           {/* Stats details */}
           <div className="col-span-6 text-left space-y-1 font-bold text-xs">
             <div className="flex justify-between border-b border-dashed border-neutral-900 pb-0.5">
-              <span className="text-neutral-500 font-mono text-[10px]">LOSS RATIO:</span>
-              <span className="text-white font-mono text-[11px]">{loss.toFixed(4)}</span>
+              <span className="text-neutral-500 font-mono text-xs">LOSS RATIO:</span>
+              <span className="text-white font-mono text-xs">{loss.toFixed(4)}</span>
             </div>
             <div className="flex justify-between pt-0.5">
-              <span className="text-neutral-500 font-mono text-[10px]">ACCURACY:</span>
-              <span className="text-white font-mono text-[11px]">{accuracy.toFixed(2)}%</span>
+              <span className="text-neutral-500 font-mono text-xs">ACCURACY:</span>
+              <span className="text-white font-mono text-xs">{accuracy.toFixed(2)}%</span>
             </div>
           </div>
 
@@ -352,10 +352,10 @@ export default function InteractiveNetwork() {
 
         {/* Buttons Controls Panel */}
         <div className="flex items-center justify-between gap-2 pt-1">
-          
+
           {/* Node Add/Remove controls */}
           <div className="flex items-center space-x-1.5">
-            <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-tight block font-mono">// Nodes:</span>
+            <span className="text-xs font-bold text-neutral-500 uppercase tracking-tight block font-mono">// Nodes:</span>
             <button
               id="btn-remove-node"
               onClick={removeHiddenNode}
@@ -386,8 +386,8 @@ export default function InteractiveNetwork() {
               id="btn-simulation-play"
               onClick={() => setIsTraining(!isTraining)}
               className={`px-3 py-1.5 flex items-center space-x-1 border rounded text-xs font-mono font-bold shadow-sm transition-all cursor-pointer ${
-                isTraining 
-                  ? 'bg-neutral-900 border-neutral-800 text-white' 
+                isTraining
+                  ? 'bg-neutral-900 border-neutral-800 text-white'
                   : 'bg-white hover:bg-neutral-200 text-black border-neutral-200'
               }`}
             >

@@ -22,12 +22,9 @@ export default function Services() {
       className="py-16 transition-colors"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
-            Specialized Problem Solving
-          </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
             Professional Services
           </h2>
@@ -38,7 +35,7 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             const IconComponent = iconMap[service.icon];
-            
+
             return (
               <motion.div
                 key={service.id}
@@ -54,18 +51,18 @@ export default function Services() {
                   <div className="w-11 h-11 bg-neutral-100 dark:bg-neutral-900 rounded border border-neutral-200 dark:border-neutral-800 flex items-center justify-center transition-colors group-hover:border-neutral-400 dark:group-hover:border-neutral-700">
                     {IconComponent && <IconComponent className="w-5 h-5 text-neutral-800 dark:text-white" />}
                   </div>
-                  
+
                   {/* Title */}
                   <h3 className="text-sm font-display font-bold text-neutral-900 dark:text-white uppercase tracking-wider">
                     {service.title}
                   </h3>
-                  
+
                   {/* Description */}
                   <p className="text-xs sm:text-sm leading-relaxed text-neutral-800 dark:text-neutral-200 font-normal">
                     {service.description}
                   </p>
                 </div>
-                
+
                 {/* Visual Accent */}
                 <div className="w-12 h-0.5 bg-neutral-200 dark:bg-neutral-900 mt-6 group-hover:bg-neutral-950 dark:group-hover:bg-white transition-colors" />
               </motion.div>

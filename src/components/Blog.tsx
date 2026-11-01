@@ -1,9 +1,10 @@
+import Modal from './Modal';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { blogPosts } from '../data';
 import { BlogPost } from '../types';
@@ -12,18 +13,22 @@ import { Calendar, Clock, ArrowRight, X, BookOpen, Tag } from 'lucide-react';
 export default function Blog() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
+  useEffect(() => {
+    const sync = () => setSelectedPost(blogPosts.find(post => location.hash === '#article-' + post.id) || null);
+    sync(); window.addEventListener('hashchange', sync); window.addEventListener('popstate', sync);
+    return () => { window.removeEventListener('hashchange', sync); window.removeEventListener('popstate', sync); };
+  }, []);
+  const openPost = (post: BlogPost) => { history.pushState(null, '', '#article-' + post.id); setSelectedPost(post); };
+  const closePost = () => { history.replaceState(null, '', '#blog'); setSelectedPost(null); };
   return (
     <section
       id="blog"
       className="py-16 transition-colors"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
-            Data Science Insights
-          </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
             Blog
           </h2>
@@ -36,17 +41,16 @@ export default function Blog() {
             return (
               <motion.div
                 key={post.id}
-                initial={{ opacity: 0, y: 15 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ scale: 1.01 }}
-                className="bg-neutral-100 dark:bg-neutral-950 rounded border border-neutral-200 dark:border-neutral-900 overflow-hidden shadow-sm flex flex-col justify-between transition-all duration-300 cursor-pointer group"
-                onClick={() => setSelectedPost(post)}
+                className="bg-neutral-100 dark:bg-neutral-950 rounded border border-neutral-200 dark:border-neutral-900 overflow-hidden shadow-sm flex flex-col justify-between transition-all duration-300 group"
               >
                 <div className="p-6 space-y-4">
                   {/* Meta details */}
-                  <div className="flex items-center space-x-3 text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
+                  <div className="flex items-center space-x-3 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                     <div className="flex items-center space-x-1">
                       <Calendar className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
                       <span>{post.date}</span>
@@ -74,7 +78,7 @@ export default function Blog() {
                       return (
                         <span
                           key={tag}
-                          className="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-white dark:bg-neutral-900 text-[10px] font-mono text-neutral-800 dark:text-neutral-200 font-medium rounded border border-neutral-200 dark:border-neutral-800"
+                          className="inline-flex items-center space-x-1 px-2.5 py-0.5 bg-white dark:bg-neutral-900 text-xs font-mono text-neutral-800 dark:text-neutral-200 font-medium rounded border border-neutral-200 dark:border-neutral-800"
                         >
                           <Tag className="w-2.5 h-2.5 text-neutral-600 dark:text-neutral-400" />
                           <span>{tag}</span>
@@ -86,14 +90,14 @@ export default function Blog() {
 
                 {/* Read button */}
                 <div className="p-6 border-t border-neutral-200 dark:border-neutral-900 pt-4 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 font-bold uppercase">
+                  <span className="text-xs font-mono text-neutral-700 dark:text-neutral-300 font-bold uppercase">
                     // {post.category}
                   </span>
                   <button
                     id={`btn-blog-read-${post.id}`}
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedPost(post);
+                      openPost(post);
                     }}
                     className="text-xs font-bold text-neutral-900 hover:text-neutral-700 dark:text-white dark:hover:text-neutral-200 flex items-center space-x-1 transition-colors cursor-pointer bg-transparent border-none p-0 focus:outline-none"
                   >
@@ -109,9 +113,9 @@ export default function Blog() {
         {/* Full-Article Modal View */}
         <AnimatePresence>
           {selectedPost && (
-            <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/50 dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+            <Modal label={selectedPost.title} onClose={closePost}><div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/50 dark:bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
               <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 15 }}
+                initial={false}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.98, y: 15 }}
                 className="bg-white dark:bg-neutral-950 rounded w-full max-w-3xl max-h-[85vh] overflow-y-auto border border-neutral-200 dark:border-neutral-900 shadow-lg relative text-neutral-800 dark:text-neutral-200"
@@ -126,8 +130,8 @@ export default function Blog() {
                     </span>
                   </div>
                   <button
-                    id="btn-close-blog-modal"
-                    onClick={() => setSelectedPost(null)}
+                    aria-label="Close article" id="btn-close-blog-modal"
+                    onClick={closePost}
                     className="p-1.5 rounded border border-neutral-200 dark:border-neutral-900 text-neutral-550 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer bg-transparent"
                   >
                     <X className="w-4 h-4" />
@@ -139,7 +143,7 @@ export default function Blog() {
                   {/* Meta items */}
                   <div className="flex items-center space-x-4 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
                     <span className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4 text-neutral-500 dark:text-neutral-400" />
+                      <Calendar className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
                       <span>{selectedPost.date}</span>
                     </span>
                     <span>•</span>
@@ -210,7 +214,7 @@ export default function Blog() {
                   </div>
                 </div>
               </motion.div>
-            </div>
+            </div></Modal>
           )}
         </AnimatePresence>
 

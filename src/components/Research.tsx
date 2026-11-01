@@ -23,12 +23,9 @@ export default function Research() {
       className="py-16 transition-colors"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
-            Scholarly Works
-          </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
             Research Publication
           </h2>
@@ -38,23 +35,23 @@ export default function Research() {
         {/* Highlight publication card */}
         <div className="max-w-4xl mx-auto text-left">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.01 }}
             className="bg-neutral-100 dark:bg-neutral-950 rounded border border-neutral-200 dark:border-neutral-900 p-8 sm:p-10 shadow-sm relative overflow-hidden group hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-300"
           >
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-              
+
               {/* Publication Badge Circle */}
               <div className="p-4 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded flex items-center justify-center flex-shrink-0 mx-auto md:mx-0 shadow-inner">
                 <BookOpen className="w-8 h-8" />
               </div>
 
               {/* Research Text */}
-              <div className="flex-1 space-y-4 text-center md:text-left">
+              <div className="flex-1 min-w-0 space-y-4 text-center md:text-left">
                 <div className="flex flex-wrap gap-2.5 justify-center md:justify-start items-center">
-                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 bg-white dark:bg-neutral-900 text-[10px] font-mono font-bold text-neutral-950 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded">
+                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 bg-white dark:bg-neutral-900 text-xs font-mono font-bold text-neutral-950 dark:text-white border border-neutral-200 dark:border-neutral-800 rounded">
                     <Award className="w-3.5 h-3.5 text-neutral-900 dark:text-white" />
                     <span>Published Paper</span>
                   </span>
@@ -67,18 +64,18 @@ export default function Research() {
                   {research.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed max-w-2xl font-normal">
+                <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed max-w-[65ch] mx-auto md:mx-0 font-normal">
                   {research.description}
                 </p>
 
                 {/* Additional contextual information */}
                 <div className="pt-4 border-t border-neutral-200 dark:border-neutral-900 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                   <div>
-                    <h4 className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Focus Fields</h4>
+                    <h4 className="text-xs font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Focus Fields</h4>
                     <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-100 mt-1">Spatial Human-Computer Interaction (HCI)</p>
                   </div>
                   <div>
-                    <h4 className="text-[10px] font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Core Technology</h4>
+                    <h4 className="text-xs font-mono text-neutral-700 dark:text-neutral-300 uppercase tracking-wider font-bold">// Core Technology</h4>
                     <p className="text-xs font-semibold text-neutral-950 dark:text-neutral-100 mt-1">Augmented Reality & Holographic Projections</p>
                   </div>
                 </div>

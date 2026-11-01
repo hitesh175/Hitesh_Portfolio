@@ -74,12 +74,9 @@ export default function Skills() {
       className="py-16 bg-transparent transition-colors"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold font-mono tracking-widest text-neutral-600 dark:text-neutral-300 uppercase">
-            My Superpowers
-          </span>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
             Skills & Capabilities
           </h2>
@@ -87,13 +84,13 @@ export default function Skills() {
         </div>
 
         {/* Tab Filters */}
-        <div className="flex justify-center space-x-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           {['all', 'technical', 'soft'].map((tab) => (
             <button
               key={tab}
               id={`skills-tab-${tab}`}
-              onClick={() => setActiveTab(tab as any)}
-              className={`px-4.5 py-2 rounded text-[10px] font-bold font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer border ${
+              aria-pressed={activeTab === tab} onClick={() => setActiveTab(tab as any)}
+              className={`px-4.5 py-2 rounded text-xs font-bold font-mono uppercase tracking-wider transition-all duration-200 cursor-pointer border ${
                 activeTab === tab
                   ? 'bg-neutral-950 text-white border-neutral-800 dark:bg-white dark:text-neutral-950 dark:border-neutral-200 shadow-sm'
                   : 'bg-neutral-100 text-neutral-700 hover:text-neutral-950 border-neutral-200 hover:border-neutral-400 dark:bg-neutral-900 dark:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-600 dark:hover:text-white'
@@ -112,7 +109,7 @@ export default function Skills() {
               <motion.div
                 key={cat.key}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={false}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}

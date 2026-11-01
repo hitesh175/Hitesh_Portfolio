@@ -1,0 +1,10 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.env
+.env.local
+tmp/
+.impeccable/review/
+.impeccable/questions/
+output/project-renders/
