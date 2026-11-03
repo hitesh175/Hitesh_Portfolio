@@ -502,3 +502,4 @@ section { scroll-margin-top: 6rem; }
 .carousel-stage .carousel-current { border-color: #ffcc33; }
 #projects .work-index .project-card { transform: none !important; }
 @media (max-width: 640px) { .carousel-stage .carousel-neighbor span { font-size: .72rem; } }
+.carousel-stage .carousel-current video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }

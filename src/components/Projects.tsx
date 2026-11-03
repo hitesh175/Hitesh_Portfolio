@@ -222,7 +222,9 @@ export default function Projects() {
                 const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
                 const { project } = featuredProjects[index];
                 if (offset === 0) return <a key={offset} className="carousel-neighbor carousel-current" href={`#work/${project.id}`}>
-                  <img src={`/showcase/${project.id}.png`} alt="" />
+                  {project.id === 'artemis' && !reducedMotion ? (
+                    <video src="/videos/artemis-render.mp4" poster="/showcase/artemis.png" autoPlay muted loop playsInline aria-hidden="true" />
+                  ) : <img src={`/showcase/${project.id}.png`} alt="" />}
                   <span>{project.title}</span>
                 </a>;
                 return (
