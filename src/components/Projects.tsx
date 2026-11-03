@@ -29,21 +29,21 @@ function GalleryFrame({ index, active, position, onSelect }: {
   const { project } = featuredProjects[index];
   const relative = useTransform(position, value => index - value);
   const x = useTransform(relative, value => `calc(${value} * var(--frame-step))`);
-  const z = useTransform(relative, value => -Math.min(4, Math.abs(value)) * 105);
-  const rotateY = useTransform(relative, value => Math.max(-1, Math.min(1, -value)) * 29);
-  const opacity = useTransform(relative, value => Math.max(.38, 1 - Math.abs(value) * .23));
+  const z = useTransform(relative, value => -Math.min(4, Math.abs(value)) * 72);
+  const rotateY = useTransform(relative, value => Math.max(-1, Math.min(1, -value)) * 24);
+  const zIndex = useTransform(relative, value => 20 - Math.round(Math.abs(value) * 4));
   const poster = ['store-sales-analysis', 'interactive-data-platform'].includes(project.id) ? undefined : `/showcase/${project.id}.png`;
   const source = project.id === 'artemis' ? '/videos/artemis-render.mp4' : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`;
   const reduced = useReducedMotion();
   const play = !reduced && Math.abs(index - active) <= 1;
 
   return (
-    <motion.a className="reel-frame" href={`#work/${project.id}`} style={{ x, z, rotateY, opacity }}
+    <motion.a className="reel-frame" href={`#work/${project.id}`} style={{ x, z, rotateY, zIndex }}
       tabIndex={Math.abs(index - active) <= 1 ? 0 : -1}
       onClick={event => { if (index !== active) { event.preventDefault(); onSelect(); } }}>
       {play ? <video src={source} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
         : poster && <img src={poster} alt="" loading="lazy" />}
-      <span>{project.title} <b aria-hidden="true">↗</b></span>
+      <span><span className="reel-caption"><small>{featuredProjects[index].discipline}</small>{project.title}</span><b aria-hidden="true">↗</b></span>
     </motion.a>
   );
 }
