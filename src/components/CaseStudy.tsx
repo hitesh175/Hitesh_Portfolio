@@ -13,6 +13,7 @@ export const workflows: Record<string, [string, string, string]> = {
 };
 
 const projectEvidence: Record<string, string> = {
+  'store-sales-analysis': 'Original Tableau dashboard showing retail sales performance after cleaning.',
   artemis: 'Artemis desktop chat interface for the local AI assistant.',
   'aircraft-analytics': 'Dashboard data preview from the aircraft performance pipeline.',
   'supply-chain-delay': 'Shipping delay prediction interface showing an example order and its predicted delay.',
@@ -21,6 +22,7 @@ const projectEvidence: Record<string, string> = {
 };
 
 const technicalNotes: Record<string, string> = {
+  'store-sales-analysis': 'A fresh profile of the 12,575 source transactions found 604 missing totals and 1,213 missing item identifiers. The Tableau Prep flow reconstructs missing totals where unit price and quantity are available and retains otherwise valid transactions with an unknown item identifier.',
   artemis: 'Python connects the WebView2 interface to Ollama and desktop tools. SQLite stores local history and memory.',
   'aircraft-analytics': 'Pandas prepares the aircraft records for MySQL and the Streamlit dashboard. The range model uses an 80/20 random split. Dropping incomplete rows may exclude some helicopters.',
   'supply-chain-delay': 'The Random Forest uses an 80/20 random split with a fixed seed. The saved dashboard reports a mean absolute error of 0.55 days. The project has no separate evaluation on a later shipment period.',
