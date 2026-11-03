@@ -8,7 +8,6 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { projects } from '../data';
 
 import ProjectCard from './ProjectCard';
-import WorkShowcase from './WorkShowcase';
 const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
@@ -172,7 +171,7 @@ export default function Projects() {
         <div className="space-y-10">
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
-          {showAll || reducedMotion ? gallery : <WorkShowcase items={featuredProjects}>{gallery}</WorkShowcase>}
+          {gallery}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">
