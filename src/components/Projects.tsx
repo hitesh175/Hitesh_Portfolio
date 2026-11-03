@@ -109,7 +109,6 @@ export default function Projects() {
                   <ProjectCard
                     key={project.id}
                     project={project}
-                    number={(showAll ? projects.indexOf(project) : featuredProjects.findIndex(item => item.project === project)) + 1}
                     discipline={featured.get(project.id)}
                     isActive={isActive}
                     onClick={() => handleProjectSelect(project.id)}

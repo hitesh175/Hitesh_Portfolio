@@ -195,7 +195,7 @@ export default function App() {
       <main id="main-content" tabIndex={-1} className="relative z-10 space-y-8">
 
         {caseStudy ? <CaseStudy project={caseStudy} /> : <>
-        <Hero onContactClick={() => handleNavClick('contact')} onViewCVClick={() => setIsCVModalOpen(true)} />
+        <Hero />
         <section className="scroll-mt-24">
           <Projects />
         </section>

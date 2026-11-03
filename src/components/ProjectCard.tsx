@@ -12,13 +12,12 @@ import { workflows } from './CaseStudy';
 interface ProjectCardProps {
   key?: string;
   project: Project;
-  number: number;
   discipline?: string;
   isActive: boolean;
   onClick: () => void;
 }
 
-export default function ProjectCard({ project, number, discipline, isActive, onClick }: ProjectCardProps) {
+export default function ProjectCard({ project, discipline, isActive, onClick }: ProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const tile = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: tile, offset: ['start end', 'start 48%'] });
@@ -75,7 +74,7 @@ export default function ProjectCard({ project, number, discipline, isActive, onC
           <div className="flex justify-between items-start gap-4 mb-2 text-left">
             <div>
               <span className={`text-xs font-mono font-bold uppercase tracking-wider block mb-1 ${isActive ? 'text-neutral-300' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                {String(number).padStart(2, "0")} · {discipline ?? getCategoryLabel(project.category)}
+                {discipline ?? getCategoryLabel(project.category)}
               </span>
               <h3 className={`text-sm sm:text-base font-display font-bold uppercase tracking-tight transition-colors ${isActive ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
                 {project.title}
