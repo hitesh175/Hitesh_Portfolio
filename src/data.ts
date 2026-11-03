@@ -75,16 +75,6 @@ export const skills = {
 
 export const projects: Project[] = [
   {
-    id: "ibm-capstone",
-    title: "IBM Data Science Capstone",
-    techStack: ["Python", "Jupyter Notebook", "Data Science"],
-    description: "An aerospace data science capstone covering data preparation, exploratory analysis, visualization, and predictive modeling.",
-    category: "data-science",
-    categories: ["data-science", "ml"],
-    githubLink: "https://github.com/hitesh175/IBM_Data_Science_Capstone",
-    hasInteractiveDemo: false
-  },
-  {
     id: "artemis",
     title: "Artemis — Local AI Desktop Assistant",
     techStack: ["Python", "Ollama", "WebView2", "Whisper", "Kokoro", "SQLite"],
