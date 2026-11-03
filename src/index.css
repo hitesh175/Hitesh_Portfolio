@@ -409,3 +409,6 @@ section { scroll-margin-top: 6rem; }
 .hero-copy p { margin-block: .55rem; }
 .hero-copy .hero-name { max-width: none; text-wrap: wrap; }
 .hero-projects-link { margin-top: .4rem; }
+
+#home + section { margin-block-start: 0; }
+#main-content > #home { margin-block-end: 0; }
