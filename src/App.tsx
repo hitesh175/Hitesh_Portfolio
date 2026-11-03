@@ -7,13 +7,15 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useReducedMotion, MotionConfig } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
-import SpaceBackground from './components/SpaceBackground';
+import CaseStudy from './components/CaseStudy';
+import { projects } from './data';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 
 
 import Projects from './components/Projects';
+import ScrollChapter from './components/ScrollChapter';
 import Blog from './components/Blog';
 import Education from './components/Education';
 import Research from './components/Research';
@@ -24,6 +26,26 @@ const CVModal = lazy(() => import('./components/CVModal'));
 
 export default function App() {
   const reducedMotion = useReducedMotion();
+  const [hash, setHash] = useState(() => location.hash);
+  const caseStudy = projects.find(project => hash === `#work/${project.id}`);
+
+  useEffect(() => {
+    const syncHash = () => setHash(location.hash);
+    window.addEventListener('hashchange', syncHash);
+    window.addEventListener('popstate', syncHash);
+    return () => {
+      window.removeEventListener('hashchange', syncHash);
+      window.removeEventListener('popstate', syncHash);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (caseStudy) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      document.getElementById('main-content')?.focus({ preventScroll: true });
+    }
+  }, [caseStudy]);
+
   const [activeTab, setActiveTab] = useState<string>('home');
   const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -86,6 +108,7 @@ export default function App() {
 
   // Set up smooth scrolling with high-fidelity offset
   const handleNavClick = (id: string) => {
+    if (caseStudy) { location.hash = id; return; }
     setActiveTab(id);
     history.pushState(null, '', '#' + id);
     const element = document.getElementById(id);
@@ -129,8 +152,10 @@ export default function App() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          if (id === 'certifications' || id === 'research') {
-            setActiveTab('academic');
+          if (['academic', 'skills', 'certifications'].includes(id)) {
+            setActiveTab('about');
+          } else if (id === 'research' || id === 'blog') {
+            setActiveTab('research-writing');
           } else {
             setActiveTab(id);
           }
@@ -151,7 +176,7 @@ export default function App() {
         if (el) observer.unobserve(el);
       });
     };
-  }, []);
+  }, [caseStudy]);
 
   return (
     <MotionConfig reducedMotion="user"><div className="cosmic-portfolio min-h-screen relative text-neutral-800 bg-white dark:text-neutral-100 dark:bg-black selection:bg-neutral-200 selection:text-black dark:selection:bg-neutral-800 dark:selection:text-white overflow-x-hidden font-sans scroll-smooth transition-colors duration-300">
@@ -163,61 +188,39 @@ export default function App() {
         style={{ scaleX }}
       />
 
-      {/* Moving space stars background */}
-      <SpaceBackground />
-
       {/* Sticky Top Navbar */}
       <Navbar activeTab={activeTab} onNavClick={handleNavClick} theme={theme} onThemeToggle={toggleTheme} />
 
       {/* Main Single-Page Scroller */}
       <main id="main-content" tabIndex={-1} className="relative z-10 space-y-8">
 
-        {/* 1. Home / Hero section */}
+        {caseStudy ? <CaseStudy project={caseStudy} /> : <>
         <Hero onContactClick={() => handleNavClick('contact')} onViewCVClick={() => setIsCVModalOpen(true)} />
-        {/* 6. Work / Projects section */}
         <section className="scroll-mt-24">
           <Projects />
         </section>
 
 
 
-        {/* 2. About me & Services flow */}
-        <section className="scroll-mt-24 space-y-12">
-          <About onViewCVClick={() => setIsCVModalOpen(true)} />
+        <div className="portfolio-chapter">
+          <ScrollChapter><About onViewCVClick={() => setIsCVModalOpen(true)} /></ScrollChapter>
+          <ScrollChapter direction={-1}><section id="academic" className="scroll-mt-24"><Education /></section></ScrollChapter>
+          <ScrollChapter><Skills /></ScrollChapter>
+          <ScrollChapter direction={-1}><section id="certifications" className="scroll-mt-24"><Certificates /></section></ScrollChapter>
+        </div>
 
-        </section>
-
-        {/* 3. Academic flow: Education */}
-        <section id="academic" className="scroll-mt-24 space-y-16">
-          <Education />
-        </section>
-
-        {/* 4. Skills & Expertise stack */}
-        <section className="scroll-mt-24 space-y-12">
-          <Skills />
-
-        </section>
-
-        {/* 5. Certifications */}
-        <section id="certifications" className="scroll-mt-24">
-          <Certificates />
-        </section>
-
-        {/* 7. Research publication below Projects */}
-        <section className="scroll-mt-24">
-          <Research />
-        </section>
-
-        {/* 6. Blog Insights */}
-        <section className="scroll-mt-24">
-          <Blog />
+        <section id="research-writing" className="portfolio-chapter scroll-mt-24" aria-labelledby="research-writing-title">
+          <h2 id="research-writing-title" className="chapter-title">Research &amp; writing</h2>
+          <ScrollChapter><Research /></ScrollChapter>
+          <ScrollChapter direction={-1}><Blog /></ScrollChapter>
         </section>
 
         {/* 7. Get in touch / Contact */}
         <section className="scroll-mt-24 pb-12">
-          <Contact />
+          <ScrollChapter><Contact /></ScrollChapter>
         </section>
 
+        </>}
       </main>
 
       {/* Symmetrical Footer */}

@@ -8,12 +8,21 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { projects } from '../data';
 
 import ProjectCard from './ProjectCard';
+import WorkShowcase from './WorkShowcase';
 const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
 
+const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"]]);
+
+const featuredProjects = projects.flatMap(project => {
+  const discipline = featured.get(project.id);
+  return discipline ? [{ project, discipline }] : [];
+});
+
 export default function Projects() {
   const reducedMotion = useReducedMotion();
+  const [showAll, setShowAll] = useState(false);
   const [filter, setFilter] = useState<ProjectFilterCategory>('all');
   const [selectedSimulator, setSelectedSimulator] = useState<string | null>(null);
   const sandboxRef = useRef<HTMLDivElement>(null);
@@ -92,6 +101,24 @@ export default function Projects() {
     },
   ];
 
+  const gallery = (
+          <div className={showAll ? "project-gallery work-index" : "project-gallery work-featured"}>
+              {(showAll ? filteredProjects : featuredProjects.map(({ project }) => project)).map((project) => {
+                const isActive = selectedSimulator === project.id;
+                return (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    number={(showAll ? projects.indexOf(project) : featuredProjects.findIndex(item => item.project === project)) + 1}
+                    discipline={featured.get(project.id)}
+                    isActive={isActive}
+                    onClick={() => handleProjectSelect(project.id)}
+                  />
+                );
+              })}
+          </div>
+  );
+
   return (
     <section
       id="projects"
@@ -102,13 +129,18 @@ export default function Projects() {
         {/* Section Title */}
         <div className="projects-heading mb-8">
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-900 dark:text-white mt-2 uppercase tracking-tight">
-            Featured projects
+            Projects
           </h2>
           <div className="w-12 h-1 bg-neutral-900 dark:bg-white mx-auto mt-4" />
         </div>
 
+        <div className="work-views" role="group" aria-label="Project views">
+          <button aria-pressed={!showAll} onClick={() => { setShowAll(false); setSelectedSimulator(null); }}>Featured ({featuredProjects.length})</button>
+          <button aria-pressed={showAll} onClick={() => { setShowAll(true); handleFilterChange('all'); }}>All projects ({projects.length})</button>
+        </div>
+
         {/* Categories Tab Bar */}
-        <div className="project-filters flex flex-wrap gap-2 mb-12">
+        <div hidden={!showAll} className={showAll ? "project-filters flex flex-wrap gap-2 mb-12" : ""}>
           {categoryFilters.map((cat) => {
             const isSelected = filter === cat.id;
             return (
@@ -141,21 +173,7 @@ export default function Projects() {
         <div className="space-y-10">
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
-          <div className="project-gallery">
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => {
-                const isActive = selectedSimulator === project.id;
-                return (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    isActive={isActive}
-                    onClick={() => handleProjectSelect(project.id)}
-                  />
-                );
-              })}
-            </AnimatePresence>
-          </div>
+          {showAll || reducedMotion ? gallery : <WorkShowcase items={featuredProjects}>{gallery}</WorkShowcase>}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">

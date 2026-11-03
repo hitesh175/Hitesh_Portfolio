@@ -3,19 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { Github, Sliders, ArrowUpRight, Bot, Plane, Truck, TrendingUp, BarChart3, Table2, PanelsTopLeft } from 'lucide-react';
 import { Project } from '../types';
+import { workflows } from './CaseStudy';
 
 interface ProjectCardProps {
   key?: string;
   project: Project;
+  number: number;
+  discipline?: string;
   isActive: boolean;
   onClick: () => void;
 }
 
-export default function ProjectCard({ project, isActive, onClick }: ProjectCardProps) {
+export default function ProjectCard({ project, number, discipline, isActive, onClick }: ProjectCardProps) {
+  const reducedMotion = useReducedMotion();
+  const tile = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: tile, offset: ['start end', 'start 48%'] });
+  const rotateX = useTransform(scrollYProgress, [0, 1], [48, 0]);
+  const depth = useTransform(scrollYProgress, [0, 1], [-120, 0]);
+  const lift = useTransform(scrollYProgress, [0, 1], [34, 0]);
+
   const icons = {
     artemis: Bot,
     'aircraft-analytics': Plane,
@@ -42,26 +52,30 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
   };
 
   return (
-    <div className="project-tile w-full h-full">
+    <div ref={tile} className="project-tile w-full h-full">
       <motion.div
         layout
-        initial={false}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -15 }}
-        transition={{ duration: 0.3 }}
+        style={reducedMotion ? undefined : { rotateX, z: depth, y: lift }}
+        initial={reducedMotion ? false : { opacity: 0.65 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
 
         className={`project-card p-6 rounded border relative overflow-hidden flex flex-col justify-between group select-text transition-colors duration-300 w-full h-full ${cardColor}`}
 
       >
-        <a className="project-icon-cover" href={`${project.githubLink}#readme`} target="_blank" rel="noopener noreferrer" aria-label={`Explore ${project.title}`}>
-          <span className="project-app-icon" aria-hidden="true"><ProjectIcon size={56} strokeWidth={1.5}/></span>
+        <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
+          <ProjectIcon size={26} strokeWidth={1.5} aria-hidden="true" />
+          <ol className="work-preview" aria-hidden="true">
+            {workflows[project.id].map(step => <li key={step}>{step}</li>)}
+          </ol>
         </a>
         {/* Project content */}
         <div className="relative z-10" style={{ transform: 'translateZ(15px)' }}>
           <div className="flex justify-between items-start gap-4 mb-2 text-left">
             <div>
               <span className={`text-xs font-mono font-bold uppercase tracking-wider block mb-1 ${isActive ? 'text-neutral-300' : 'text-neutral-600 dark:text-neutral-400'}`}>
-                // {getCategoryLabel(project.category)}
+                {String(number).padStart(2, "0")} · {discipline ?? getCategoryLabel(project.category)}
               </span>
               <h3 className={`text-sm sm:text-base font-display font-bold uppercase tracking-tight transition-colors ${isActive ? 'text-white' : 'text-neutral-900 dark:text-white'}`}>
                 {project.title}
@@ -86,7 +100,9 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
           </p>
         </div>
 
-        {/* Footer/actions with even higher 3D elevation */}
+        <a className="work-case-link" href={`#work/${project.id}`}>Read case study <ArrowUpRight size={16} aria-hidden="true" /></a>
+
+        {/* Project actions */}
         <div className="relative z-10" style={{ transform: 'translateZ(25px)' }}>
           <div className="flex flex-wrap gap-1.5 mb-5 justify-start">
             {project.techStack.map((tech) => (
@@ -102,7 +118,7 @@ export default function ProjectCard({ project, isActive, onClick }: ProjectCardP
           {/* Simulator Trigger Button */}
           {project.hasInteractiveDemo === false ? (
             <a
-              href={`${project.githubLink}#readme`}
+              href={`${project.githubLink.replace(/\.git$/, "")}#readme`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center gap-2 text-xs font-semibold text-neutral-900 dark:text-white underline underline-offset-4"
