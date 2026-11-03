@@ -447,3 +447,20 @@ section { scroll-margin-top: 6rem; }
 .gallery-controls button { min-height: 44px; padding-inline: .85rem; border: 1px solid currentColor; border-radius: 6px; cursor: pointer; }
 .gallery-controls button:hover { color: #141414; background: #ffcc33; }
 @media (max-width: 600px) { #projects .project-rail .project-tile { flex-basis: 89%; } }
+
+#projects .project-rail { display: block; overflow: clip; background: #141414; }
+#projects .project-rail .project-card { width: 100%; }
+#projects .project-rail .project-icon-cover:has(.project-render) {
+  aspect-ratio: 2.15;
+  background: linear-gradient(135deg, #181818 15%, #40331d);
+  border-bottom: 1px solid #756744;
+}
+#projects .project-rail picture.project-render {
+  width: min(82%, 384px);
+  border: 1px solid #b89856;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px #0006;
+}
+.gallery-controls { align-items: center; }
+.gallery-controls span { min-width: 4ch; text-align: center; font-variant-numeric: tabular-nums; }

@@ -100,17 +100,15 @@ export default function Projects() {
     },
   ];
 
-  const rail = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
   const moveGallery = (direction: number) => {
-    const container = rail.current;
-    const card = container?.firstElementChild;
-    if (!container || !card) return;
-    container.scrollBy({ left: direction * (card.clientWidth + 16), behavior: reducedMotion ? 'instant' : 'smooth' });
+    setActiveSlide(current => (current + direction + featuredProjects.length) % featuredProjects.length);
+    setSelectedSimulator(null);
   };
 
   const gallery = (
-          <div ref={rail} id="project-gallery" className={showAll ? "project-gallery work-index" : "project-gallery work-featured project-rail"}>
-              {(showAll ? filteredProjects : featuredProjects.map(({ project }) => project)).map((project) => {
+          <motion.div key={showAll ? "index" : activeSlide} initial={reducedMotion || showAll ? false : { opacity: .45, x: 32, rotateY: -8 }} animate={{ opacity: 1, x: 0, rotateY: 0 }} transition={{ duration: .4 }} id="project-gallery" className={showAll ? "project-gallery work-index" : "project-gallery work-featured project-rail"}>
+              {(showAll ? filteredProjects : [featuredProjects[activeSlide].project]).map((project) => {
                 const isActive = selectedSimulator === project.id;
                 return (
                   <ProjectCard
@@ -122,7 +120,7 @@ export default function Projects() {
                   />
                 );
               })}
-          </div>
+          </motion.div>
   );
 
   return (
@@ -181,6 +179,7 @@ export default function Projects() {
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
           {!showAll && <div className="gallery-controls" aria-label="Featured gallery controls">
             <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(-1)}>← Previous</button>
+            <span role="status">{activeSlide + 1} / {featuredProjects.length}</span>
             <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(1)}>Next →</button>
           </div>}
           {gallery}
