@@ -403,3 +403,9 @@ section { scroll-margin-top: 6rem; }
 #projects .work-index .project-card p { max-inline-size: 54ch; }
 
 .hero-copy .hero-name { font-size: clamp(1.35rem, 2.8vw, 2.4rem); font-weight: 600; line-height: 1.15; text-wrap: balance; }
+
+.portfolio-hero { padding-block: clamp(6.5rem, 11svh, 8rem) 2.5rem; }
+.hero-copy h1 { font-size: clamp(3rem, min(6.5vw, 12svh), 6rem); margin-block: .18em; }
+.hero-copy p { margin-block: .55rem; }
+.hero-copy .hero-name { max-width: none; text-wrap: wrap; }
+.hero-projects-link { margin-top: .4rem; }
