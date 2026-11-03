@@ -23,7 +23,6 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
     { id: 'projects', label: 'Projects' },
     { id: 'about', label: 'About' },
     { id: 'research-writing', label: 'Research & writing' },
-    { id: 'cv', label: 'CV' },
     { id: 'contact', label: 'Contact Me' },
   ];
 
@@ -79,9 +78,9 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
               return (
                 <a
                   key={item.id}
-                  href={item.id === "cv" ? "/Hitesh_Kanagala_CV.pdf" : "#" + item.id}
+                  href={'#' + item.id}
                   aria-current={isSelected ? 'location' : undefined}
-                  onClick={event => { if (item.id === "cv") { setMobileMenuOpen(false); return; } event.preventDefault(); handleNavClick(item.id); }}
+                  onClick={event => { event.preventDefault(); handleNavClick(item.id); }}
                   className={`relative px-2 py-1.5 rounded text-xs font-mono font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
                     isSelected
                       ? 'text-neutral-950 bg-white border border-neutral-300 dark:text-white dark:bg-neutral-900 dark:border-neutral-750 shadow-sm'
@@ -146,9 +145,9 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
                 return (
                   <a
                     key={item.id}
-                    href={item.id === "cv" ? "/Hitesh_Kanagala_CV.pdf" : "#" + item.id}
+                    href={'#' + item.id}
                   aria-current={isSelected ? 'location' : undefined}
-                  onClick={event => { if (item.id === "cv") { setMobileMenuOpen(false); return; } event.preventDefault(); handleNavClick(item.id); }}
+                  onClick={event => { event.preventDefault(); handleNavClick(item.id); }}
                     className={`w-full py-2 px-4 rounded text-left text-xs font-mono font-bold tracking-wider uppercase transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-neutral-100 text-neutral-950 border-l-2 border-neutral-950 pl-3 dark:bg-neutral-900 dark:text-white dark:border-white'
