@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Target, CheckCircle2, FileText } from 'lucide-react';
+import { Target, CheckCircle2 } from 'lucide-react';
 import { personalInfo, stats } from '../data';
 
-export default function About({ onViewCVClick }: { onViewCVClick: () => void }) {
+export default function About() {
   return (
     <section
       id="about"
@@ -78,17 +78,23 @@ export default function About({ onViewCVClick }: { onViewCVClick: () => void }) 
               ))}
             </div>
 
-            {/* Interactive View CV Button */}
-            <div className="pt-4 flex">
-              <button
-                id="about-btn-view-cv"
-                onClick={onViewCVClick}
-                className="w-full sm:w-auto px-5 py-3 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-950 dark:hover:bg-neutral-900 border border-neutral-200 dark:border-neutral-850 text-neutral-800 dark:text-neutral-200 hover:text-neutral-950 dark:hover:text-white rounded text-xs font-bold transition-all duration-250 flex items-center justify-center space-x-2 cursor-pointer shadow-sm hover:scale-[1.01] active:scale-[0.99]"
-              >
-                <FileText className="w-3.5 h-3.5 text-neutral-600 dark:text-neutral-400" />
-                <span>View Full CV & Resume</span>
-              </button>
-            </div>
+            <section aria-labelledby="resumes-heading" className="mt-6">
+              <h3 id="resumes-heading" className="text-xl mb-3">Résumés</h3>
+              <ul className="grid gap-3">
+                {[
+                  { title: 'Data Science & AI', file: 'Hitesh_Resume_Data_Science_AI.pdf' },
+                  { title: 'Data Analytics & BI', file: 'Hitesh_Resume_Data_Analytics_BI.pdf' },
+                ].map(({ title, file }) => (
+                  <li key={file} className="rounded border border-neutral-300 dark:border-neutral-700 p-4">
+                    <h4 className="font-semibold">{title}</h4>
+                    <div className="flex flex-wrap gap-x-5">
+                      <a className="inline-flex min-h-11 items-center underline underline-offset-4" href={`/${file}`} target="_blank" rel="noopener noreferrer" aria-label={`View ${title} résumé PDF (opens in a new tab)`}>View PDF</a>
+                      <a className="inline-flex min-h-11 items-center underline underline-offset-4" href={`/${file}`} download aria-label={`Download ${title} résumé`}>Download</a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
 
           {/* Right Column: Key Stats Display */}

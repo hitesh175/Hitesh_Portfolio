@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useReducedMotion, MotionConfig } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
@@ -22,7 +22,6 @@ import Research from './components/Research';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-const CVModal = lazy(() => import('./components/CVModal'));
 
 export default function App() {
   const reducedMotion = useReducedMotion();
@@ -47,7 +46,6 @@ export default function App() {
   }, [caseStudy]);
 
   const [activeTab, setActiveTab] = useState<string>('home');
-  const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
@@ -203,7 +201,7 @@ export default function App() {
 
 
         <div className="portfolio-chapter">
-          <ScrollChapter><About onViewCVClick={() => setIsCVModalOpen(true)} /></ScrollChapter>
+          <ScrollChapter><About /></ScrollChapter>
           <ScrollChapter direction={-1}><section id="academic" className="scroll-mt-24"><Education /></section></ScrollChapter>
           <ScrollChapter><Skills /></ScrollChapter>
           <ScrollChapter direction={-1}><section id="certifications" className="scroll-mt-24"><Certificates /></section></ScrollChapter>
@@ -245,7 +243,6 @@ export default function App() {
       </AnimatePresence>
 
       {/* Embedded PDF Resume Modal */}
-      {isCVModalOpen && <Suspense fallback={<p role="status">Loading CV…</p>}><CVModal isOpen onClose={() => setIsCVModalOpen(false)} /></Suspense>}
     </div></MotionConfig>
   );
 }
