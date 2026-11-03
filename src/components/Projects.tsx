@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent } from 'motion/react';
 import { projects } from '../data';
 
 import ProjectCard from './ProjectCard';
@@ -100,10 +100,34 @@ export default function Projects() {
     },
   ];
 
+  const carouselTrack = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
   const swipeStart = useRef<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const scrollRange = () => {
+    const track = carouselTrack.current;
+    if (!track || reducedMotion) return 0;
+    return Math.max(0, track.clientHeight - (track.firstElementChild?.clientHeight ?? track.clientHeight) - 24);
+  };
+
+  useMotionValueEvent(scrollY, 'change', () => {
+    const range = scrollRange();
+    if (!range || selectedSimulator) return;
+    const top = carouselTrack.current!.getBoundingClientRect().top;
+    const stickyTop = parseFloat(getComputedStyle(carouselTrack.current!.firstElementChild!).top);
+    const progress = Math.max(0, Math.min(1, (stickyTop - top) / range));
+    setActiveSlide(Math.round(progress * (featuredProjects.length - 1)));
+  });
+
   const moveGallery = (direction: number) => {
-    setActiveSlide(current => (current + direction + featuredProjects.length) % featuredProjects.length);
+    const next = (activeSlide + direction + featuredProjects.length) % featuredProjects.length;
+    const range = scrollRange();
+    if (range && carouselTrack.current) {
+      const track = carouselTrack.current;
+      const stickyTop = parseFloat(getComputedStyle(track.firstElementChild!).top);
+      window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - stickyTop + range * next / (featuredProjects.length - 1), behavior: 'instant' });
+    }
+    setActiveSlide(next);
     setSelectedSimulator(null);
   };
 
@@ -179,6 +203,7 @@ export default function Projects() {
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
           {showAll ? gallery : (
+            <div className="carousel-track" ref={carouselTrack}>
             <div className="carousel-stage"
               onTouchStart={event => { swipeStart.current = event.touches[0]?.clientX ?? null; }}
               onTouchCancel={() => { swipeStart.current = null; }}
@@ -205,6 +230,7 @@ export default function Projects() {
                   </button>
                 );
               })}
+            </div>
             </div>
           )}
 
