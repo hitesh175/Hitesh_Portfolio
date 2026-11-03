@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 
 export default function ScrollChapter({ children, direction = 1 }: {
   children: React.ReactNode;
@@ -7,22 +7,21 @@ export default function ScrollChapter({ children, direction = 1 }: {
 }) {
   const chapter = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: chapter, offset: ['start end', 'start 25%'] });
-  const x = useTransform(scrollYProgress, [0, 1], [direction * 110, 0]);
-  const rotation = useTransform(scrollYProgress, [0, 1], [direction * 9, 0]);
-  const sweep = useTransform(scrollYProgress, [0, 1], [direction * -240, 0]);
-  const depth = useTransform(scrollYProgress, [0, 1], [-95, 0]);
-  const rule = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const cut = useTransform(scrollYProgress, [0, 1], [
-    direction > 0 ? 'polygon(18% 12%,100% 0%,100% 100%,0% 100%)' : 'polygon(0% 0%,82% 12%,100% 100%,0% 100%)',
-    'polygon(0% 0%,100% 0%,100% 100%,0% 100%)',
-  ]);
+  const { scrollYProgress } = useScroll({ target: chapter, offset: ['start end', 'start 45%'] });
+  const progress = useSpring(scrollYProgress, { stiffness: 115, damping: 28 });
+  const y = useTransform(progress, [0, 1], [24, 0]);
+  const opacity = useTransform(progress, [0, 1], [.84, 1]);
+  const rule = useTransform(progress, [0, 1], [0, 1]);
+  const sweep = useTransform(progress, [0, 1], direction > 0 ? ['-45%', '45%'] : ['45%', '-45%']);
 
   return (
     <div className="scroll-chapter" ref={chapter}>
-      <motion.div aria-hidden="true" className="chapter-orbit" style={reducedMotion ? undefined : { x: sweep, rotate: rotation }} />
-      <motion.div aria-hidden="true" className="chapter-rule" style={reducedMotion ? undefined : { scaleX: rule, transformOrigin: direction > 0 ? "left" : "right" }} />
-      <motion.div className="chapter-content" style={reducedMotion ? undefined : { x, z: depth, rotateY: rotation, clipPath: cut }}>
+      {!reducedMotion && (
+        <motion.div aria-hidden="true" className="chapter-rule" style={{ scaleX: rule, transformOrigin: direction > 0 ? 'left' : 'right' }}>
+          <motion.div className="chapter-sweep" style={{ x: sweep }} />
+        </motion.div>
+      )}
+      <motion.div className="chapter-content" style={reducedMotion ? undefined : { y, opacity }}>
         {children}
       </motion.div>
     </div>
