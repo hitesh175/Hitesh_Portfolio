@@ -39,8 +39,8 @@ function GalleryFrame({ index, active, position, onSelect }: {
   const relative = useTransform(position, value => index - value);
   const glow = useTransform(relative, value => Math.max(0, 1 - Math.abs(value)));
   const x = useTransform(relative, value => `calc(${value} * var(--frame-step))`);
-  const z = useTransform(relative, value => -Math.min(4, Math.abs(value)) * 72);
-  const rotateY = useTransform(relative, value => Math.max(-1, Math.min(1, -value)) * 24);
+  const z = useTransform(relative, value => -180 * (1 - Math.exp(-.24 * value * value)));
+  const rotateY = useTransform(relative, value => -28 * Math.tanh(value * .85));
   const zIndex = useTransform(relative, value => 20 - Math.round(Math.abs(value) * 4));
   const poster = ['store-sales-analysis', 'interactive-data-platform'].includes(project.id) ? undefined : `/showcase/${project.id}.png`;
   const source = project.id === 'artemis' ? '/videos/artemis-render.mp4' : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`;
@@ -145,7 +145,7 @@ export default function Projects() {
   const swipeStart = useRef<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const reelPosition = useMotionValue(0);
-  const easedPosition = useSpring(reelPosition, { stiffness: 140, damping: 28, mass: .75 });
+  const easedPosition = useSpring(reelPosition, { stiffness: 105, damping: 23, mass: .85 });
   const scrollRange = () => {
     const track = carouselTrack.current;
     if (!track || reducedMotion) return 0;

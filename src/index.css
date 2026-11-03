@@ -580,7 +580,7 @@ section { scroll-margin-top: 6rem; }
 }
 #projects .carousel-stage { --frame-width: clamp(15rem, min(42vw, 78svh), 39rem); --frame-step: calc(var(--frame-width) * .94); }
 
-#projects .carousel-stage { --frame-step: calc(var(--frame-width) * 1.08); background: #080808; }
+#projects .carousel-stage { --frame-step: calc(var(--frame-width) * .99); background: #080808; }
 #projects .reel-frame { border-radius: 18px; background: #1c1c1c; }
 #projects .reel-frame > span { padding: 3.5rem 1rem .9rem; background: linear-gradient(transparent, #000b 65%, #000e); }
 #projects .reel-frame .reel-caption { position: static; display: grid; gap: .18rem; padding: 0; background: none; font: inherit; }
