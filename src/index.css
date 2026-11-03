@@ -494,3 +494,11 @@ section { scroll-margin-top: 6rem; }
   .carousel-neighbor-next { transform: rotateY(-37deg) translateX(-8%); }
   #projects .carousel-active .project-icon-cover:has(.project-render) { aspect-ratio: 2.6; }
 }
+
+.carousel-stage { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: .35rem; }
+.carousel-stage .carousel-neighbor { margin-top: 0; padding: 0; overflow: hidden; position: relative; }
+.carousel-stage .carousel-neighbor img { display: block; aspect-ratio: 16 / 10; object-fit: cover; }
+.carousel-stage .carousel-neighbor span { display: block; padding: .65rem; }
+.carousel-stage .carousel-current { border-color: #ffcc33; }
+#projects .work-index .project-card { transform: none !important; }
+@media (max-width: 640px) { .carousel-stage .carousel-neighbor span { font-size: .72rem; } }

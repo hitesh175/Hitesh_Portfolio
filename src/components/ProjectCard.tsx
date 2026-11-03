@@ -21,12 +21,13 @@ const stockVideos: Record<string, string> = {
 interface ProjectCardProps {
   key?: string;
   project: Project;
+  staticCard?: boolean;
   discipline?: string;
   isActive: boolean;
   onClick: () => void;
 }
 
-export default function ProjectCard({ project, discipline, isActive, onClick }: ProjectCardProps) {
+export default function ProjectCard({ project, staticCard = false, discipline, isActive, onClick }: ProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const tile = useRef<HTMLDivElement>(null);
   const inView = useInView(tile, { amount: 0.15 });
@@ -64,9 +65,9 @@ export default function ProjectCard({ project, discipline, isActive, onClick }: 
   return (
     <div ref={tile} className="project-tile w-full h-full">
       <motion.div
-        layout
-        style={reducedMotion ? undefined : { rotateX, z: depth, y: lift }}
-        initial={reducedMotion ? false : { opacity: 0.65 }}
+        layout={!staticCard}
+        style={reducedMotion || staticCard ? undefined : { rotateX, z: depth, y: lift }}
+        initial={reducedMotion || staticCard ? false : { opacity: 0.65 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.15 }}
         transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1] }}
@@ -75,14 +76,14 @@ export default function ProjectCard({ project, discipline, isActive, onClick }: 
 
       >
         <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
-          {stockVideo && !reducedMotion && inView ? (
+          {stockVideo && !reducedMotion && !staticCard && inView ? (
             <video className="project-render stock-video" src={`https://videos.pexels.com/video-files/${stockVideo}`} autoPlay muted loop playsInline aria-hidden="true" />
-          ) : project.id === 'artemis' && !reducedMotion ? (
+          ) : project.id === 'artemis' && !reducedMotion && !staticCard ? (
             <video className="project-render" src="/videos/artemis-render.mp4" poster="/showcase/artemis.png" autoPlay muted loop playsInline aria-hidden="true" />
           ) : ['artemis', 'aircraft-analytics', 'supply-chain-delay', 'crypto-prediction', 'retail-bi-dashboard'].includes(project.id) ? (
             <picture className="project-render">
               <source media="(prefers-reduced-motion: reduce)" srcSet={`/showcase/${project.id}.png`} />
-              <img src={`/showcase/${project.id}.${project.id === 'artemis' ? 'png' : 'gif'}`} loading="lazy" alt="" width={384} height={216} />
+              <img src={`/showcase/${project.id}.${project.id === 'artemis' || staticCard ? 'png' : 'gif'}`} loading="lazy" alt="" width={384} height={216} />
             </picture>
           ) : <ProjectIcon size={26} strokeWidth={1.5} aria-hidden="true" />}
           <ol className="work-preview" aria-hidden="true">

@@ -139,6 +139,7 @@ export default function Projects() {
                   <ProjectCard
                     key={project.id}
                     project={project}
+                    staticCard={showAll}
                     discipline={featured.get(project.id)}
                     isActive={isActive}
                     onClick={() => handleProjectSelect(project.id)}
@@ -217,9 +218,13 @@ export default function Projects() {
               }}>
               <span className="sr-only" role="status">Project {activeSlide + 1} of {featuredProjects.length}</span>
               {[-1, 0, 1].map(offset => {
-                if (offset === 0) return <div key="active" className="carousel-active">{gallery}</div>;
+                
                 const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
                 const { project } = featuredProjects[index];
+                if (offset === 0) return <a key={offset} className="carousel-neighbor carousel-current" href={`#work/${project.id}`}>
+                  <img src={`/showcase/${project.id}.png`} alt="" />
+                  <span>{project.title}</span>
+                </a>;
                 return (
                   <button key={offset} type="button"
                     className={`carousel-neighbor carousel-neighbor-${offset < 0 ? 'previous' : 'next'}`}
@@ -233,6 +238,7 @@ export default function Projects() {
             </div>
             </div>
           )}
+          {!showAll && gallery}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">
