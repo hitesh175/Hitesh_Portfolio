@@ -64,7 +64,14 @@ export default function ProjectCard({ project, discipline, isActive, onClick }: 
 
       >
         <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
-          <ProjectIcon size={26} strokeWidth={1.5} aria-hidden="true" />
+          {project.id === 'artemis' && !reducedMotion ? (
+            <video className="project-render" src="/videos/artemis-render.mp4" poster="/showcase/artemis.png" autoPlay muted loop playsInline aria-hidden="true" />
+          ) : ['artemis', 'aircraft-analytics', 'supply-chain-delay', 'crypto-prediction', 'retail-bi-dashboard', 'ibm-capstone'].includes(project.id) ? (
+            <picture className="project-render">
+              <source media="(prefers-reduced-motion: reduce)" srcSet={`/showcase/${project.id}.png`} />
+              <img src={`/showcase/${project.id}.${project.id === 'artemis' ? 'png' : 'gif'}`} loading="lazy" alt="" width={384} height={216} />
+            </picture>
+          ) : <ProjectIcon size={26} strokeWidth={1.5} aria-hidden="true" />}
           <ol className="work-preview" aria-hidden="true">
             {workflows[project.id].map(step => <li key={step}>{step}</li>)}
           </ol>

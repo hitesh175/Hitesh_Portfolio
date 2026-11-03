@@ -388,6 +388,14 @@ section { scroll-margin-top: 6rem; }
 #projects .work-scene-2 { background: #303030; }
 #projects .work-scene-3 { background: #292929; }
 #projects .work-scene-4 { background: #383838; }
+.project-render, .project-render img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+  border-radius: .5rem;
+}
 #projects .work-stage-progress { background: #ffcc33; }
 
 .portfolio-chapter p, #research-writing p { max-width: 70ch; }

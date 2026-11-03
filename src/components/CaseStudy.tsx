@@ -4,6 +4,7 @@ import type { Project } from '../types';
 
 export const workflows: Record<string, [string, string, string]> = {
   artemis: ['Voice or text input', 'Local model and tools', 'Desktop response'],
+  'ibm-capstone': ['Launch data', 'Explore and visualize', 'Predict landing outcomes'],
   'aircraft-analytics': ['Aircraft records', 'Preprocess with Python', 'Performance KPIs'],
   'supply-chain-delay': ['Logistics data', 'Engineer model features', 'Predict delivery delays'],
   'retail-bi-dashboard': ['Retail data', 'Query with SQL', 'Visualize in Power BI'],

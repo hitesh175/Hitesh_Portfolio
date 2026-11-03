@@ -13,11 +13,11 @@ const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
 
-const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"]]);
+const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"], ["ibm-capstone", "Data science"]]);
 
-const featuredProjects = projects.flatMap(project => {
-  const discipline = featured.get(project.id);
-  return discipline ? [{ project, discipline }] : [];
+const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
+  const project = projects.find(item => item.id === id);
+  return project ? [{ project, discipline }] : [];
 });
 
 export default function Projects() {
