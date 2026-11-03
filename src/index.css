@@ -601,3 +601,14 @@ section { scroll-margin-top: 6rem; }
 .chapter-sweep { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 20%, #ffcc33 50%, transparent 80%); }
 .scroll-chapter:focus-within .chapter-content { opacity: 1 !important; }
 .case-evidence-image { display: block; width: auto; max-width: 100%; height: auto; border: 1px solid #777; border-radius: 8px; }
+
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem 1.15rem; }
+.hero-resume-link { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: .25em; }
+#resumes-heading { scroll-margin-top: 7rem; }
+
+@media (max-width: 799px) {
+  #projects .carousel-stage::after { content: "Swipe to browse"; position: absolute; inset: auto 0 .15rem; text-align: center; font-size: .75rem; color: #fff; }
+  #projects .carousel-stage { --frame-width: min(84vw, 34rem); height: auto; min-height: 15rem; aspect-ratio: 1.6; touch-action: pan-y; }
+  #projects .reel-frame { aspect-ratio: 16 / 11; }
+  #projects .reel-frame > span { padding: 2rem .8rem .7rem; }
+}

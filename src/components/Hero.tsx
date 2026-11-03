@@ -18,7 +18,7 @@ export default function Hero() {
       <p>I build AI tools, data pipelines, predictive models, and dashboards.</p>
       <p>Master’s student · {personalInfo.location}</p>
       <p className="hero-availability">{personalInfo.status}</p>
-      <a className="hero-projects-link" href="#projects">Explore projects ↓</a>
+      <div className="hero-actions"><a className="hero-projects-link" href="#projects">Explore projects ↓</a><a className="hero-resume-link" href="#resumes-heading">View résumés</a></div>
     </div>
     <div className="hero-previews" aria-label="Project previews">
       {['artemis', 'aircraft-analytics', 'retail-bi-dashboard'].map(id => {

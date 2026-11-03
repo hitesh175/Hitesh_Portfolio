@@ -219,7 +219,7 @@ export const certifications: Certification[] = [
 ];
 
 export const stats = [
-  { value: String(projects.length), label: "Featured Projects" },
+  { value: String(projects.length), label: "Projects" },
   { value: "10+", label: "Technical Skills" },
   { value: "1", label: "Research Publication" },
   { value: "Open", label: "To Internship Opportunities" }

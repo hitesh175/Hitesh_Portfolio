@@ -252,7 +252,8 @@ export default function Projects() {
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
           {showAll ? gallery : (
             <div className="carousel-track" ref={carouselTrack}>
-            <div className="carousel-stage"
+            
+            <div className="carousel-stage" aria-label="Featured projects. Swipe to browse on touchscreens."
               onTouchStart={event => { swipeStart.current = event.touches[0]?.clientX ?? null; }}
               onTouchCancel={() => { swipeStart.current = null; }}
               onTouchEnd={event => {
