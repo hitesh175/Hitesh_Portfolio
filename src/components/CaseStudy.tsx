@@ -20,6 +20,14 @@ const projectEvidence: Record<string, string> = {
   'crypto-prediction': 'Confusion matrix for the best-performing model reported in the project repository.',
 };
 
+const technicalNotes: Record<string, string> = {
+  artemis: 'Python connects the WebView2 interface to Ollama and desktop tools. SQLite stores local history and memory.',
+  'aircraft-analytics': 'Pandas prepares the aircraft records for MySQL and the Streamlit dashboard. The range model uses an 80/20 random split. Dropping incomplete rows may exclude some helicopters.',
+  'supply-chain-delay': 'The Random Forest uses an 80/20 random split with a fixed seed. The saved dashboard reports a mean absolute error of 0.55 days. The project has no separate evaluation on a later shipment period.',
+  'retail-bi-dashboard': 'PostgreSQL supports the sales analysis, and Power BI brings revenue, profit, orders, and margin into one report. The monthly trend and category breakdown help show which products contribute to revenue and how sales change over time.',
+  'crypto-prediction': 'The notebook reports 52.12% accuracy for logistic regression and 52.65% for the selected Random Forest. The final 365 days were held out chronologically, but the forest was selected using that same period, so the comparison is exploratory.',
+};
+
 export default function CaseStudy({ project }: { project: Project }) {
   const evidence = projectEvidence[project.id];
   const index = projects.indexOf(project);
@@ -51,6 +59,12 @@ export default function CaseStudy({ project }: { project: Project }) {
           ? 'The repository documents the desktop interface, local model integration, and storage.'
           : 'The linked repository documents the implementation. Where the portfolio provides a simulator, use it to explore the workflow with illustrative data.'}</p>
       </section>}
+      {technicalNotes[project.id] && (
+        <section>
+          <h2>Technical decisions and results</h2>
+          <p>{technicalNotes[project.id]}</p>
+        </section>
+      )}
       <section>
         <h2>Tools and techniques</h2>
         <p>{project.techStack.join(' · ')}</p>
