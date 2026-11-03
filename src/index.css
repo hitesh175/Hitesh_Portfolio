@@ -600,3 +600,4 @@ section { scroll-margin-top: 6rem; }
 .scroll-chapter .chapter-rule { position: relative; overflow: hidden; height: 1px; background: #a98a493d; }
 .chapter-sweep { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 20%, #ffcc33 50%, transparent 80%); }
 .scroll-chapter:focus-within .chapter-content { opacity: 1 !important; }
+.case-evidence-image { display: block; width: auto; max-width: 100%; height: auto; border: 1px solid #777; border-radius: 8px; }

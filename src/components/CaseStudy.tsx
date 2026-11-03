@@ -12,7 +12,16 @@ export const workflows: Record<string, [string, string, string]> = {
   'interactive-data-platform': ['Project data', 'React components', 'Interactive charts and demos'],
 };
 
+const projectEvidence: Record<string, string> = {
+  artemis: 'Artemis desktop chat interface for the local AI assistant.',
+  'aircraft-analytics': 'Dashboard data preview from the aircraft performance pipeline.',
+  'supply-chain-delay': 'Shipping delay prediction interface showing an example order and its predicted delay.',
+  'retail-bi-dashboard': 'Power BI dashboard for exploring retail sales performance.',
+  'crypto-prediction': 'Confusion matrix for the best-performing model reported in the project repository.',
+};
+
 export default function CaseStudy({ project }: { project: Project }) {
+  const evidence = projectEvidence[project.id];
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
   return (
@@ -26,12 +35,22 @@ export default function CaseStudy({ project }: { project: Project }) {
           {workflows[project.id].map(step => <li key={step}>{step}</li>)}
         </ol>
       </section>
-      <section>
+      {evidence ? (
+        <section>
+          <h2>Project output</h2>
+          <figure>
+            <a href={`/case-studies/${project.id}.png`} target="_blank" rel="noopener noreferrer" aria-label="Open full-size project screenshot (opens in a new tab)">
+              <img className="case-evidence-image" src={`/case-studies/${project.id}.png`} alt={evidence} loading="lazy" decoding="async" />
+            </a>
+            <figcaption className="mt-3 text-sm">{evidence} Select the image to view it full size.</figcaption>
+          </figure>
+        </section>
+      ) : <section>
         <h2>What to inspect</h2>
         <p>{project.hasInteractiveDemo === false
           ? 'The repository documents the desktop interface, local model integration, and storage.'
           : 'The linked repository documents the implementation. Where the portfolio provides a simulator, use it to explore the workflow with illustrative data.'}</p>
-      </section>
+      </section>}
       <section>
         <h2>Tools and techniques</h2>
         <p>{project.techStack.join(' · ')}</p>
