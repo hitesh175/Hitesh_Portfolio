@@ -5,12 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=127.0.0.1",
-    "build": "tsx scripts/generate-resume.ts && tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "playwright test",
-    "build:resume": "tsx scripts/generate-resume.ts"
+    "test": "playwright test"
   },
   "dependencies": {
     "@fontsource/ibm-plex-mono": "^5.3.0",
@@ -18,7 +17,6 @@
     "@fontsource/instrument-serif": "^5.3.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
-    "hls.js": "^1.7.4",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.1",
@@ -28,10 +26,8 @@
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@types/node": "^22.14.0",
-    "@types/pdfkit": "^0.17.7",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
-    "pdfkit": "^0.20.2",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",

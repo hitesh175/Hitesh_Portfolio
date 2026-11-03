@@ -33,7 +33,7 @@ npm run preview
 
 The `lint` script runs TypeScript type checking. The production build is written to `dist/`; the preview command serves that build locally.
 
-The lockfile pins dependencies. The build generates `public/Hitesh_Kanagala_CV.pdf` from the same `src/data.ts` content used on the website, then checks types and builds the site. Preview and download use this same PDF. Update the supplied portfolio content before publishing if any facts need changing.
+The lockfile pins dependencies. The build checks types and builds the site. About links to the two supplied résumé PDFs in public/.
 
 Browser tests mock message delivery; they never send a real email. They cover failed delivery and retry, dialog focus and Escape, article links, chart updates, labels, and 320/390/768/1440px layouts in both themes. On Windows with Edge installed, set `PLAYWRIGHT_EDGE=1` to use Edge instead of downloading Chromium. Set `PLAYWRIGHT_BASE_URL` to test a running local server.
 

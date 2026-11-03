@@ -29,17 +29,15 @@ test('contact failure preserves the message; retry clears it only on confirmed s
   expect(await page.evaluate(()=>localStorage.getItem('hitesh_portfolio_messages'))).toBeNull();
 });
 
-test('CV stays inside a narrow viewport and Escape restores focus', async ({ page }) => {
-  await page.setViewportSize({width:320,height:740}); await page.goto('/');
-  await page.getByRole('button',{name:'View CV',exact:true}).click();
-  const dialog=page.getByRole('dialog',{name:'Curriculum vitae'});
-  await expect(dialog).toBeVisible();
-  const close=dialog.getByRole('button',{name:'Close CV'});
-  await expect(close).toBeFocused();
-  const box=await close.boundingBox(); expect(box!.x+box!.width).toBeLessThanOrEqual(320);
-  expect(await dialog.locator('object').getAttribute('data')).toBe(await dialog.getByRole('link',{name:'Download PDF'}).getAttribute('href'));
-  await page.keyboard.press('Escape'); await expect(dialog).toHaveCount(0);
-  await expect(page.getByRole('button',{name:'View CV',exact:true})).toBeFocused();
+test('About links to both role-specific résumés', async ({ page }) => {
+  await page.goto('/#about');
+  for (const [title, file] of [
+    ['Data Science & AI', 'Hitesh_Resume_Data_Science_AI.pdf'],
+    ['Data Analytics & BI', 'Hitesh_Resume_Data_Analytics_BI.pdf'],
+  ]) {
+    await expect(page.getByRole('link', { name: 'View ' + title + ' résumé PDF (opens in a new tab)' })).toHaveAttribute('href', '/' + file);
+    await expect(page.getByRole('link', { name: 'Download ' + title + ' résumé' })).toHaveAttribute('download', '');
+  }
 });
 
 test('article deep links and keyboard dismissal work', async ({ page }) => {

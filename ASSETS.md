@@ -4,7 +4,6 @@ The portfolio adapts MotionSites' **Portfolio Cosmic** design direction, selecte
 
 | Asset | Origin | Use |
 |---|---|---|
-| `public/images/cosmic-poster.jpg` | `https://image.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g/thumbnail.jpg?width=1600` | Static hero poster and reduced-motion fallback; source stream appears in the public MotionSites reference brief. |
 | Hero video | `https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8` | Optional motion, loaded by the lightweight player. Pause control, offscreen pause, reduced-motion static fallback. |
 | Project icons | Existing `lucide-react` package | Bot, plane, truck, trend, bar chart, table and application-window pictograms; rendered as SVG components. |
 | Instrument Serif | `@fontsource/instrument-serif` | Locally served display font from the reference's typographic direction. |
