@@ -7,7 +7,7 @@ import React, { useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent, useMotionValue, useTransform, useSpring } from 'motion/react';
 import { projects } from '../data';
 
-import ProjectCard, { stockVideos } from './ProjectCard';
+import ProjectCard from './ProjectCard';
 const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
@@ -42,17 +42,11 @@ function GalleryFrame({ index, active, position, onSelect }: {
   const z = useTransform(relative, value => -180 * (1 - Math.exp(-.24 * value * value)));
   const rotateY = useTransform(relative, value => -28 * Math.tanh(value * .85));
   const zIndex = useTransform(relative, value => 20 - Math.round(Math.abs(value) * 4));
-  const poster = ['store-sales-analysis', 'interactive-data-platform'].includes(project.id) ? undefined : `/showcase/${project.id}.png`;
-  const source = project.id === 'artemis' ? '/videos/artemis-render.mp4' : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`;
-  const reduced = useReducedMotion();
-  const play = !reduced && Math.abs(index - active) <= 1;
-
   return (
     <motion.a className="reel-frame" href={`#work/${project.id}`} style={{ x, z, rotateY, zIndex }}
       tabIndex={Math.abs(index - active) <= 1 ? 0 : -1}
       onClick={event => { if (index !== active) { event.preventDefault(); onSelect(); } }}>
-      {play ? <video src={source} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
-        : poster && <img src={poster} alt="" loading="lazy" />}
+      <img src={`/case-studies/${project.id}.png`} alt="" loading="lazy" decoding="async" />
       <motion.i className="reel-glow" aria-hidden="true" style={{ opacity: glow }} />
       <span><span className="reel-caption"><small>{featuredProjects[index].discipline}</small>{project.title}<small className="reel-summary">{frameSummaries[project.id]}</small></span><b aria-hidden="true">↗</b></span>
     </motion.a>

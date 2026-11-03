@@ -629,3 +629,6 @@ section { scroll-margin-top: 6rem; }
   .portfolio-navbar > #logo-button { justify-self: start; }
   .portfolio-navbar .navbar-end { justify-self: end; }
 }
+.hero-preview, .hero-preview:nth-child(2), .hero-preview:nth-child(3) { background: #22211e; border-color: #62563a; }
+.hero-preview h2 { font: 600 1.05rem/1.35 var(--font-sans, system-ui); letter-spacing: normal; }
+#projects .reel-frame img { object-fit: contain; background: #171717; }
