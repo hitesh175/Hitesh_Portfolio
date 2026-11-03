@@ -100,6 +100,7 @@ export default function Projects() {
     },
   ];
 
+  const swipeStart = useRef<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const moveGallery = (direction: number) => {
     setActiveSlide(current => (current + direction + featuredProjects.length) % featuredProjects.length);
@@ -177,13 +178,19 @@ export default function Projects() {
         <div className="space-y-10">
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
-          {!showAll && <div className="gallery-controls" aria-label="Featured gallery controls">
-            <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(-1)}>← Previous</button>
-            <span role="status">{activeSlide + 1} / {featuredProjects.length}</span>
-            <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(1)}>Next →</button>
-          </div>}
           {showAll ? gallery : (
-            <div className="carousel-stage">
+            <div className="carousel-stage"
+              onTouchStart={event => { swipeStart.current = event.touches[0]?.clientX ?? null; }}
+              onTouchCancel={() => { swipeStart.current = null; }}
+              onTouchEnd={event => {
+                const start = swipeStart.current;
+                swipeStart.current = null;
+                const end = event.changedTouches[0]?.clientX;
+                if (start !== null && end !== undefined && Math.abs(end - start) > 60) {
+                  moveGallery(end < start ? 1 : -1);
+                }
+              }}>
+              <span className="sr-only" role="status">Project {activeSlide + 1} of {featuredProjects.length}</span>
               {[-1, 0, 1].map(offset => {
                 if (offset === 0) return <div key="active" className="carousel-active">{gallery}</div>;
                 const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
