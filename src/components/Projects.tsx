@@ -12,7 +12,7 @@ const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
 
-const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"], ["store-sales-analysis", "Retail analytics"], ["interactive-data-platform", "Web development"]]);
+const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"], ["store-sales-analysis", "Retail analytics"]]);
 
 const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
   const project = projects.find(item => item.id === id);
@@ -259,7 +259,6 @@ export default function Projects() {
             </div>
             </div>
           )}
-          {!showAll && gallery}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">
