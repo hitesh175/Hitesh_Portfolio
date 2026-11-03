@@ -16,7 +16,7 @@ export default function Hero() {
       <p className="hero-name">{personalInfo.name}</p>
       <h1>Data Analytics &amp; Business Intelligence</h1>
       <p>I use SQL, Python, and Power BI to clean data, build dashboards, and develop predictive models.</p>
-      <p>Master’s student in Applied Data Science &amp; AI · {personalInfo.location}</p>
+      <p>Master’s student in Applied Data Science &amp; AI at SRH University Hamburg · {personalInfo.location}</p>
       <p className="hero-availability">{personalInfo.status}</p>
       <div className="hero-actions"><a className="hero-projects-link" href="#projects">Explore projects ↓</a><a className="hero-resume-link" href="#resumes-heading">View résumés</a></div>
     </div>
