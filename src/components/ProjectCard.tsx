@@ -4,10 +4,19 @@
  */
 
 import React, { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useInView, useScroll, useTransform } from 'motion/react';
 import { Github, Sliders, ArrowUpRight, Bot, Plane, Truck, TrendingUp, BarChart3, Table2, PanelsTopLeft } from 'lucide-react';
 import { Project } from '../types';
 import { workflows } from './CaseStudy';
+
+const stockVideos: Record<string, string> = {
+  "aircraft-analytics": "32604112/13903790_3840_2160_30fps.mp4",
+  "supply-chain-delay": "29903943/12836159_3840_2160_60fps.mp4",
+  "crypto-prediction": "35446607/15017666_3840_2160_25fps.mp4",
+  "retail-bi-dashboard": "29832466/12812519_4096_2160_25fps.mp4",
+  "store-sales-analysis": "29068393/12563855_1920_1080_30fps.mp4",
+  "interactive-data-platform": "34339183/14547712_1920_1080_30fps.mp4"
+};
 
 interface ProjectCardProps {
   key?: string;
@@ -20,6 +29,8 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, discipline, isActive, onClick }: ProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const tile = useRef<HTMLDivElement>(null);
+  const inView = useInView(tile, { amount: 0.15 });
+  const stockVideo = stockVideos[project.id];
   const { scrollYProgress } = useScroll({ target: tile, offset: ['start end', 'start 48%'] });
   const rotateX = useTransform(scrollYProgress, [0, 1], [48, 0]);
   const depth = useTransform(scrollYProgress, [0, 1], [-120, 0]);
@@ -64,7 +75,9 @@ export default function ProjectCard({ project, discipline, isActive, onClick }: 
 
       >
         <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
-          {project.id === 'artemis' && !reducedMotion ? (
+          {stockVideo && !reducedMotion && inView ? (
+            <video className="project-render stock-video" src={`https://videos.pexels.com/video-files/${stockVideo}`} autoPlay muted loop playsInline aria-hidden="true" />
+          ) : project.id === 'artemis' && !reducedMotion ? (
             <video className="project-render" src="/videos/artemis-render.mp4" poster="/showcase/artemis.png" autoPlay muted loop playsInline aria-hidden="true" />
           ) : ['artemis', 'aircraft-analytics', 'supply-chain-delay', 'crypto-prediction', 'retail-bi-dashboard', 'ibm-capstone'].includes(project.id) ? (
             <picture className="project-render">

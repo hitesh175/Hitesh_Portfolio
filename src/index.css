@@ -480,3 +480,7 @@ section { scroll-margin-top: 6rem; }
   .carousel-active { grid-column: 1 / -1; grid-row: 1; }
   .carousel-neighbor { margin-top: 0; transform: none; }
 }
+
+#projects .work-index .project-icon-cover:has(.stock-video) { display: flex; padding: 0; max-width: 640px; aspect-ratio: 16 / 9; }
+#projects .project-icon-cover:has(.stock-video) .work-preview { display: none; }
+#projects .project-icon-cover .stock-video { display: block; width: 100%; height: 100%; object-fit: cover; }
