@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent, useMotionValue, useTransform } from 'motion/react';
 import { projects } from '../data';
 
 import ProjectCard, { stockVideos } from './ProjectCard';
@@ -18,6 +18,35 @@ const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
   const project = projects.find(item => item.id === id);
   return project ? [{ project, discipline }] : [];
 });
+
+function GalleryFrame({ index, active, position, onSelect }: {
+  key?: string;
+  index: number;
+  active: number;
+  position: ReturnType<typeof useMotionValue<number>>;
+  onSelect: () => void;
+}) {
+  const { project } = featuredProjects[index];
+  const relative = useTransform(position, value => index - value);
+  const x = useTransform(relative, value => `calc(${value} * var(--frame-step))`);
+  const z = useTransform(relative, value => -Math.min(4, Math.abs(value)) * 105);
+  const rotateY = useTransform(relative, value => Math.max(-1, Math.min(1, -value)) * 29);
+  const opacity = useTransform(relative, value => Math.max(.38, 1 - Math.abs(value) * .23));
+  const poster = ['store-sales-analysis', 'interactive-data-platform'].includes(project.id) ? undefined : `/showcase/${project.id}.png`;
+  const source = project.id === 'artemis' ? '/videos/artemis-render.mp4' : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`;
+  const reduced = useReducedMotion();
+  const play = !reduced && Math.abs(index - active) <= 1;
+
+  return (
+    <motion.a className="reel-frame" href={`#work/${project.id}`} style={{ x, z, rotateY, opacity }}
+      tabIndex={Math.abs(index - active) <= 1 ? 0 : -1}
+      onClick={event => { if (index !== active) { event.preventDefault(); onSelect(); } }}>
+      {play ? <video src={source} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
+        : poster && <img src={poster} alt="" loading="lazy" />}
+      <span>{project.title} <b aria-hidden="true">↗</b></span>
+    </motion.a>
+  );
+}
 
 export default function Projects() {
   const reducedMotion = useReducedMotion();
@@ -104,6 +133,7 @@ export default function Projects() {
   const { scrollY } = useScroll();
   const swipeStart = useRef<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const reelPosition = useMotionValue(0);
   const scrollRange = () => {
     const track = carouselTrack.current;
     if (!track || reducedMotion) return 0;
@@ -117,7 +147,9 @@ export default function Projects() {
     const stickyTop = parseFloat(getComputedStyle(carouselTrack.current!.firstElementChild!).top);
     if (!Number.isFinite(stickyTop)) return;
     const progress = Math.max(0, Math.min(1, (stickyTop - top) / range));
-    setActiveSlide(Math.round(progress * (featuredProjects.length - 1)));
+    const position = progress * (featuredProjects.length - 1);
+    reelPosition.set(position);
+    setActiveSlide(Math.round(position));
   });
 
   const moveGallery = (direction: number) => {
@@ -128,6 +160,7 @@ export default function Projects() {
       const stickyTop = parseFloat(getComputedStyle(track.firstElementChild!).top);
       window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - stickyTop + range * next / (featuredProjects.length - 1), behavior: 'instant' });
     }
+    reelPosition.set(next);
     setActiveSlide(next);
     setSelectedSimulator(null);
   };
@@ -219,30 +252,10 @@ export default function Projects() {
                 }
               }}>
               <span className="sr-only" role="status">Project {activeSlide + 1} of {featuredProjects.length}</span>
-              {[-1, 0, 1].map(offset => {
-                
-                const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
-                const { project } = featuredProjects[index];
-                const hasPoster = !["store-sales-analysis", "interactive-data-platform"].includes(project.id);
-                const poster = hasPoster ? `/showcase/${project.id}.png` : undefined;
-                if (offset === 0) return <a key={offset} className="carousel-neighbor carousel-current" href={`#work/${project.id}`}>
-                  {!reducedMotion && (project.id === 'artemis' || stockVideos[project.id]) ? (
-                    <video key={project.id} src={project.id === "artemis" ? "/videos/artemis-render.mp4" : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
-                  ) : (poster ? <img src={poster} alt="" /> : <div className="reel-placeholder" />)}
-                  <span>{project.title}</span>
-                </a>;
-                return (
-                  <button key={offset} type="button"
-                    className={`carousel-neighbor carousel-neighbor-${offset < 0 ? 'previous' : 'next'}`}
-                    aria-label={`Show ${project.title}`}
-                    onClick={() => moveGallery(offset)}>
-                    {stockVideos[project.id] && !reducedMotion ? (
-                      <video key={project.id} src={`https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
-                    ) : poster ? <img src={poster} alt="" loading="lazy" /> : <div className="reel-placeholder" />}
-                    <span>{project.title}</span>
-                  </button>
-                );
-              })}
+              {featuredProjects.map(({ project }, index) => (
+                <GalleryFrame key={project.id} index={index} active={activeSlide} position={reelPosition}
+                  onSelect={() => moveGallery(index - activeSlide)} />
+              ))}
             </div>
             </div>
           )}
