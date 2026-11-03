@@ -9,7 +9,7 @@ import { Github, Sliders, ArrowUpRight, Bot, Plane, Truck, TrendingUp, BarChart3
 import { Project } from '../types';
 import { workflows } from './CaseStudy';
 
-const stockVideos: Record<string, string> = {
+export const stockVideos: Record<string, string> = {
   "aircraft-analytics": "32604112/13903790_3840_2160_30fps.mp4",
   "supply-chain-delay": "29903943/12836159_3840_2160_60fps.mp4",
   "crypto-prediction": "35446607/15017666_3840_2160_25fps.mp4",
@@ -22,12 +22,13 @@ interface ProjectCardProps {
   key?: string;
   project: Project;
   staticCard?: boolean;
+  hideCover?: boolean;
   discipline?: string;
   isActive: boolean;
   onClick: () => void;
 }
 
-export default function ProjectCard({ project, staticCard = false, discipline, isActive, onClick }: ProjectCardProps) {
+export default function ProjectCard({ project, staticCard = false, hideCover = false, discipline, isActive, onClick }: ProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const tile = useRef<HTMLDivElement>(null);
   const inView = useInView(tile, { amount: 0.15 });
@@ -75,7 +76,7 @@ export default function ProjectCard({ project, staticCard = false, discipline, i
         className={`project-card p-6 rounded border relative overflow-hidden flex flex-col justify-between group select-text transition-colors duration-300 w-full h-full ${cardColor}`}
 
       >
-        <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
+        {!hideCover && <a className="project-icon-cover" href={`#work/${project.id}`} aria-label={`Explore ${project.title}`}>
           {stockVideo && !reducedMotion && !staticCard && inView ? (
             <video className="project-render stock-video" src={`https://videos.pexels.com/video-files/${stockVideo}`} autoPlay muted loop playsInline aria-hidden="true" />
           ) : project.id === 'artemis' && !reducedMotion && !staticCard ? (
@@ -89,7 +90,7 @@ export default function ProjectCard({ project, staticCard = false, discipline, i
           <ol className="work-preview" aria-hidden="true">
             {workflows[project.id].map(step => <li key={step}>{step}</li>)}
           </ol>
-        </a>
+        </a>}
         {/* Project content */}
         <div className="relative z-10" style={{ transform: 'translateZ(15px)' }}>
           <div className="flex justify-between items-start gap-4 mb-2 text-left">

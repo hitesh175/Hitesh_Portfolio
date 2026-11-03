@@ -510,3 +510,7 @@ section { scroll-margin-top: 6rem; }
 #projects .carousel-track + .project-rail { margin-top: 1rem; }
 #projects .carousel-active .project-icon-cover:has(.project-render),
 #projects .project-rail .project-icon-cover:has(.project-render) { max-height: 46svh; }
+#projects .project-rail .project-card { grid-template-rows: auto auto auto; }
+@media (min-width: 800px) and (min-height: 680px) and (prefers-reduced-motion: no-preference) {
+  #projects .carousel-stage { top: 112px; }
+}

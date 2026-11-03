@@ -7,7 +7,7 @@ import React, { useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent } from 'motion/react';
 import { projects } from '../data';
 
-import ProjectCard from './ProjectCard';
+import ProjectCard, { stockVideos } from './ProjectCard';
 const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
@@ -140,6 +140,7 @@ export default function Projects() {
                     key={project.id}
                     project={project}
                     staticCard={showAll}
+                    hideCover={!showAll}
                     discipline={featured.get(project.id)}
                     isActive={isActive}
                     onClick={() => handleProjectSelect(project.id)}
@@ -222,8 +223,8 @@ export default function Projects() {
                 const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
                 const { project } = featuredProjects[index];
                 if (offset === 0) return <a key={offset} className="carousel-neighbor carousel-current" href={`#work/${project.id}`}>
-                  {project.id === 'artemis' && !reducedMotion ? (
-                    <video src="/videos/artemis-render.mp4" poster="/showcase/artemis.png" autoPlay muted loop playsInline aria-hidden="true" />
+                  {!reducedMotion && (project.id === 'artemis' || stockVideos[project.id]) ? (
+                    <video key={project.id} src={project.id === "artemis" ? "/videos/artemis-render.mp4" : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={`/showcase/${project.id}.png`} autoPlay muted loop playsInline aria-hidden="true" />
                   ) : <img src={`/showcase/${project.id}.png`} alt="" />}
                   <span>{project.title}</span>
                 </a>;
