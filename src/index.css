@@ -487,7 +487,7 @@ section { scroll-margin-top: 6rem; }
 
 @media (min-width: 800px) and (min-height: 680px) and (prefers-reduced-motion: no-preference) {
   .cosmic-portfolio { overflow-x: clip; }
-  .carousel-track { min-height: calc(100svh + 64rem); }
+  .carousel-track { min-height: clamp(28rem, 82svh, 48rem); }
   .carousel-stage { position: sticky; top: 96px; grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr) minmax(0, 1fr); perspective: 720px; }
   .carousel-neighbor { margin-top: 4rem; }
   .carousel-neighbor-previous { transform: rotateY(37deg) translateX(8%); }
@@ -503,3 +503,10 @@ section { scroll-margin-top: 6rem; }
 #projects .work-index .project-card { transform: none !important; }
 @media (max-width: 640px) { .carousel-stage .carousel-neighbor span { font-size: .72rem; } }
 .carousel-stage .carousel-current video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+
+@media (min-width: 800px) and (min-height: 680px) {
+  #projects .carousel-stage .carousel-neighbor :is(img, video) { max-height: 29svh; }
+}
+#projects .carousel-track + .project-rail { margin-top: 1rem; }
+#projects .carousel-active .project-icon-cover:has(.project-render),
+#projects .project-rail .project-icon-cover:has(.project-render) { max-height: 46svh; }
