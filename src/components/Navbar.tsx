@@ -54,7 +54,7 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="portfolio-navbar mx-auto px-4 sm:px-6 lg:px-8">
         {/* Modern Minimal Logo */}
         <button
           id="logo-button"
@@ -72,10 +72,10 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
         </button>
 
         {/* Desktop Nav Items with pristine minimalist styling */}
-        <div className="hidden xl:flex items-center gap-2">
+        <div className="navbar-center hidden xl:flex items-center">
           <NavigationMenu.Root id="desktop-nav" aria-label="Main navigation">
             <NavigationMenu.List className="flex items-center gap-1">
-              {navItems.map(({ id, label }) => (
+              {navItems.filter(item => item.id !== "contact").map(({ id, label }) => (
                 <NavigationMenu.Item key={id}>
                   <NavigationMenu.Link
                     href={'#' + id}
@@ -95,6 +95,14 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
             </NavigationMenu.List>
           </NavigationMenu.Root>
 
+        </div>
+        <div className="navbar-end hidden xl:flex items-center gap-3">
+          <a className="navbar-contact" href="#contact" aria-current={activeTab === 'contact' ? 'location' : undefined}
+            onClick={event => {
+              if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              handleNavClick('contact');
+            }}>Contact me</a>
           {/* Theme Toggle Button (Desktop) */}
           <button
             id="btn-theme-toggle-desktop"
