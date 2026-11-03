@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent, useMotionValue, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent, useMotionValue, useTransform, useSpring } from 'motion/react';
 import { projects } from '../data';
 
 import ProjectCard, { stockVideos } from './ProjectCard';
@@ -37,6 +37,7 @@ function GalleryFrame({ index, active, position, onSelect }: {
 }) {
   const { project } = featuredProjects[index];
   const relative = useTransform(position, value => index - value);
+  const glow = useTransform(relative, value => Math.max(0, 1 - Math.abs(value)));
   const x = useTransform(relative, value => `calc(${value} * var(--frame-step))`);
   const z = useTransform(relative, value => -Math.min(4, Math.abs(value)) * 72);
   const rotateY = useTransform(relative, value => Math.max(-1, Math.min(1, -value)) * 24);
@@ -52,6 +53,7 @@ function GalleryFrame({ index, active, position, onSelect }: {
       onClick={event => { if (index !== active) { event.preventDefault(); onSelect(); } }}>
       {play ? <video src={source} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
         : poster && <img src={poster} alt="" loading="lazy" />}
+      <motion.i className="reel-glow" aria-hidden="true" style={{ opacity: glow }} />
       <span><span className="reel-caption"><small>{featuredProjects[index].discipline}</small>{project.title}<small className="reel-summary">{frameSummaries[project.id]}</small></span><b aria-hidden="true">↗</b></span>
     </motion.a>
   );
@@ -143,6 +145,7 @@ export default function Projects() {
   const swipeStart = useRef<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const reelPosition = useMotionValue(0);
+  const easedPosition = useSpring(reelPosition, { stiffness: 140, damping: 28, mass: .75 });
   const scrollRange = () => {
     const track = carouselTrack.current;
     if (!track || reducedMotion) return 0;
@@ -262,7 +265,7 @@ export default function Projects() {
               }}>
               <span className="sr-only" role="status">Project {activeSlide + 1} of {featuredProjects.length}</span>
               {featuredProjects.map(({ project }, index) => (
-                <GalleryFrame key={project.id} index={index} active={activeSlide} position={reelPosition}
+                <GalleryFrame key={project.id} index={index} active={activeSlide} position={reducedMotion ? reelPosition : easedPosition}
                   onSelect={() => moveGallery(index - activeSlide)} />
               ))}
             </div>
