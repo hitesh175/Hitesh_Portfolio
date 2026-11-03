@@ -14,14 +14,14 @@ export default function Hero() {
     <div className="hero-split">
     <div className="hero-copy">
       <p className="hero-name">{personalInfo.name}</p>
-      <h1>Applied Data Science &amp; AI</h1>
-      <p>I build AI tools, data pipelines, predictive models, and dashboards.</p>
-      <p>Master’s student · {personalInfo.location}</p>
+      <h1>Data Analytics &amp; Business Intelligence</h1>
+      <p>I use SQL, Python, and Power BI to clean data, build dashboards, and develop predictive models.</p>
+      <p>Master’s student in Applied Data Science &amp; AI · {personalInfo.location}</p>
       <p className="hero-availability">{personalInfo.status}</p>
       <div className="hero-actions"><a className="hero-projects-link" href="#projects">Explore projects ↓</a><a className="hero-resume-link" href="#resumes-heading">View résumés</a></div>
     </div>
     <div className="hero-previews" aria-label="Project previews">
-      {['artemis', 'aircraft-analytics', 'retail-bi-dashboard'].map(id => {
+      {['retail-bi-dashboard', 'aircraft-analytics', 'artemis'].map(id => {
         const project = projects.find(item => item.id === id)!;
         return <motion.article key={id} className="hero-preview" style={reducedMotion ? undefined : { rotateY: previewTurn, x: previewShift }}>
           <h2>{project.title}</h2>

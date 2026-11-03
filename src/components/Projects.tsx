@@ -12,7 +12,7 @@ const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
 
-const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"], ["store-sales-analysis", "Retail analytics"]]);
+const featured = new Map([["retail-bi-dashboard", "Business intelligence"], ["aircraft-analytics", "Data engineering"], ["artemis", "Applied AI"], ["supply-chain-delay", "Machine learning"], ["crypto-prediction", "Time-series analysis"], ["store-sales-analysis", "Retail analytics"]]);
 
 const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
   const project = projects.find(item => item.id === id);

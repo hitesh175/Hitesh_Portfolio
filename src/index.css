@@ -617,3 +617,4 @@ section { scroll-margin-top: 6rem; }
   .reel-touch-tip { display: inline; }
   .reel-desktop-tip { display: none; }
 }
+.hero-copy h1 { font-size: clamp(2.6rem, min(5.2vw, 10svh), 5rem); overflow-wrap: anywhere; }
