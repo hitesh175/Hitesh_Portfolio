@@ -12,7 +12,7 @@ const ProjectDemo = lazy(() => import('./ProjectDemo'));
 
 export type ProjectFilterCategory = 'all' | 'data-science' | 'ai' | 'ml' | 'web-dev' | 'bi';
 
-const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"]]);
+const featured = new Map([["artemis", "Applied AI"], ["aircraft-analytics", "Data engineering"], ["supply-chain-delay", "Machine learning"], ["retail-bi-dashboard", "Business intelligence"], ["crypto-prediction", "Time-series analysis"], ["store-sales-analysis", "Retail analytics"], ["interactive-data-platform", "Web development"]]);
 
 const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
   const project = projects.find(item => item.id === id);
@@ -115,6 +115,7 @@ export default function Projects() {
     if (!range || selectedSimulator) return;
     const top = carouselTrack.current!.getBoundingClientRect().top;
     const stickyTop = parseFloat(getComputedStyle(carouselTrack.current!.firstElementChild!).top);
+    if (!Number.isFinite(stickyTop)) return;
     const progress = Math.max(0, Math.min(1, (stickyTop - top) / range));
     setActiveSlide(Math.round(progress * (featuredProjects.length - 1)));
   });
@@ -222,10 +223,12 @@ export default function Projects() {
                 
                 const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
                 const { project } = featuredProjects[index];
+                const hasPoster = !["store-sales-analysis", "interactive-data-platform"].includes(project.id);
+                const poster = hasPoster ? `/showcase/${project.id}.png` : undefined;
                 if (offset === 0) return <a key={offset} className="carousel-neighbor carousel-current" href={`#work/${project.id}`}>
                   {!reducedMotion && (project.id === 'artemis' || stockVideos[project.id]) ? (
-                    <video key={project.id} src={project.id === "artemis" ? "/videos/artemis-render.mp4" : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={`/showcase/${project.id}.png`} autoPlay muted loop playsInline aria-hidden="true" />
-                  ) : <img src={`/showcase/${project.id}.png`} alt="" />}
+                    <video key={project.id} src={project.id === "artemis" ? "/videos/artemis-render.mp4" : `https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
+                  ) : (poster ? <img src={poster} alt="" /> : <div className="reel-placeholder" />)}
                   <span>{project.title}</span>
                 </a>;
                 return (
@@ -233,7 +236,9 @@ export default function Projects() {
                     className={`carousel-neighbor carousel-neighbor-${offset < 0 ? 'previous' : 'next'}`}
                     aria-label={`Show ${project.title}`}
                     onClick={() => moveGallery(offset)}>
-                    <img src={`/showcase/${project.id}.png`} alt="" loading="lazy" />
+                    {stockVideos[project.id] && !reducedMotion ? (
+                      <video key={project.id} src={`https://videos.pexels.com/video-files/${stockVideos[project.id]}`} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
+                    ) : poster ? <img src={poster} alt="" loading="lazy" /> : <div className="reel-placeholder" />}
                     <span>{project.title}</span>
                   </button>
                 );
