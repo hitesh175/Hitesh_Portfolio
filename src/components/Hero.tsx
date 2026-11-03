@@ -13,7 +13,7 @@ export default function Hero() {
     {!reducedMotion && createPortal(<div className="hkr-intro" aria-hidden="true"><svg className="monogram" viewBox="0 0 220 85"><path pathLength="1" d="M12 12v61 M12 42h46 M58 12v61"/><path pathLength="1" d="M82 12v61 M130 12 82 49 M101 35l30 38"/><path pathLength="1" d="M154 73V12h32l17 9v14l-17 10h-32 M179 45l26 28"/></svg></div>, document.body)}
     <div className="hero-split">
     <div className="hero-copy">
-      <p>{personalInfo.name}</p>
+      <p className="hero-name">{personalInfo.name}</p>
       <h1>Applied Data Science &amp; AI</h1>
       <p>I build AI tools, data pipelines, predictive models, and dashboards.</p>
       <p>Master’s student · {personalInfo.location}</p>
