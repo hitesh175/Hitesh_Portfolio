@@ -618,3 +618,4 @@ section { scroll-margin-top: 6rem; }
   .reel-desktop-tip { display: none; }
 }
 .hero-copy h1 { font-size: clamp(2.6rem, min(5.2vw, 10svh), 5rem); overflow-wrap: anywhere; }
+.hero-university { font-size: .9em; color: #d5d5d0; }
