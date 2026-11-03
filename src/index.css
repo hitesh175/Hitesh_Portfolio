@@ -429,3 +429,21 @@ section { scroll-margin-top: 6rem; }
 #projects .work-featured .project-icon-cover:has(.project-render) .work-preview { display: none; }
 #projects .work-featured picture.project-render { width: min(100%, 384px); height: auto; aspect-ratio: 16 / 9; }
 #projects .work-featured .project-icon-cover:has(.project-render)::before { content: none; }
+
+#projects .project-rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 12px 12px 20px;
+  background: #141414;
+  border-radius: 16px;
+  scrollbar-color: #777 #141414;
+}
+#projects .project-rail .project-tile { flex: 0 0 min(76%, 640px); min-width: 0; height: auto; scroll-snap-align: center; }
+#projects .project-rail .project-card { transform: none !important; }
+#projects .project-rail .project-icon-cover { min-height: 0; }
+.gallery-controls { display: flex; justify-content: flex-end; gap: .75rem; margin-bottom: .75rem; }
+.gallery-controls button { min-height: 44px; padding-inline: .85rem; border: 1px solid currentColor; border-radius: 6px; cursor: pointer; }
+.gallery-controls button:hover { color: #141414; background: #ffcc33; }
+@media (max-width: 600px) { #projects .project-rail .project-tile { flex-basis: 89%; } }

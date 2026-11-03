@@ -100,8 +100,16 @@ export default function Projects() {
     },
   ];
 
+  const rail = useRef<HTMLDivElement>(null);
+  const moveGallery = (direction: number) => {
+    const container = rail.current;
+    const card = container?.firstElementChild;
+    if (!container || !card) return;
+    container.scrollBy({ left: direction * (card.clientWidth + 16), behavior: reducedMotion ? 'instant' : 'smooth' });
+  };
+
   const gallery = (
-          <div className={showAll ? "project-gallery work-index" : "project-gallery work-featured"}>
+          <div ref={rail} id="project-gallery" className={showAll ? "project-gallery work-index" : "project-gallery work-featured project-rail"}>
               {(showAll ? filteredProjects : featuredProjects.map(({ project }) => project)).map((project) => {
                 const isActive = selectedSimulator === project.id;
                 return (
@@ -171,6 +179,10 @@ export default function Projects() {
         <div className="space-y-10">
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
+          {!showAll && <div className="gallery-controls" aria-label="Featured gallery controls">
+            <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(-1)}>← Previous</button>
+            <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(1)}>Next →</button>
+          </div>}
           {gallery}
 
           {filteredProjects.length === 0 && (
