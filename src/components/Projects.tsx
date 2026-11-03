@@ -142,7 +142,7 @@ export default function Projects() {
 
   const carouselTrack = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  const swipeStart = useRef<number | null>(null);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const reelPosition = useMotionValue(0);
   const easedPosition = useSpring(reelPosition, { stiffness: 105, damping: 23, mass: .85 });
@@ -251,17 +251,24 @@ export default function Projects() {
 
           {/* Projects Multi-Column Grid (Eliminates vertical stretching & dynamically centers fewer items) */}
           {showAll ? gallery : (
+            <>
+            <p className="reel-instructions"><span className="reel-touch-tip">Swipe left or right</span><span className="reel-desktop-tip">Scroll to explore</span> <span aria-hidden="true">·</span> <span>Use arrow keys when the gallery is focused</span></p>
             <div className="carousel-track" ref={carouselTrack}>
             
-            <div className="carousel-stage" aria-label="Featured projects. Swipe to browse on touchscreens."
-              onTouchStart={event => { swipeStart.current = event.touches[0]?.clientX ?? null; }}
+            <div className="carousel-stage" role="region" aria-label="Featured projects" tabIndex={0}
+              onKeyDown={event => {
+                if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+                event.preventDefault();
+                moveGallery(event.key === 'ArrowRight' ? 1 : -1);
+              }}
+              onTouchStart={event => { const touch = event.touches[0]; swipeStart.current = touch ? { x: touch.clientX, y: touch.clientY } : null; }}
               onTouchCancel={() => { swipeStart.current = null; }}
               onTouchEnd={event => {
                 const start = swipeStart.current;
                 swipeStart.current = null;
-                const end = event.changedTouches[0]?.clientX;
-                if (start !== null && end !== undefined && Math.abs(end - start) > 60) {
-                  moveGallery(end < start ? 1 : -1);
+                const end = event.changedTouches[0];
+                if (start && end && Math.abs(end.clientX - start.x) > Math.max(60, Math.abs(end.clientY - start.y))) {
+                  moveGallery(end.clientX < start.x ? 1 : -1);
                 }
               }}>
               <span className="sr-only" role="status">Project {activeSlide + 1} of {featuredProjects.length}</span>
@@ -271,6 +278,7 @@ export default function Projects() {
               ))}
             </div>
             </div>
+            </>
           )}
 
           {filteredProjects.length === 0 && (

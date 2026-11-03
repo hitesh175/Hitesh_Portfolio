@@ -607,8 +607,13 @@ section { scroll-margin-top: 6rem; }
 #resumes-heading { scroll-margin-top: 7rem; }
 
 @media (max-width: 799px) {
-  #projects .carousel-stage::after { content: "Swipe to browse"; position: absolute; inset: auto 0 .15rem; text-align: center; font-size: .75rem; color: #fff; }
   #projects .carousel-stage { --frame-width: min(84vw, 34rem); height: auto; min-height: 15rem; aspect-ratio: 1.6; touch-action: pan-y; }
   #projects .reel-frame { aspect-ratio: 16 / 11; }
   #projects .reel-frame > span { padding: 2rem .8rem .7rem; }
+}
+.reel-instructions { margin-bottom: .75rem; font-size: .875rem; }
+.reel-touch-tip { display: none; }
+@media (max-width: 799px) {
+  .reel-touch-tip { display: inline; }
+  .reel-desktop-tip { display: none; }
 }

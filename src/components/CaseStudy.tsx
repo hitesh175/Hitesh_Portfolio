@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { projects } from '../data';
+import { blogPosts, projects } from '../data';
 import type { Project } from '../types';
 
 export const workflows: Record<string, [string, string, string]> = {
@@ -29,6 +29,8 @@ const technicalNotes: Record<string, string> = {
 };
 
 export default function CaseStudy({ project }: { project: Project }) {
+  const articleIds: Record<string, string> = { 'supply-chain-delay': 'blog-1', 'aircraft-analytics': 'blog-2', 'retail-bi-dashboard': 'blog-3' };
+  const article = blogPosts.find(post => post.id === articleIds[project.id]);
   const evidence = projectEvidence[project.id];
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
@@ -72,6 +74,12 @@ export default function CaseStudy({ project }: { project: Project }) {
           View source and documentation <ArrowUpRight size={16} aria-hidden="true" />
         </a>
       </section>
+      {article && (
+        <section>
+          <h2>Related article</h2>
+          <a className="work-case-link" href={`#article-${article.id}`}>{article.title}</a>
+        </section>
+      )}
       <a className="case-next work-case-link" href={`#work/${next.id}`}>
         Next project · {next.title} <ArrowRight size={16} aria-hidden="true" />
       </a>
