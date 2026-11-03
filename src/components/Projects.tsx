@@ -19,6 +19,15 @@ const featuredProjects = Array.from(featured).flatMap(([id, discipline]) => {
   return project ? [{ project, discipline }] : [];
 });
 
+const frameSummaries: Record<string, string> = {
+  artemis: 'Chat with a local AI assistant using voice or text.',
+  'aircraft-analytics': 'Turn flight records into aircraft performance metrics.',
+  'supply-chain-delay': 'Predict delivery delays from logistics data.',
+  'retail-bi-dashboard': 'Explore revenue and customer trends in Power BI.',
+  'crypto-prediction': 'Forecast price direction from historical market data.',
+  'store-sales-analysis': 'Clean retail data and uncover purchasing patterns.',
+};
+
 function GalleryFrame({ index, active, position, onSelect }: {
   key?: string;
   index: number;
@@ -43,7 +52,7 @@ function GalleryFrame({ index, active, position, onSelect }: {
       onClick={event => { if (index !== active) { event.preventDefault(); onSelect(); } }}>
       {play ? <video src={source} poster={poster} autoPlay muted loop playsInline aria-hidden="true" />
         : poster && <img src={poster} alt="" loading="lazy" />}
-      <span><span className="reel-caption"><small>{featuredProjects[index].discipline}</small>{project.title}</span><b aria-hidden="true">↗</b></span>
+      <span><span className="reel-caption"><small>{featuredProjects[index].discipline}</small>{project.title}<small className="reel-summary">{frameSummaries[project.id]}</small></span><b aria-hidden="true">↗</b></span>
     </motion.a>
   );
 }

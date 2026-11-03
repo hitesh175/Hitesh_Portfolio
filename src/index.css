@@ -586,3 +586,4 @@ section { scroll-margin-top: 6rem; }
 #projects .reel-frame .reel-caption { position: static; display: grid; gap: .18rem; padding: 0; background: none; font: inherit; }
 #projects .reel-caption small { font-size: .68em; color: #f7d479; }
 #projects .reel-frame b { font-size: .78em; border: 1px solid #fff5; }
+#projects .reel-caption .reel-summary { color: #f7f7f5; font-size: clamp(.75rem, 1.05vw, .95rem); line-height: 1.3; }
