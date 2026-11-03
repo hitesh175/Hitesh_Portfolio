@@ -182,7 +182,24 @@ export default function Projects() {
             <span role="status">{activeSlide + 1} / {featuredProjects.length}</span>
             <button type="button" aria-controls="project-gallery" onClick={() => moveGallery(1)}>Next →</button>
           </div>}
-          {gallery}
+          {showAll ? gallery : (
+            <div className="carousel-stage">
+              {[-1, 0, 1].map(offset => {
+                if (offset === 0) return <div key="active" className="carousel-active">{gallery}</div>;
+                const index = (activeSlide + offset + featuredProjects.length) % featuredProjects.length;
+                const { project } = featuredProjects[index];
+                return (
+                  <button key={offset} type="button"
+                    className={`carousel-neighbor carousel-neighbor-${offset < 0 ? 'previous' : 'next'}`}
+                    aria-label={`Show ${project.title}`}
+                    onClick={() => moveGallery(offset)}>
+                    <img src={`/showcase/${project.id}.png`} alt="" loading="lazy" />
+                    <span>{project.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16 px-4 bg-neutral-100/50 dark:bg-neutral-950/50 rounded border border-dashed border-neutral-300 dark:border-neutral-800 max-w-md mx-auto">
