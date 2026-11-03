@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 
@@ -36,9 +37,9 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
   }, []);
 
   useEffect(() => {
-    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setMobileMenuOpen(false); document.getElementById('btn-mobile-menu')?.focus(); } };
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape' && mobileMenuOpen) { setMobileMenuOpen(false); document.getElementById('btn-mobile-menu')?.focus(); } };
     window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close);
-  }, []);
+  }, [mobileMenuOpen]);
   const handleNavClick = (id: string) => {
     setMobileMenuOpen(false);
     onNavClick(id);
@@ -72,26 +73,27 @@ export default function Navbar({ activeTab, onNavClick, theme, onThemeToggle }: 
 
         {/* Desktop Nav Items with pristine minimalist styling */}
         <div className="hidden xl:flex items-center gap-2">
-          <nav id="desktop-nav" className="flex items-center gap-0 bg-neutral-100 dark:bg-neutral-950 p-1 border border-neutral-200 dark:border-neutral-900 rounded-lg">
-            {navItems.map((item) => {
-              const isSelected = activeTab === item.id;
-              return (
-                <a
-                  key={item.id}
-                  href={'#' + item.id}
-                  aria-current={isSelected ? 'location' : undefined}
-                  onClick={event => { event.preventDefault(); handleNavClick(item.id); }}
-                  className={`relative px-2 py-1.5 rounded text-xs font-mono font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                    isSelected
-                      ? 'text-neutral-950 bg-white border border-neutral-300 dark:text-white dark:bg-neutral-900 dark:border-neutral-750 shadow-sm'
-                      : 'text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white border border-transparent'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-          </nav>
+          <NavigationMenu.Root id="desktop-nav" aria-label="Main navigation">
+            <NavigationMenu.List className="flex items-center gap-1">
+              {navItems.map(({ id, label }) => (
+                <NavigationMenu.Item key={id}>
+                  <NavigationMenu.Link
+                    href={'#' + id}
+                    active={activeTab === id}
+                    aria-current={activeTab === id ? 'location' : undefined}
+                    onClick={event => {
+                      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                      event.preventDefault();
+                      handleNavClick(id);
+                    }}
+                    className="min-h-11 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffcc33]"
+                  >
+                    {label}
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+              ))}
+            </NavigationMenu.List>
+          </NavigationMenu.Root>
 
           {/* Theme Toggle Button (Desktop) */}
           <button
