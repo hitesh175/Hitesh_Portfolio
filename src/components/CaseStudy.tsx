@@ -13,6 +13,7 @@ export const workflows: Record<string, [string, string, string]> = {
 };
 
 export const projectEvidence: Record<string, string> = {
+  'interactive-data-platform': 'The published portfolio homepage showing the navigation and data analytics introduction.',
   'store-sales-analysis': 'Original Tableau dashboard showing retail sales performance after cleaning.',
   artemis: 'Artemis desktop home screen showing the local AI assistant ready to use.',
   'aircraft-analytics': 'Dashboard data preview from the aircraft performance pipeline.',

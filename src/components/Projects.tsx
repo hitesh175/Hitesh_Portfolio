@@ -19,6 +19,15 @@ const disciplines: Record<string, string> = {
   'interactive-data-platform': 'Web development',
 };
 
+const coverNotes: Record<string, [string, string]> = {
+  'aircraft-analytics': ['Aircraft dataset', 'Streamlit · MySQL'],
+  'supply-chain-delay': ['Delay estimator', 'Logistics · Random forest'],
+  'crypto-prediction': ['Confusion matrix', 'Time series · Model evaluation'],
+  'retail-bi-dashboard': ['Revenue and customers', 'SQL · Power BI'],
+  'store-sales-analysis': ['Sales performance', 'Data cleaning · Tableau'],
+  'interactive-data-platform': ['Portfolio homepage', 'React · TypeScript'],
+};
+
 export default function Projects() {
   const [selected, setSelected] = useState<string | null>(null);
   const [demoOpen, setDemoOpen] = useState(false);
@@ -195,6 +204,7 @@ export default function Projects() {
           const active = selected === project.id;
           const panelId = 'preview-' + project.id;
           const evidence = projectEvidence[project.id];
+          const note = coverNotes[project.id];
           const cover = project.id === 'artemis' ? '/showcase/artemis.png' : '/case-studies/' + project.id + '.png';
           return (
             <div className="explorer-entry" key={project.id}>
@@ -214,7 +224,10 @@ export default function Projects() {
                   setSelected(active ? null : project.id);
                   setDemoOpen(false);
                 }}>
-                <span className="explorer-thumbnail" aria-hidden="true" style={evidence ? { backgroundImage: `url(${cover})` } : undefined}>
+                <span className={note ? "explorer-thumbnail project-evidence-cover" : "explorer-thumbnail"} aria-hidden="true"
+                  data-layout={project.id === 'retail-bi-dashboard' || project.id === 'crypto-prediction' ? 'portrait' : undefined}
+                  style={!note && evidence ? { backgroundImage: `url(${cover})` } : undefined}>
+                  {note && <span className="project-cover-note"><strong>{note[0]}</strong><small>{note[1]}</small></span>}
                   {evidence ? <img src={cover} alt="" loading="lazy" decoding="async" />
                     : <span className="platform-thumbnail">{workflows[project.id].map(step => <span key={step}>{step}</span>)}</span>}
                 </span>
