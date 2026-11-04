@@ -12,9 +12,9 @@ export const workflows: Record<string, [string, string, string]> = {
   'interactive-data-platform': ['Project data', 'React components', 'Interactive charts and demos'],
 };
 
-const projectEvidence: Record<string, string> = {
+export const projectEvidence: Record<string, string> = {
   'store-sales-analysis': 'Original Tableau dashboard showing retail sales performance after cleaning.',
-  artemis: 'Artemis desktop chat interface for the local AI assistant.',
+  artemis: 'Artemis desktop home screen showing the local AI assistant ready to use.',
   'aircraft-analytics': 'Dashboard data preview from the aircraft performance pipeline.',
   'supply-chain-delay': 'Shipping delay prediction interface showing an example order and its predicted delay.',
   'retail-bi-dashboard': 'Power BI dashboard for exploring retail sales performance.',

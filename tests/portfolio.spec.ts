@@ -49,7 +49,7 @@ test('article deep links and keyboard dismissal work', async ({ page }) => {
 });
 
 test('histogram bars render and update for a different cohort', async ({ page }) => {
-  await page.goto('/'); await page.locator('#btn-proj-simulate-store-sales-analysis').click();
+  await page.goto('/'); await page.locator('#select-store-sales-analysis').press('Enter'); await page.locator('#btn-proj-simulate-store-sales-analysis').click();
   const bars=page.getByTestId('histogram-bar'); await expect(bars).toHaveCount(8);
   await expect.poll(async()=>bars.first().evaluate(e=>e.getBoundingClientRect().height)).toBeGreaterThan(15);
   await page.getByRole('button',{name:'Gen Z',exact:true}).click();
@@ -61,6 +61,7 @@ test('all visible controls are labelled and page sections have unique IDs', asyn
   const duplicates=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(e=>e.id);return ids.filter((id,i)=>ids.indexOf(id)!==i)});
   expect(duplicates).toEqual([]);
   for(const id of ['aircraft-analytics','supply-chain-delay','crypto-prediction','interactive-data-platform']){
+    await page.locator('#select-'+id).press('Enter');
     await page.locator('#btn-proj-simulate-'+id).click();
     await expect(page.locator('#project-demo [data-project-id]')).toHaveAttribute('data-project-id', id);
     await expect(page.locator('#project-demo button, #project-demo input').first()).toBeVisible();

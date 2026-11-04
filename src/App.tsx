@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring, useReducedMotion, MotionConfig } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
+import PortfolioCursor from './components/PortfolioCursor';
 import CaseStudy from './components/CaseStudy';
 import { projects } from './data';
 import Hero from './components/Hero';
@@ -186,6 +187,8 @@ export default function App() {
         style={{ scaleX }}
       />
 
+      <PortfolioCursor />
+
       {/* Sticky Top Navbar */}
       <Navbar activeTab={activeTab} onNavClick={handleNavClick} theme={theme} onThemeToggle={toggleTheme} />
 
@@ -202,15 +205,15 @@ export default function App() {
 
         <div className="portfolio-chapter">
           <ScrollChapter><About /></ScrollChapter>
-          <ScrollChapter direction={-1}><section id="academic" className="scroll-mt-24"><Education /></section></ScrollChapter>
+          <ScrollChapter><section id="academic" className="scroll-mt-24"><Education /></section></ScrollChapter>
           <ScrollChapter><Skills /></ScrollChapter>
-          <ScrollChapter direction={-1}><section id="certifications" className="scroll-mt-24"><Certificates /></section></ScrollChapter>
+          <ScrollChapter><section id="certifications" className="scroll-mt-24"><Certificates /></section></ScrollChapter>
         </div>
 
         <section id="research-writing" className="portfolio-chapter scroll-mt-24" aria-labelledby="research-writing-title">
           <h2 id="research-writing-title" className="chapter-title">Research &amp; writing</h2>
           <ScrollChapter><Research /></ScrollChapter>
-          <ScrollChapter direction={-1}><Blog /></ScrollChapter>
+          <ScrollChapter><Blog /></ScrollChapter>
         </section>
 
         {/* 7. Get in touch / Contact */}
